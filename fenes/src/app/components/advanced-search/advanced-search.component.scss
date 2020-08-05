@@ -1,0 +1,12 @@
+.advanced-search-modalbox {
+    background-color: black !important;
+}
+
+.cdk-overlay-pane {
+    background-color: blue($color: #000000);
+}
+
+.cdk-overlay-container  > .cdk-overlay-pane {
+    width: 100%;
+    color: red;
+ }

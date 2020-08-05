@@ -1,0 +1,180 @@
+.rounded {
+  border-radius: 50%;
+}
+
+.photo_edit {
+  position: absolute;
+  right: 16px;
+  top: -65px;
+}
+
+.mat-icon.white {
+  color: white !important;
+}
+
+.top-card {
+  margin-top: 35%;
+  // height: 250px;
+  display: flex;
+  justify-content: center;
+
+  #c {
+    margin-top: 30%;
+    width: 100%;
+    min-height: 50px;
+  }
+
+  .edit-btn {
+    position: absolute;
+    right: 16px;
+    top: 70px;
+  }
+}
+
+.edit-btn.infos {
+  top: 126px !important;
+}
+
+.avatar-noedit {
+  display: flex;
+  justify-content: center;
+  min-height: 200px;
+  position: absolute;
+  top: -16vh;
+  border-radius: 3px;
+  // border: 2px solid white;
+
+  .img-wrapper {
+    width: auto;
+  }
+  .img-wrapper.image {
+    width: 40%;
+  }
+
+  button {
+    position: relative;
+    right: 5%;
+  }
+}
+
+.avatar-edit {
+  display: flex;
+  justify-content: center;
+  min-height: 200px;
+  position: absolute;
+  top: -16vh;
+  border-radius: 3px;
+  width: 200px;
+
+  .img-wrapper {
+    width: auto;
+  }
+  .img-wrapper.image {
+    width: 40%;
+  }
+
+  button {
+    position: relative;
+    right: 5%;
+  }
+
+  .spinner {
+    position: absolute;
+    top: 37%;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+
+    mat-spinner svg circle {
+      stroke: blue;
+    }
+  }
+}
+
+.avatar-text {
+  margin: auto;
+  width: 50%;
+}
+
+.avatart-id {
+  margin: 4px;
+  text-align: center;
+}
+
+.gray {
+  color: gray;
+}
+
+img {
+  height: 100%;
+  // border-radius: 50%;
+  width: 200px;
+}
+
+.border-default {
+  border: 2px solid white;
+  transition: border 500ms ease-in;
+}
+
+.border-error {
+  border: 2px solid rgba(230, 117, 82, 0.794);
+  transition: border 500ms ease-out;
+}
+
+.border-uploading {
+  border: 2px solid rgba(104, 230, 82, 0.794);
+  transition: border 500ms ease-in-out;
+}
+
+mat-card-subtitle {
+  margin-bottom: 0;
+}
+
+.social-contacts {
+  position: fixed;
+  width: 0px;
+  right: 10vh;
+  top: 16vh;
+  button {
+    margin: 6px;
+  }
+}
+
+#second-card {
+  margin-top: 32px !important;
+}
+
+#bio {
+  text-align: justify;
+}
+
+.example-action-buttons {
+  padding-bottom: 20px;
+}
+
+.example-headers-align .mat-expansion-panel-header-title,
+.example-headers-align .mat-expansion-panel-header-description {
+  flex-basis: 0;
+}
+
+.example-headers-align .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.b-edit-btn {
+  float: right;
+  margin-right: 8px;
+}
+
+.fa {
+  font-size: 24px;
+}
+
+.fa-envelope {
+  content: "\f0e0";
+}
+
+.list-icon {
+  color: var(--ion-color-medium);
+}

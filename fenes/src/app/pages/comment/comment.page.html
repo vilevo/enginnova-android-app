@@ -1,0 +1,29 @@
+<ion-header>
+  <mat-toolbar color="primary" class="mat-elevation-z6">
+    <button mat-icon-button (click)="back()">
+      <mat-icon aria-label="label">arrow_back</mat-icon>
+    </button>
+    <span>Commentaire</span>
+
+    <div class="f-f-a"></div>
+  </mat-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="accroche" padding>
+    <h3>Faite vos commentaires ici</h3>
+  </div>
+  <form action="" padding>
+    <mat-form-field>
+      <textarea cdkTextareaAutosize
+        required matInput name="biography"
+        placeholder="Entrez votre remarque ici"></textarea>
+    </mat-form-field>
+    <div class="btn">
+      <button type="submit" color="primary"
+        mat-raised-button>
+        Envoyer
+      </button>
+    </div>
+  </form>
+</ion-content>

@@ -1,0 +1,26 @@
+<div class="wrapper" [@showHide]="(show)? 'show': 'hide'">
+
+  <div class="panel">
+    <ion-img src="/assets/no_network.svg"></ion-img>
+  </div>
+  <div class="panel">
+    <div>
+      <ion-text color="primary" class="ion-text-center">
+        <h1>Désolé.</h1>
+      </ion-text>
+      <p class="p-description">
+        <!-- Impossible de se connecter à internet. -->
+        <ion-note>
+          Nous rencontrons des difficultes.
+          Assurez-vous que vous etes connecte et reessayez.
+        </ion-note>
+      </p>
+
+      <div class="p-action" *ngIf="!noRetry">
+        <ion-button (click)="onClick()">
+          Reesayer
+        </ion-button>
+      </div>
+    </div>
+  </div>
+</div>

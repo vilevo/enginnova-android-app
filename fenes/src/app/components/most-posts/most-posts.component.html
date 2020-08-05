@@ -1,0 +1,14 @@
+<div class="ion-margin">
+  <ion-list>
+    <ion-list-header>
+      <ion-label>Vous avez commenter</ion-label>
+    </ion-list-header>
+    <ng-container *ngFor="let item of news; let i=index">
+
+      <post></post>
+
+      <intercepter (intercept)="fireInterest()"></intercepter>
+
+    </ng-container>
+  </ion-list>
+</div>

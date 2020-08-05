@@ -1,0 +1,165 @@
+mat-card {
+  padding: 0px;
+  border-bottom: 1px solid var(--ion-color-primary);
+  box-shadow: unset !important;
+}
+
+ion-slides {
+  // border-radius: 4px;
+
+  height: 30%;
+
+  ion-slide {
+    background-size: cover;
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-attachment: local;
+
+    .content {
+      width: 100%;
+      height: 30%;
+      position: absolute;
+      bottom: 0;
+      // background-color: darkslategray;
+      // box-shadow: inset 0px 1px 11px 0px white;
+      border-top-color: white;
+      border-top-style: dotted;
+      border-top-width: 2px;
+    }
+
+    .actions {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+    }
+
+    .actions button {
+      display: block;
+      border: none;
+      cursor: pointer;
+      outline: none;
+      transition: all 0.3s ease;
+      mix-blend-mode: hard-light;
+      margin: 2px;
+    }
+
+    .title {
+      text-align: left;
+      margin-left: 5%;
+      color: white;
+    }
+
+    ion-img {
+      border-radius: 50%;
+    }
+
+    .caption {
+      display: block;
+    }
+
+    figcaption {
+      margin-top: -30px;
+      display: flex !important;
+      justify-content: center;
+    }
+  }
+}
+
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.clip-circle {
+  clip-path: circle(60px at center);
+  /* OLD VALUE example: circle(245px, 140px, 50px); */
+  /* Yep, even the new clip-path has deprecated stuff. */
+}
+.clip-ellipse {
+  clip-path: ellipse(60px 40px at 75px 30px);
+  /* OLD VALUE example: ellipse(245px, 80px, 75px, 30px); */
+}
+.clip-polygon {
+  clip-path: polygon(5% 5%, 100% 0%, 100% 75%, 75% 75%, 75% 100%, 50% 75%, 0% 75%);
+  /* Note that percentages work as well as px */
+}
+
+.presentateur-label {
+  background-color: transparent;
+  //   transform: rotate(37deg);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: max-content;
+}
+
+.custom-chip {
+  border: 1px solid var(--ion-color-primary) !important;
+  padding: 12px;
+  height: 47px;
+  background-color: white !important;
+  color: var(--ion-color-primary) !important;
+  opacity: 1 !important;
+  user-select: none;
+  outline: none;
+}
+
+.mat-chip-list-wrapper {
+  background-color: antiquewhite;
+  position: relative;
+  top: 5px;
+}
+
+.p-title {
+  padding: 9px;
+}
+
+.fenes {
+  position: absolute;
+  color: var(--fenes-color-two);
+  font-size: 34px;
+  border-right: 1px solid var(--fenes-color-two);
+  padding: 2px;
+  width: 110px;
+  left: 0px;
+  top: 4vh;
+}
+
+.year {
+  position: absolute;
+  left: 18vh;
+  bottom: 11vh;
+  font-size: 17px;
+  width: auto;
+  color: blueviolet;
+}
+
+.text {
+  position: absolute;
+  bottom: 8vh;
+  left: 5vh;
+  font-size: 12px;
+}
+.p-icon {
+  position: absolute;
+  bottom: 4vh;
+  left: 7vh;
+  font-size: 50px;
+}
+
+.title-slide {
+  border-left: 2px solid var(--ion-color-primary);
+}

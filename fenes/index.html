@@ -1,0 +1,1020 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+        <meta name="viewport" content="width=device-width, initial-scale=1,
+            maximum-scale=1">
+        <title>API Reference</title>
+
+        <link rel="stylesheet" href="css/style.css" />
+        <script src="js/all.js"></script>
+
+
+        <script>
+        $(function() {
+            setupLanguages(["bash","javascript"]);
+        });
+        </script>
+    </head>
+
+    <body class="">
+        <a href="#" id="nav-button">
+            <span>
+                NAV
+                <img src="images/navbar.png" />
+            </span>
+        </a>
+        <div class="tocify-wrapper">
+            <img src="images/logo.png" />
+            <div class="lang-selector">
+                <a href="#" data-language-name="bash">bash</a>
+                <a href="#" data-language-name="javascript">javascript</a>
+            </div>
+            <div class="search">
+                <input type="text" class="search" id="input-search"
+                    placeholder="Search">
+            </div>
+            <ul class="search-results"></ul>
+            <div id="toc">
+            </div>
+            <ul class="toc-footer">
+                <li><a href='http://github.com/mpociot/documentarian'>Documentation
+                        Powered by Documentarian</a></li>
+            </ul>
+        </div>
+        <div class="page-wrapper">
+            <div class="dark-box"></div>
+            <div class="content">
+                <!-- START_INFO -->
+                <h1>Info</h1>
+                <p>Welcome to the generated API reference.
+                    <a href="http://localhost/docs/collection.json">Get Postman
+                        Collection</a></p>
+                <!-- END_INFO -->
+                <h1>Participant management</h1>
+                <p>Apis for managing participants</p>
+                <!-- START_784d61240bace74cc2a63b5e9706be67 -->
+                <h2>Display a list of participant</h2>
+                <blockquote>
+                    <p>Example request:</p>
+                </blockquote>
+                <pre><code class="language-bash">curl -X GET -G "/api/participants" \
+    -H "Authorization: Bearer {token}"</code></pre>
+                <pre><code class="language-javascript">const url = new URL("/api/participants");
+
+let headers = {
+    "Authorization": "Bearer {token}",
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+                <blockquote>
+                    <p>Example response (200):</p>
+                </blockquote>
+                <pre><code class="language-json">{}</code></pre>
+                <h3>HTTP Request</h3>
+                <p><code>GET /api/participants</code></p>
+                <!-- END_784d61240bace74cc2a63b5e9706be67 -->
+                <!-- START_069f98e3342f455ddbfac8b8cd77b5de -->
+                <h2>Show one participant with specific key</h2>
+                <blockquote>
+                    <p>Example request:</p>
+                </blockquote>
+                <pre><code class="language-bash">curl -X GET -G "/api/participants/1" \
+    -H "Authorization: Bearer {token}"</code></pre>
+                <pre><code class="language-javascript">const url = new URL("/api/participants/1");
+
+    let params = {
+            "key": "nihil",
+        };
+    Object.keys(params).forEach(key =&gt; url.searchParams.append(key, params[key]));
+
+let headers = {
+    "Authorization": "Bearer {token}",
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+                <blockquote>
+                    <p>Example response (200):</p>
+                </blockquote>
+                <pre><code class="language-json">{}</code></pre>
+                <blockquote>
+                    <p>Example response (404):</p>
+                </blockquote>
+                <pre><code class="language-json">{
+    "error": true,
+    "message": [
+        "Le participant n'existe pas"
+    ]
+}</code></pre>
+                <h3>HTTP Request</h3>
+                <p><code>GET /api/participants/{id}</code></p>
+                <h4>Query Parameters</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Parameter</th>
+                            <th>Status</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>key</td>
+                            <td>required</td>
+                            <td>The key of participant.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- END_069f98e3342f455ddbfac8b8cd77b5de -->
+                <!-- START_2fa088b15ef21ecd838b07d45420e6c7 -->
+                <h2>Update export file with list of participant</h2>
+                <blockquote>
+                    <p>Example request:</p>
+                </blockquote>
+                <pre><code class="language-bash">curl -X GET -G "/api/participants/majExportFile" \
+    -H "Authorization: Bearer {token}"</code></pre>
+                <pre><code class="language-javascript">const url = new URL("/api/participants/majExportFile");
+
+let headers = {
+    "Authorization": "Bearer {token}",
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+                <blockquote>
+                    <p>Example response:</p>
+                </blockquote>
+                <pre><code class="language-json">null</code></pre>
+                <h3>HTTP Request</h3>
+                <p><code>GET /api/participants/majExportFile</code></p>
+                <!-- END_2fa088b15ef21ecd838b07d45420e6c7 -->
+                <!-- START_d79fba40c61a97a9e3c618c2c4822ab6 -->
+                <h2>Upload Image for participant</h2>
+                <blockquote>
+                    <p>Example request:</p>
+                </blockquote>
+                <pre><code class="language-bash">curl -X POST "/api/participants/addImage" \
+    -H "Authorization: Bearer {token}" \
+    -H "Content-Type: application/json" \
+    -d '{"participant_key":"necessitatibus","image":"ipsam"}'
+</code></pre>
+                <pre><code class="language-javascript">const url = new URL("/api/participants/addImage");
+
+let headers = {
+    "Authorization": "Bearer {token}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "participant_key": "necessitatibus",
+    "image": "ipsam"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+                <blockquote>
+                    <p>Example response (200):</p>
+                </blockquote>
+                <pre><code class="language-json">{
+    "image": "http:\/\/localhost\/fenes_api\/public\/participant\/image.png"
+}</code></pre>
+                <blockquote>
+                    <p>Example response (404):</p>
+                </blockquote>
+                <pre><code class="language-json">{
+    "error": true,
+    "message": []
+}</code></pre>
+                <h3>HTTP Request</h3>
+                <p><code>POST /api/participants/addImage</code></p>
+                <h4>Body Parameters</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Parameter</th>
+                            <th>Type</th>
+                            <th>Status</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>participant_key</td>
+                            <td>string</td>
+                            <td>required</td>
+                            <td>The key of participant</td>
+                        </tr>
+                        <tr>
+                            <td>image</td>
+                            <td>image</td>
+                            <td>required</td>
+                            <td>Image of participant</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- END_d79fba40c61a97a9e3c618c2c4822ab6 -->
+                <!-- START_de5fb9bc31dfbf38f15f0930ab395404 -->
+                <h2>Create a participant</h2>
+                <blockquote>
+                    <p>Example request:</p>
+                </blockquote>
+                <pre><code class="language-bash">curl -X POST "/api/participants" \
+    -H "Authorization: Bearer {token}" \
+    -H "Content-Type: application/json" \
+    -d '{"last_name":"qui","username":"aut","phone_number":"labore","job":"ut","enterprise":"illo","biography":"vitae","quarter":"quia","competencies":[],"image":"maxime","first_name":"a","birth_date":"14-05-1995,","email":"eligendi","linkedin":"rerum","twitter":"quidem","facebook":"quis","website":"quia","interests":[]}'
+</code></pre>
+                <pre><code class="language-javascript">const url = new URL("/api/participants");
+
+let headers = {
+    "Authorization": "Bearer {token}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "last_name": "qui",
+    "username": "aut",
+    "phone_number": "labore",
+    "job": "ut",
+    "enterprise": "illo",
+    "biography": "vitae",
+    "quarter": "quia",
+    "competencies": [],
+    "image": "maxime",
+    "first_name": "a",
+    "birth_date": "14-05-1995,",
+    "email": "eligendi",
+    "linkedin": "rerum",
+    "twitter": "quidem",
+    "facebook": "quis",
+    "website": "quia",
+    "interests": []
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+                <blockquote>
+                    <p>Example response (200):</p>
+                </blockquote>
+                <pre><code class="language-json">{}</code></pre>
+                <blockquote>
+                    <p>Example response (404):</p>
+                </blockquote>
+                <pre><code class="language-json">{
+    "error": true,
+    "message": []
+}</code></pre>
+                <h3>HTTP Request</h3>
+                <p><code>POST /api/participants</code></p>
+                <h4>Body Parameters</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Parameter</th>
+                            <th>Type</th>
+                            <th>Status</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>last_name</td>
+                            <td>string</td>
+                            <td>required</td>
+                            <td>Last name of participant</td>
+                        </tr>
+                        <tr>
+                            <td>username</td>
+                            <td>string</td>
+                            <td>required</td>
+                            <td>Username of participant,</td>
+                        </tr>
+                        <tr>
+                            <td>phone_number</td>
+                            <td>string</td>
+                            <td>required</td>
+                            <td>phone number of participant</td>
+                        </tr>
+                        <tr>
+                            <td>job</td>
+                            <td>string</td>
+                            <td>required</td>
+                            <td>Job of participant</td>
+                        </tr>
+                        <tr>
+                            <td>enterprise</td>
+                            <td>string</td>
+                            <td>required</td>
+                            <td>Where participant do his job</td>
+                        </tr>
+                        <tr>
+                            <td>biography</td>
+                            <td>string</td>
+                            <td>required</td>
+                            <td>Biography of participant</td>
+                        </tr>
+                        <tr>
+                            <td>quarter</td>
+                            <td>string</td>
+                            <td>required</td>
+                            <td>Quarter where live participant</td>
+                        </tr>
+                        <tr>
+                            <td>competencies</td>
+                            <td>array</td>
+                            <td>required</td>
+                            <td>List of participant's competencies</td>
+                        </tr>
+                        <tr>
+                            <td>image</td>
+                            <td>image</td>
+                            <td>required</td>
+                            <td>Profile image</td>
+                        </tr>
+                        <tr>
+                            <td>first_name</td>
+                            <td>string</td>
+                            <td>optional</td>
+                            <td>First name of participant</td>
+                        </tr>
+                        <tr>
+                            <td>birth_date</td>
+                            <td>date</td>
+                            <td>optional</td>
+                            <td>Birth date of participant</td>
+                        </tr>
+                        <tr>
+                            <td>email</td>
+                            <td>string</td>
+                            <td>required</td>
+                            <td>Email of participant</td>
+                        </tr>
+                        <tr>
+                            <td>linkedin</td>
+                            <td>string</td>
+                            <td>optional</td>
+                            <td>Linkedin link of participant</td>
+                        </tr>
+                        <tr>
+                            <td>twitter</td>
+                            <td>string</td>
+                            <td>optional</td>
+                            <td>Twitter link of participant</td>
+                        </tr>
+                        <tr>
+                            <td>facebook</td>
+                            <td>string</td>
+                            <td>optional</td>
+                            <td>Facebook link of participant</td>
+                        </tr>
+                        <tr>
+                            <td>website</td>
+                            <td>string</td>
+                            <td>optional</td>
+                            <td>Website of participant</td>
+                        </tr>
+                        <tr>
+                            <td>interests</td>
+                            <td>array</td>
+                            <td>optional</td>
+                            <td>List of participant's interests</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- END_de5fb9bc31dfbf38f15f0930ab395404 -->
+                <!-- START_b3b9d895f97d6720bacda3f43dbd55fe -->
+                <h2>Search Participants by their competencies</h2>
+                <blockquote>
+                    <p>Example request:</p>
+                </blockquote>
+                <pre><code class="language-bash">curl -X POST "/api/participants/searchByCompetencies" \
+    -H "Authorization: Bearer {token}" \
+    -H "Content-Type: application/json" \
+    -d '{"participant_id":18,"competencies":"\"PHP Design\""}'
+</code></pre>
+                <pre><code class="language-javascript">const url = new URL("/api/participants/searchByCompetencies");
+
+let headers = {
+    "Authorization": "Bearer {token}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "participant_id": 18,
+    "competencies": "\"PHP Design\""
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+                <h3>HTTP Request</h3>
+                <p><code>POST /api/participants/searchByCompetencies</code></p>
+                <h4>Body Parameters</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Parameter</th>
+                            <th>Type</th>
+                            <th>Status</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>participant_id</td>
+                            <td>integer</td>
+                            <td>required</td>
+                            <td>Participant id</td>
+                        </tr>
+                        <tr>
+                            <td>competencies</td>
+                            <td>string</td>
+                            <td>required</td>
+                            <td>Competencies separate by escape</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- END_b3b9d895f97d6720bacda3f43dbd55fe -->
+                <!-- START_31a7728b01ce17d02fbbefa40dfff195 -->
+                <h2>Add competencies to participant</h2>
+                <blockquote>
+                    <p>Example request:</p>
+                </blockquote>
+                <pre><code class="language-bash">curl -X POST "/api/participants/addCompetencies" \
+    -H "Authorization: Bearer {token}" \
+    -H "Content-Type: application/json" \
+    -d '{"participant_key":"voluptate","competencies":[]}'
+</code></pre>
+                <pre><code class="language-javascript">const url = new URL("/api/participants/addCompetencies");
+
+let headers = {
+    "Authorization": "Bearer {token}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "participant_key": "voluptate",
+    "competencies": []
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+                <blockquote>
+                    <p>Example response (200):</p>
+                </blockquote>
+                <pre><code class="language-json">{
+    "error": false,
+    "message": [
+        "Succès"
+    ]
+}</code></pre>
+                <blockquote>
+                    <p>Example response (404):</p>
+                </blockquote>
+                <pre><code class="language-json">{
+    "error": true,
+    "message": []
+}</code></pre>
+                <h3>HTTP Request</h3>
+                <p><code>POST /api/participants/addCompetencies</code></p>
+                <h4>Body Parameters</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Parameter</th>
+                            <th>Type</th>
+                            <th>Status</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>participant_key</td>
+                            <td>string</td>
+                            <td>required</td>
+                            <td>Key of participant</td>
+                        </tr>
+                        <tr>
+                            <td>competencies</td>
+                            <td>array</td>
+                            <td>required</td>
+                            <td>List of Competencies of participants</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- END_31a7728b01ce17d02fbbefa40dfff195 -->
+                <!-- START_28cbb07bedf741a852f97c655d426753 -->
+                <h2>Add interests to participant</h2>
+                <blockquote>
+                    <p>Example request:</p>
+                </blockquote>
+                <pre><code class="language-bash">curl -X POST "/api/participants/addInterests" \
+    -H "Authorization: Bearer {token}" \
+    -H "Content-Type: application/json" \
+    -d '{"participant_key":"optio","interests":[]}'
+</code></pre>
+                <pre><code class="language-javascript">const url = new URL("/api/participants/addInterests");
+
+let headers = {
+    "Authorization": "Bearer {token}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "participant_key": "optio",
+    "interests": []
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+                <blockquote>
+                    <p>Example response (200):</p>
+                </blockquote>
+                <pre><code class="language-json">{
+    "error": false,
+    "message": [
+        "Succès"
+    ]
+}</code></pre>
+                <blockquote>
+                    <p>Example response (404):</p>
+                </blockquote>
+                <pre><code class="language-json">{
+    "error": true,
+    "message": []
+}</code></pre>
+                <h3>HTTP Request</h3>
+                <p><code>POST /api/participants/addInterests</code></p>
+                <h4>Body Parameters</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Parameter</th>
+                            <th>Type</th>
+                            <th>Status</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>participant_key</td>
+                            <td>string</td>
+                            <td>required</td>
+                            <td>Key of participant</td>
+                        </tr>
+                        <tr>
+                            <td>interests</td>
+                            <td>array</td>
+                            <td>required</td>
+                            <td>List of interests of participants</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- END_28cbb07bedf741a852f97c655d426753 -->
+                <!-- START_3649981812638eabc110250f0a2c5eb2 -->
+                <h2>Edit a participant</h2>
+                <blockquote>
+                    <p>Example request:</p>
+                </blockquote>
+                <pre><code class="language-bash">curl -X PUT "/api/participants/1" \
+    -H "Authorization: Bearer {token}" \
+    -H "Content-Type: application/json" \
+    -d '{"last_name":"non","first_name":"pariatur","username":"quis","birth_date":"14-05-1995,","email":"nesciunt","linkedin":"quo","twitter":"quia","facebook":"veritatis","website":"libero","phone_number":"dicta","job":"illo","enterprise":"rerum","biography":"enim","quarter":"quasi"}'
+</code></pre>
+                <pre><code class="language-javascript">const url = new URL("/api/participants/1");
+
+    let params = {
+            "key": "explicabo",
+        };
+    Object.keys(params).forEach(key =&gt; url.searchParams.append(key, params[key]));
+
+let headers = {
+    "Authorization": "Bearer {token}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "last_name": "non",
+    "first_name": "pariatur",
+    "username": "quis",
+    "birth_date": "14-05-1995,",
+    "email": "nesciunt",
+    "linkedin": "quo",
+    "twitter": "quia",
+    "facebook": "veritatis",
+    "website": "libero",
+    "phone_number": "dicta",
+    "job": "illo",
+    "enterprise": "rerum",
+    "biography": "enim",
+    "quarter": "quasi"
+}
+
+fetch(url, {
+    method: "PUT",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+                <blockquote>
+                    <p>Example response (200):</p>
+                </blockquote>
+                <pre><code class="language-json">{
+    "error": false,
+    "participant": "Object[Participant]"
+}</code></pre>
+                <blockquote>
+                    <p>Example response (404):</p>
+                </blockquote>
+                <pre><code class="language-json">{
+    "error": true,
+    "message": []
+}</code></pre>
+                <h3>HTTP Request</h3>
+                <p><code>PUT /api/participants/{id}</code></p>
+                <h4>Body Parameters</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Parameter</th>
+                            <th>Type</th>
+                            <th>Status</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>last_name</td>
+                            <td>string</td>
+                            <td>required</td>
+                            <td>Last name of participant</td>
+                        </tr>
+                        <tr>
+                            <td>first_name</td>
+                            <td>string</td>
+                            <td>optional</td>
+                            <td>First name of participant</td>
+                        </tr>
+                        <tr>
+                            <td>username</td>
+                            <td>string</td>
+                            <td>required</td>
+                            <td>Username of participant,</td>
+                        </tr>
+                        <tr>
+                            <td>birth_date</td>
+                            <td>date</td>
+                            <td>optional</td>
+                            <td>Birth date of participant</td>
+                        </tr>
+                        <tr>
+                            <td>email</td>
+                            <td>string</td>
+                            <td>required</td>
+                            <td>Email of participant</td>
+                        </tr>
+                        <tr>
+                            <td>linkedin</td>
+                            <td>string</td>
+                            <td>optional</td>
+                            <td>Linkedin link of participant</td>
+                        </tr>
+                        <tr>
+                            <td>twitter</td>
+                            <td>string</td>
+                            <td>optional</td>
+                            <td>Twitter link of participant</td>
+                        </tr>
+                        <tr>
+                            <td>facebook</td>
+                            <td>string</td>
+                            <td>optional</td>
+                            <td>Facebook link of participant</td>
+                        </tr>
+                        <tr>
+                            <td>website</td>
+                            <td>string</td>
+                            <td>optional</td>
+                            <td>Website of participant</td>
+                        </tr>
+                        <tr>
+                            <td>phone_number</td>
+                            <td>string</td>
+                            <td>required</td>
+                            <td>phone number of participant</td>
+                        </tr>
+                        <tr>
+                            <td>job</td>
+                            <td>string</td>
+                            <td>required</td>
+                            <td>Job of participant</td>
+                        </tr>
+                        <tr>
+                            <td>enterprise</td>
+                            <td>string</td>
+                            <td>required</td>
+                            <td>Where participant do his job</td>
+                        </tr>
+                        <tr>
+                            <td>biography</td>
+                            <td>string</td>
+                            <td>required</td>
+                            <td>Biography of participant</td>
+                        </tr>
+                        <tr>
+                            <td>quarter</td>
+                            <td>string</td>
+                            <td>required</td>
+                            <td>Quarter where live participant</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h4>Query Parameters</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Parameter</th>
+                            <th>Status</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>key</td>
+                            <td>required</td>
+                            <td>The key of participant.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- END_3649981812638eabc110250f0a2c5eb2 -->
+                <!-- START_7d8a0b3ae840ab2b3288bc67825b2ccf -->
+                <h2>Delete a participant with specific key</h2>
+                <blockquote>
+                    <p>Example request:</p>
+                </blockquote>
+                <pre><code class="language-bash">curl -X DELETE "/api/participants/1" \
+    -H "Authorization: Bearer {token}"</code></pre>
+                <pre><code class="language-javascript">const url = new URL("/api/participants/1");
+
+    let params = {
+            "key": "consequatur",
+        };
+    Object.keys(params).forEach(key =&gt; url.searchParams.append(key, params[key]));
+
+let headers = {
+    "Authorization": "Bearer {token}",
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "DELETE",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+                <blockquote>
+                    <p>Example response (200):</p>
+                </blockquote>
+                <pre><code class="language-json">{
+    "error": false,
+    "participant": "Object[Participant]"
+}</code></pre>
+                <blockquote>
+                    <p>Example response (404):</p>
+                </blockquote>
+                <pre><code class="language-json">{
+    "error": true,
+    "message": [
+        "Le participant n'existe pas"
+    ]
+}</code></pre>
+                <h3>HTTP Request</h3>
+                <p><code>DELETE /api/participants/{id}</code></p>
+                <h4>Query Parameters</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Parameter</th>
+                            <th>Status</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>key</td>
+                            <td>required</td>
+                            <td>The key of participant.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- END_7d8a0b3ae840ab2b3288bc67825b2ccf -->
+                <!-- START_eed3881e52ed4982d7069b94e059f2da -->
+                <h2>Remove competencies to participant</h2>
+                <blockquote>
+                    <p>Example request:</p>
+                </blockquote>
+                <pre><code class="language-bash">curl -X DELETE "/api/participants/competencies/delete" \
+    -H "Authorization: Bearer {token}" \
+    -H "Content-Type: application/json" \
+    -d '{"participant_key":"vel","competencies":[]}'
+</code></pre>
+                <pre><code class="language-javascript">const url = new URL("/api/participants/competencies/delete");
+
+let headers = {
+    "Authorization": "Bearer {token}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "participant_key": "vel",
+    "competencies": []
+}
+
+fetch(url, {
+    method: "DELETE",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+                <blockquote>
+                    <p>Example response (200):</p>
+                </blockquote>
+                <pre><code class="language-json">{
+    "error": false,
+    "message": [
+        "Succès"
+    ]
+}</code></pre>
+                <blockquote>
+                    <p>Example response (404):</p>
+                </blockquote>
+                <pre><code class="language-json">{
+    "error": true,
+    "message": []
+}</code></pre>
+                <h3>HTTP Request</h3>
+                <p><code>DELETE /api/participants/competencies/delete</code></p>
+                <h4>Body Parameters</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Parameter</th>
+                            <th>Type</th>
+                            <th>Status</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>participant_key</td>
+                            <td>string</td>
+                            <td>required</td>
+                            <td>Key of participant</td>
+                        </tr>
+                        <tr>
+                            <td>competencies</td>
+                            <td>array</td>
+                            <td>required</td>
+                            <td>List of Competencies of participants</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- END_eed3881e52ed4982d7069b94e059f2da -->
+                <!-- START_d08cf1bef28ebd7bb12e9025b6b63b77 -->
+                <h2>Remove interests to participant</h2>
+                <blockquote>
+                    <p>Example request:</p>
+                </blockquote>
+                <pre><code class="language-bash">curl -X DELETE "/api/participants/interests/delete" \
+    -H "Authorization: Bearer {token}" \
+    -H "Content-Type: application/json" \
+    -d '{"participant_key":"sed","interests":[]}'
+</code></pre>
+                <pre><code class="language-javascript">const url = new URL("/api/participants/interests/delete");
+
+let headers = {
+    "Authorization": "Bearer {token}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "participant_key": "sed",
+    "interests": []
+}
+
+fetch(url, {
+    method: "DELETE",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+                <blockquote>
+                    <p>Example response (200):</p>
+                </blockquote>
+                <pre><code class="language-json">{
+    "error": false,
+    "message": [
+        "Succès"
+    ]
+}</code></pre>
+                <blockquote>
+                    <p>Example response (404):</p>
+                </blockquote>
+                <pre><code class="language-json">{
+    "error": true,
+    "message": []
+}</code></pre>
+                <h3>HTTP Request</h3>
+                <p><code>DELETE /api/participants/interests/delete</code></p>
+                <h4>Body Parameters</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Parameter</th>
+                            <th>Type</th>
+                            <th>Status</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>participant_key</td>
+                            <td>string</td>
+                            <td>required</td>
+                            <td>Key of participant</td>
+                        </tr>
+                        <tr>
+                            <td>interests</td>
+                            <td>array</td>
+                            <td>required</td>
+                            <td>List of interests of participants</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- END_d08cf1bef28ebd7bb12e9025b6b63b77 -->
+            </div>
+            <div class="dark-box">
+                <div class="lang-selector">
+                    <a href="#" data-language-name="bash">bash</a>
+                    <a href="#" data-language-name="javascript">javascript</a>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

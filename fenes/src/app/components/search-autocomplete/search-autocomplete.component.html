@@ -1,0 +1,32 @@
+<div [ngClass]="{'error-wrapper': gotError}" class="wrapper mat-elevation-z4" padding-left padding-right
+  [@helper]="(result.length || loadingResult || gotError)? 'show': 'hide'">
+  <div class="error" *ngIf="gotError">
+    <div class="content">
+      <connection-error-pane [show]="gotError"
+        (onRetry)="onRetry()" noRetry='true'>
+      </connection-error-pane>
+    </div>
+  </div>
+
+  <div class="spinner"
+    [@stateInfo]="(loadingResult)? 'in': 'out'" *ngIf="loadingResult">
+    <!-- <mat-spinner diameter='50'></mat-spinner> -->
+    <div class="loading">
+      <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+    </div>
+  </div>
+
+  <mat-list role="list">
+
+    <div [@fade]="(loadingResult)? 'out': 'in'" *ngIf="!loadingResult">
+      <mat-list-item matRipple role="listitem" *ngFor="let item of
+        result; let i=index"
+        (click)="select(item)">
+        <mat-icon matListIcon>add</mat-icon>
+        <p matLine color="light">{{item}}</p>
+        <mat-divider *ngIf="i != result.length-1" inset='true'>
+        </mat-divider>
+      </mat-list-item>
+    </div>
+  </mat-list>
+</div>

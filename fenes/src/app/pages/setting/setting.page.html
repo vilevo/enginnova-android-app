@@ -1,0 +1,16 @@
+<ion-header>
+    <mat-toolbar color="primary" class="mat-elevation-z6">
+        <button mat-icon-button (click)="back()">
+            <mat-icon aria-label="label">arrow_back</mat-icon>
+        </button>
+        <span>Paramètres</span>
+
+        <div class="f-f-a"></div>
+    </mat-toolbar>
+</ion-header>
+
+<ion-content>
+    <button mat-fab>
+        <mat-icon aria-label="comment" [routerLink]="['/comment']"></mat-icon>
+    </button>
+</ion-content>

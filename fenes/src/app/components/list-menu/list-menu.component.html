@@ -1,0 +1,34 @@
+<mat-list-item *ngIf="member">
+  <img matListAvatar [src]="img" (click)="go()">
+  <ion-label matLine>{{ member.firstName }} {{ member.lastName }}</ion-label>
+  <h3 matLine class="text-1">
+    <span class="co" *ngFor="let c of member.competencies">
+      <span class="capitalize" [@compe]="'add'">{{c}}</span>
+    </span>
+    <span class="no-c-indic" *ngIf="member.competencies.length == 0">
+      Pas de competence</span>
+  </h3>
+
+  <button mat-icon-button (click)="save()">
+    <mat-icon color="accent" *ngIf="loved">favorite</mat-icon>
+    <mat-icon color="accent" *ngIf="!loved">favorite_border</mat-icon>
+  </button>
+
+  <button mat-icon-button (click)="go()">
+    <mat-icon color="accent">navigate_next</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item>
+      <mat-icon>download</mat-icon>
+      <span>Detail</span>
+    </button>
+    <button mat-menu-item>
+      <mat-icon>save</mat-icon>
+      <span>Save</span>
+    </button>
+  </mat-menu>
+</mat-list-item>
+<div class="f-c-c">
+  <mat-progress-bar [@helper]="(start)? 'show': 'hide'"
+    mode="indeterminate"></mat-progress-bar>
+</div>

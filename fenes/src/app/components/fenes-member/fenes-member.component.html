@@ -1,0 +1,43 @@
+<div class="ob" class="height-per-100">
+  <mat-card>
+    <mat-card-header padding-top>
+      <mat-card-title>{{member.firstName}} {{member.lastName}}</mat-card-title>
+      <mat-card-subtitle>{{member.job}}, {{member.enterprise}}</mat-card-subtitle>
+      <div class="btn-plus-info">
+        <button mat-icon-button (click)="save()">
+          <mat-icon *ngIf="loved" color="accent">favorite</mat-icon>
+          <mat-icon *ngIf="!loved" color="accent">favorite_border</mat-icon>
+        </button>
+        <button color="accent" mat-icon-button routerLink="/detail/{{member.id}}">
+          <mat-icon aria-label="label">more_vert</mat-icon>
+        </button>
+      </div>
+    </mat-card-header>
+    <!-- <div [ngClass]="{'more': more, 'less': !more}"> -->
+
+    <div class="image">
+      <!-- <ion-img [src]="img"
+        class="clip-circle"></ion-img> -->
+        <img [src]="img" alt="">
+      <!-- <img [lazyLoad]='img' defaultImage="/assets/user_1_.png"> -->
+    </div>
+
+    <mat-card-content padding-top>
+      <!-- <mat-card-subtitle class="i-subtitle"
+        *ngIf="member.competencies.length">
+        Competences
+      </mat-card-subtitle> -->
+      <div class="compes">
+        <span class="a-compet" *ngFor="let c of
+          member.competencies">
+          {{c}}
+        </span>
+      </div>
+
+    </mat-card-content>
+  </mat-card>
+</div>
+
+
+
+

@@ -1,0 +1,33 @@
+.accroche {
+  text-align: center;
+  background-color: var(--fenes-color-two);
+
+  h6 {
+    color: #abaeb7;
+  }
+
+  h5 {
+    color: rgb(132, 209, 255);
+  }
+
+  h3 {
+    color: var(--ion-color-light);
+  }
+}
+
+form {
+  width: 100%;
+
+  mat-form-field {
+    width: 100%;
+
+    textarea {
+      min-height: 10vh;
+    }
+  }
+}
+
+.btn {
+  display: flex;
+  justify-content: center;
+}

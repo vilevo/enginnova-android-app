@@ -1,0 +1,130 @@
+app-uxinfos {
+  --background: transparent;
+}
+
+.mat-progress-spinner circle,
+.mat-spinner circle {
+  stroke: var(--ion-color-light) !important;
+}
+
+.message {
+  // height: 65px;
+  background-color: var(--fenes-color-two);
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+
+  //   padding-top: 14px;
+
+  .content {
+    height: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+
+  .error {
+    color: var(--ion-color-light);
+    .icon {
+      transition: all 500ms ease-in;
+      text-align: center;
+      width: 100%;
+      color: var(--ion-color-light);
+      mat-icon {
+        font-size: 20px;
+      }
+    }
+    p {
+      margin: 0;
+      font-size: smaller;
+    }
+  }
+
+  .done {
+    // color: var(--ion-color-light);
+    position: relative;
+    top: -6px;
+    
+    .icon {
+      text-align: center;
+      width: 100%;
+      color: var(--ion-color-light);
+      mat-icon {
+        font-size: 20px;
+      }
+    }
+    p {
+      margin: 0;
+      font-size: smaller;
+    }
+  }
+}
+
+.error {
+  background-color: var(--ion-color-danger);
+  transition: background-color 500ms ease-in;
+}
+
+.success {
+  background-color: var(--ion-color-success);
+  transition: background-color 500ms ease-in;
+}
+
+.loading {
+  // background-color: var(--ion-background-color,#fff);
+  transition: background-color 500ms ease-in;
+}
+
+.checkmark__circle {
+  stroke-dasharray: 166;
+  stroke-dashoffset: 166;
+  stroke-width: 2;
+  stroke-miterlimit: 10;
+  stroke: #7ac142;
+  fill: none;
+  animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+}
+
+.checkmark {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: block;
+  stroke-width: 2;
+  stroke: #fff;
+  stroke-miterlimit: 10;
+  margin: 10% auto;
+  box-shadow: inset 0px 0px 0px #7ac142;
+  animation: fill 0.4s ease-in-out 0.4s forwards, scale 0.3s ease-in-out 0.9s both;
+}
+
+.checkmark__check {
+  transform-origin: 50% 50%;
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+}
+
+@keyframes stroke {
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes scale {
+  0%,
+  100% {
+    transform: none;
+  }
+  50% {
+    transform: scale3d(1.1, 1.1, 1);
+  }
+}
+
+@keyframes fill {
+  100% {
+    box-shadow: inset 0px 0px 0px 30px #7ac142;
+  }
+}
+
+// whatsapp://send?text=Photos%20d%27identit%C3%A9%3A%20cinq%20nouveaux%20crit%C3%A8res%20%C3%A0%20remplir%20d%C3%A8s%20le%2016%20janvier%20https%3A%2F%2Fwww.rtbf.be%2Finfo%2Fdossier%2Fbon-a-savoir%2Fdetail_photos-d-identite-cinq-nouveaux-criteres-a-remplir-des-le-16-janvier%3Fid%3D9500819%26utm_source%3Drtbfinfo%26utm_campaign%3Dsocial_share%26utm_medium%3Dwhatsapp_share
+
+// fb-messenger://share?link=Photos%20d%27identit%C3%A9%3A%20cinq%20nouveaux%20crit%C3%A8res%20%C3%A0%20remplir%20d%C3%A8s%20le%2016%20janvier%20https%3A%2F%2Fwww.rtbf.be%2Finfo%2Fdossier%2Fbon-a-savoir%2Fdetail_photos-d-identite-cinq-nouveaux-criteres-a-remplir-des-le-16-janvier%3Fid%3D9500819%26utm_source%3Drtbfinfo%26utm_campaign%3Dsocial_share%26utm_medium%3Dmessenger_share

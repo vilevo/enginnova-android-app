@@ -1,0 +1,72 @@
+<ion-header>
+  <mat-toolbar color="primary" class="mat-elevation-z6">
+    <button mat-icon-button (click)="goBack()">
+      <mat-icon aria-label="label">close</mat-icon>
+    </button>
+    <span class="f-f-a">Mes Competences</span>
+    <button mat-icon-button (click)="submit()">
+      <mat-icon aria-label="label">check</mat-icon>
+    </button>
+  </mat-toolbar>
+</ion-header>
+
+<ion-content>
+  <app-uxinfos></app-uxinfos>
+  <div padding>
+    <div>
+      <mat-list padding role="list"
+        cdkDropList
+        #toremoveList="cdkDropList"
+        [cdkDropListData]="toremove"
+        [cdkDropListConnectedTo]="[compeList]"
+        class="removed-list"
+        (cdkDropListDropped)="drop($event)">
+        <mat-list-item class="can-drag mat-elevation-z1" *ngFor="let item of
+          toremove" cdkDrag>
+          {{item}}
+        </mat-list-item>
+        <mat-list-item class="help-item" *ngIf="toremove.length === 0">
+          <div class="drop-help" margin-top>
+            <div class="drop-help-icon">
+              <mat-icon color="warn" aria-label="label">remove_circle</mat-icon>
+            </div>
+            <div class="drop-help-text">
+              <p>Deplacer ici pour supprimer</p>
+            </div>
+          </div>
+        </mat-list-item>
+      </mat-list>
+    </div>
+
+    <mat-list padding margin-top role="list"
+      cdkDropList
+      #compeList="cdkDropList"
+      [cdkDropListData]="compelist"
+      [cdkDropListConnectedTo]="[toremoveList]"
+      class="c-list"
+      (cdkDropListDropped)="drop($event)">
+      <!-- <h4>Competences</h4> -->
+      <mat-list-item class="can-drag mat-elevation-z1" *ngFor="let item of
+        compelist" cdkDrag>
+        {{item}}
+      </mat-list-item>
+    </mat-list>
+
+    <form #competencyForm="ngForm">
+
+      <div margin-top>
+        <mat-form-field>
+          <input matInput placeholder="Competence" (click)="openCompetencyChooser()"
+            matInput name="competency" [(ngModel)]="competency">
+        </mat-form-field>
+      </div>
+
+      <button type="submit" id="add-btn" color="primary"
+        mat-raised-button (click)="(competencyForm.form.valid && add()) ||
+        onInvalid()">
+        Ajouter
+      </button>
+    </form>
+  </div>
+
+</ion-content>

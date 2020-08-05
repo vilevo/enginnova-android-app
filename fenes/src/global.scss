@@ -1,0 +1,42 @@
+// http://ionicframework.com/docs/theming/
+@import "~@ionic/angular/css/core.css";
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import "~@ionic/angular/css/display.css";
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+@import "~material-design-icons/iconfont/material-icons.css";
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+@import "~@angular/material/theming";
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// **Be sure that you only ever include this mixin once!**
+@include mat-core();
+
+// Define the theme.
+$candy-app-primary: mat-palette($mat-blue);
+$candy-app-accent: mat-palette($mat-deep-purple, A200, A100, A400);
+$candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent);
+
+$button-custom-primary: mat-palette($mat-blue);
+$button-custom-accent: mat-palette($mat-deep-purple, A200, A100, A400);
+$button-custom-theme: mat-light-theme($button-custom-primary, $button-custom-accent);
+
+// Include the theme styles for only specified components.
+@include mat-core-theme($candy-app-theme);
+@include mat-button-theme($candy-app-theme);
+@include mat-checkbox-theme($candy-app-theme);
+@include mat-chips-theme($candy-app-theme);
+@include mat-toolbar-theme($candy-app-theme);
+@include mat-form-field-theme($candy-app-theme);
+@include mat-button-theme($button-custom-theme);
+@include mat-icon-theme($candy-app-theme);
+// @include mat-progress($candy-app-theme);
+// @include mat-calendar-theme($candy-app-theme);

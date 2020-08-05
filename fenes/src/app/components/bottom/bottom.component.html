@@ -1,0 +1,43 @@
+<ion-card #bottom class="custom-tab wish" [ngClass]="{'on': noRest, 'off-2': semiRest,
+  'off-1': rest, 'off-off': covid}">
+
+  <!-- <ion-tabs> -->
+  <div class="tabs" slot="bottom">
+    <ion-tab-button color="primary" (click)="goHome()">
+      <ion-icon name="home"></ion-icon>
+      <ion-label>Accueil</ion-label>
+    </ion-tab-button>
+    <ion-tab-button (click)="goSemi('message')">
+      <ion-icon name="text"></ion-icon>
+      <ion-label>Messages</ion-label>
+      <ion-chip class="news" *ngIf="messageManager.nbNew" color="success"> {{messageManager.nbNew}} </ion-chip>
+    </ion-tab-button>
+    <ion-tab-button (click)="goSemi('posts')">
+      <ion-icon name="reload"></ion-icon>
+      <ion-label>Notifications</ion-label>
+      <!-- <ion-chip class="news" color="success"> 0</ion-chip> -->
+    </ion-tab-button>
+    <ion-tab-button (click)="openPerso()">
+      <ion-icon name="person"></ion-icon>
+      <ion-label>Moi</ion-label>
+    </ion-tab-button>
+  </div>
+  <!-- </ion-tabs> -->
+  <ion-card-content>
+    <!-- <ion-tab-bar color="white"> -->
+
+    <div class="area">
+      <div class="most">
+        <most-news (interested)="goNoRest()" *ngIf="mostNews"></most-news>
+        <most-messages (interested)="goNoRest()" *ngIf="mostMessages"></most-messages>
+        <most-posts (interested)="goNoRest()" *ngIf="mostPosts"></most-posts>
+      </div>
+    </div>
+
+    <div class="b-tools" [ngClass]="{'on': !rest, 'off': rest}">
+      <button mat-icon-button color="light" (click)="goRest()">
+        <mat-icon aria-label="label">close</mat-icon>
+      </button>
+    </div>
+  </ion-card-content>
+</ion-card>

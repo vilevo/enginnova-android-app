@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar>
+    <div class="f-s-a">
+      <ion-button fill="clear" shape="round" (click)="back()">
+        <ion-icon slot="icon-only" name="arrow-round-back"></ion-icon>
+      </ion-button>
+      <ion-title>Favori</ion-title>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-row>
+    <ion-col size="12">
+      <mat-list>
+        <div *ngFor="let member of f">
+          <list-menu [member]='member'></list-menu>
+        </div>
+      </mat-list>
+    </ion-col>
+  </ion-row>
+</ion-content>

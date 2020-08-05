@@ -1,0 +1,18 @@
+.fill-remaining-place {
+    flex      : 1 1 auto;
+    text-align: center;
+}
+
+.invert {
+    filter        : invert(100%);
+    -webkit-filter: invert(100%);
+}
+
+img {
+    border-radius: 50%;
+}
+
+.width-100 {
+    width: 100%;
+}
+

@@ -1,0 +1,219 @@
+<div *ngIf="member">
+  <mat-card margin-top class="top-card" margin-top>
+
+    <div class="avatar-noedit" *ngIf="!editmode">
+      <div class="img-wrapper">
+        <img [src]="localImgPath || '/assets/user_1_.png'"
+          class="mat-elevation-z2">
+      </div>
+    </div>
+
+    <div class="avatar-edit" *ngIf="editmode">
+      <div class="img-wrapper">
+        <img [src]="localImgPath" *ngIf="localImgPath"
+          class="mat-elevation-z2" [ngClass]="{'border-default': !uploadError,
+          'border-error': uploadError, 'border-uploading': uploading}">
+      </div>
+      <div class="spinner" *ngIf="!localImgPath || uploading">
+        <mat-spinner color="accent" mode="indeterminate" diameter='50'></mat-spinner>
+      </div>
+    </div>
+
+    <button *ngIf="editmode" mat-icon-button class="photo_edit"
+      (click)="retrieveImage()">
+      <mat-icon class="white" aria-label="label">photo_camera</mat-icon>
+    </button>
+
+    <mat-card-content id="c">
+      <div class="edit-btn infos">
+        <mat-chip-list [hidden]="!editmode">
+          <!-- <mat-chip color="accent" selected (click)="openEditInfosPerso()">
+                                          <mat-icon aria-label="label">edit</mat-icon>
+                                        </mat-chip> -->
+          <button mat-icon-button (click)="openEditInfosPerso()">
+            <mat-icon color="primary" label="label">edit</mat-icon>
+          </button>
+        </mat-chip-list>
+      </div>
+      <div class="avatart-id">
+        <p class="avatar-text ">
+          {{capitalize(member.firstName) }} {{capitalize(member.lastName) }}
+        </p>
+        <p class="avatar-text gray">
+          {{capitalize(member.job)}}, {{ capitalize(member.enterprise)}}
+        </p>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+
+  <mat-card margin-top id="second-card">
+    <mat-card-content>
+      <mat-card-subtitle class="f-s-b">
+        <div>Competences</div>
+        <mat-chip-list *ngIf="editmode">
+          <!-- <mat-chip color="accent" selected (click)="openEditCompetency()">
+            <mat-icon aria-label="label">edit</mat-icon>
+          </mat-chip> -->
+          <button mat-icon-button (click)="openEditCompetency()">
+            <mat-icon color="primary" label="label">edit</mat-icon>
+          </button>
+        </mat-chip-list>
+      </mat-card-subtitle>
+      <mat-list role="list" *ngIf="member.competencies.length">
+        <mat-list-item *ngFor="let competency of member.competencies; let
+          i=index">
+          <mat-icon class="list-icon" mat-list-icon>call_made</mat-icon>
+          <h4 *ngIf="editmode" mat-line>{{capitalize(competency) }}</h4>
+          <h4 *ngIf="!editmode" mat-line>{{capitalize(competency) }}</h4>
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card margin-top>
+    <mat-card-content>
+      <mat-card-subtitle class="f-s-b">
+        <div>Centre d'interet</div>
+        <mat-chip-list *ngIf="editmode">
+          <!-- <mat-chip color="accent" selected (click)="openEditInterests()">
+            <mat-icon aria-label="label">edit</mat-icon>
+          </mat-chip> -->
+          <button mat-icon-button (click)="openEditInterests()">
+            <mat-icon color="primary" label="label">edit</mat-icon>
+          </button>
+        </mat-chip-list>
+      </mat-card-subtitle>
+      <mat-list role="list" *ngIf="member.interests.length">
+        <mat-list-item *ngFor="let interest of member.interests">
+          <mat-icon class="list-icon" mat-list-icon>favorite_border</mat-icon>
+          <h4  mat-line>{{capitalize(interest) }}</h4>
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card margin-top *ngIf="editmode">
+    <mat-card-content>
+      <mat-card-subtitle class="f-s-b">
+        <div>Contacts</div>
+        <!-- <mat-chip-list *ngIf="editmode">
+          <mat-chip color="accent" selected (click)="editContacts()">
+            <mat-icon aria-label="label">edit</mat-icon>
+          </mat-chip>
+        </mat-chip-list> -->
+        <button mat-icon-button (click)="editContacts()">
+          <mat-icon color="primary" label="label">edit</mat-icon>
+        </button>
+      </mat-card-subtitle>
+
+      <mat-list role="list">
+        <mat-list-item role="listitem" *ngIf="member.email">
+          <mat-icon class="list-icon" mat-list-icon>email</mat-icon>
+
+          <p matLine>{{member.email}}</p>
+
+        </mat-list-item>
+        <mat-list-item role="listitem" *ngIf="member.phoneNumber">
+          <mat-icon class="list-icon" mat-list-icon>phone</mat-icon>
+          <p matLine>{{member.phoneNumber}}</p>
+        </mat-list-item>
+        <mat-list-item role="listitem" *ngIf="member.facebook"
+          (click)="openFacebook()">
+          <mat-icon class="list-icon" mat-list-icon svgIcon="custom-facebook">public</mat-icon>
+          <p matLine>{{member.facebook}}</p>
+        </mat-list-item>
+        <mat-list-item role="listitem" *ngIf="member.linkedin"
+          (click)="openLinkedin()" svgIcon="custom-linkedin">
+          <mat-icon class="list-icon" mat-list-icon>public</mat-icon>
+          <p matLine>{{member.linkedin}}</p>
+        </mat-list-item>
+        <mat-list-item role="listitem" *ngIf="member.twitter"
+          (click)="openTwitter()" svgIcon="custom-twitter">
+          <mat-icon class="list-icon" mat-list-icon>public</mat-icon>
+          <p matLine>{{member.twitter}}</p>
+        </mat-list-item>
+        <mat-list-item role="listitem" *ngIf="member.website"
+          (click)="openWebsite()">
+          <mat-icon class="list-icon" mat-list-icon>public</mat-icon>
+          <p matLine>{{member.website}}</p>
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+
+
+  <mat-card margin-top>
+    <mat-card-content>
+      <mat-card-subtitle class="f-s-b">
+        <div>Biography</div>
+        <mat-chip-list *ngIf="editmode">
+          <button mat-icon-button (click)="editBiography()">
+            <mat-icon color="primary" label="label">edit</mat-icon>
+          </button>
+        </mat-chip-list>
+      </mat-card-subtitle>
+      <p id="bio">{{capitalize(member.biography) }}</p>
+    </mat-card-content>
+  </mat-card>
+
+
+  <mat-card margin-top>
+    <mat-card-content>
+      <mat-card-subtitle class="f-s-b">
+        <div>Informations personelles</div>
+      </mat-card-subtitle>
+      <mat-list role="list">
+        <mat-list-item>
+          <mat-icon class="list-icon" mat-list-icon>today</mat-icon>
+          <h4 mat-line>Date de naissance</h4>
+          <p mat-line> {{member.birthDate }}</p>
+          <!-- <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A"
+            [(ngModel)]="member.birthDate"></ion-datetime> -->
+        </mat-list-item>
+        <mat-list-item>
+          <mat-icon class="list-icon" mat-list-icon>location_city</mat-icon>
+          <h4 mat-line>Quatier</h4>
+          <h4 mat-line>{{capitalize(member.quarter) }}</h4>
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+
+  <div class="social-contacts" *ngIf="!editmode">
+    <button (click)="openTwitter()" mat-mini-fab class="mat-elevation-z2"
+      *ngIf="member.twitter">
+      <mat-icon aria-label="label" svgIcon="custom-twitter"></mat-icon>
+    </button>
+
+    <button (click)="openLinkedin()" mat-mini-fab class="mat-elevation-z2"
+      *ngIf="member.linkedin">
+      <mat-icon aria-label="label" svgIcon="custom-linkedin"></mat-icon>
+      <!-- <span class="fas fa fa-linkedin"></span> -->
+      <!-- <fa>facebook</fa> -->
+    </button>
+
+    <button (click)="openFacebook()" mat-mini-fab class="mat-elevation-z2"
+      *ngIf="member.facebook">
+      <mat-icon aria-label="label" svgIcon="custom-facebook"></mat-icon>
+      <!-- <span class="fas fa fa-facebook"></span> -->
+    </button>
+
+    <button (click)="openWebsite()" mat-mini-fab class="mat-elevation-z2"
+      *ngIf="member.website">
+      <mat-icon aria-label="label" svgIcon="custom-globe"></mat-icon>
+      <!-- <span class="fas fa fa-globe"></span> -->
+    </button>
+
+    <button (click)="openMail()" mat-mini-fab class="mat-elevation-z2"
+      *ngIf="member.email">
+      <mat-icon aria-label="label">mail</mat-icon>
+    </button>
+
+    <button (click)="presentContactActionSheet()" mat-mini-fab
+      class="mat-elevation-z2"
+      *ngIf="member.phoneNumber">
+      <mat-icon aria-label="label">phone</mat-icon>
+    </button>
+  </div>
+</div>

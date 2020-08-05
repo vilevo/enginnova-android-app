@@ -1,0 +1,151 @@
+// App Styles
+// ----------------------------------------------------------------------------
+// Put style rules here that you want to apply to the entire application. These
+// styles are for the entire app and not just one component. Additionally, this
+// file can hold Sass mixins, functions, and placeholder classes to be imported
+// and used throughout the application.
+
+ion-header {
+  z-index: unset;
+}
+ion-content {
+  --background: #e4e4e4;
+}
+
+.title {
+  text-align: center;
+}
+
+.more-member {
+  display        : flex;
+  justify-content: space-around;
+}
+
+.recent-search {
+  background-image: repeating-linear-gradient(to top, #dcdce0, white, 119%, transparent 0, transparent);
+  margin-left     : -4%;
+  margin-right    : -4%;
+}
+
+.recent-search-title {
+  display        : flex;
+  justify-content: space-between;
+}
+
+.a-divider {
+  margin-top   : 15px;
+  margin-bottom: 15px;
+}
+
+// .virtual-item {
+//     display  : block;
+//     position : relative;
+//     transform: none !important;
+// }
+
+.my-member {
+  height: 53vh;
+}
+
+.i-color {
+  color     : var(--ion-color-medium-tint);
+  margin-top: 0;
+}
+
+.aaa-a,
+.actions {
+  border-radius: 5px;
+}
+
+.action-bar {
+  width          : 100%;
+  position       : fixed;
+  z-index        : 20000;
+  bottom         : 16px;
+  display        : flex;
+  justify-content: center;
+  user-select    : none;
+
+  div {
+    user-select: none;
+    outline    : none;
+  }
+
+  .actions {
+    max-width       : 30vh;
+    width           : 30vh;
+    display         : flex;
+    justify-content : space-around;
+    height          : 11vh;
+    background-color: white;
+  }
+
+  .number {
+    font-size : 6vh;
+    text-align: center;
+  }
+
+  .text {
+    font-weight: 300;
+    font-size  : 65%;
+    text-align : center;
+  }
+
+  .mini-button-add,
+  mat-icon {
+    position        : relative;
+    bottom          : 6vh;
+    left            : 7vh;
+    color           : white;
+    background-color: var(--fenes-color-two);
+    border-radius   : 50%;
+  }
+
+  .vl {
+    border-left  : 2px solid gray;
+    height       : 85%;
+    margin-top   : auto;
+    margin-bottom: auto;
+  }
+}
+
+
+.bottom {
+  width   : 100%;
+  height  : 20%;
+  z-index : 10000;
+  position: absolute;
+  bottom  : 0;
+}
+
+.off-3 {
+  display: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//////////////////////////////////////////////////////////////
+.summary {
+  height    : 30%;
+  margin-top: 4%;
+
+
+  ion-card {
+    height: 100%;
+    width : 100%;
+  }
+}

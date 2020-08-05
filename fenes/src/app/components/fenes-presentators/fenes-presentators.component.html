@@ -1,0 +1,58 @@
+
+<ion-slides mode="ios" zoom='false'
+  [options]="slidesOptions" (ionSlideTransitionStart)='transitionstart()'
+  (ionSlideTransitionEnd)='transitionend()'>
+
+  <ion-slide class="title-slide">
+    <div class="p-title">
+      <h1 class="fenes">FENES</h1>
+      <h2 class="year">2019</h2>
+      <h4 class="text">Les Presentateurs</h4>
+      <mat-icon class="p-icon" aria-label="label" (click)="slideToOne()">forward</mat-icon>
+    </div>
+  </ion-slide>
+  <ion-slide>
+    <mat-card class="mat-elevation-z1">
+      <div class="item">
+        <!-- <img src="/assets/user_1_.png" class="clip-circle"> -->
+        <ion-img [src]="'https://fakeimg.pl/600x600/'"></ion-img>
+        <figcaption class="caption">
+          <mat-chip-list>
+            <mat-chip color="primary" disabled class="custom-chip">Ange AMENOU
+              QUATRE</mat-chip>
+          </mat-chip-list>
+        </figcaption>
+      </div>
+    </mat-card>
+  </ion-slide>
+
+  <ion-slide>
+    <mat-card class="mat-elevation-z1">
+      <div class="item">
+        <!-- <img src="/assets/user_1_.png" class="clip-circle"> -->
+        <ion-img [src]="'https://fakeimg.pl/600x600/'"></ion-img>
+        <figcaption class="caption">
+          <mat-chip-list>
+            <mat-chip color="primary" selected class="custom-chip">Ange AMENOU
+              QUATRE</mat-chip>
+          </mat-chip-list>
+        </figcaption>
+      </div>
+    </mat-card>
+  </ion-slide>
+
+  <ion-slide>
+    <mat-card class="mat-elevation-z1">
+      <div class="item">
+        <!-- <img src="/assets/user_1_.png" class="clip-circle"> -->
+        <ion-img [src]="'https://fakeimg.pl/600x600/'"></ion-img>
+        <figcaption class="caption">
+          <mat-chip-list>
+            <mat-chip color="primary" selected class="custom-chip">Ange AMENOU
+              QUATRE</mat-chip>
+          </mat-chip-list>
+        </figcaption>
+      </div>
+    </mat-card>
+  </ion-slide>
+</ion-slides>

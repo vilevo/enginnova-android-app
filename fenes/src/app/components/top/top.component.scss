@@ -1,0 +1,44 @@
+.summary {
+  ion-card {
+    box-shadow: none;
+  }
+}
+
+.vous {
+  padding         : 16px;
+  background-color: #2196f3;
+  color           : white;
+  padding-bottom  : 0;
+
+
+}
+
+.top {
+  height          : 37%;
+  background-color: #2196f3;
+  position        : relative;
+  top             : -2px;
+  display         : flex;
+  padding         : 16px;
+  border-radius   : 0 0 7px 7px;
+}
+
+
+
+.f-c {
+  width          : 44%;
+  height         : 44%;
+  display        : flex;
+  justify-content: center;
+  align-items    : center;
+  text-align     : center;
+  border         : 2px solid white;
+  margin         : 5px;
+  color          : white;
+}
+
+.flex {
+  display        : flex;
+  width          : 100%;
+  justify-content: center;
+}

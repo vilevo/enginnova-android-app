@@ -1,0 +1,106 @@
+<ion-header>
+  <fenes-toolbar>
+
+  </fenes-toolbar>
+</ion-header>
+
+
+<ion-content no-padding forceOverscroll='true' [scrollEvents]="!showErrorPane" (ionScroll)="scrolling($event)"
+  (ionScrollEnd)="scrollEnd()">
+
+  <!-- <fenes-presentators>
+
+  </fenes-presentators> -->
+
+  <app-top></app-top>
+
+  <populars></populars>
+
+  <h5 class="body-title">Publications</h5>
+
+  <!-- <div [@actionsBar]="showAction ? 'sho': 'hid'" class="action-bar" *ngIf="connected && !showErrorPane">
+    <div class="actions mat-elevation-z6">
+      <div mat-ripple class="aaa-a" [routerLink]="[ '/edit-interests' ]">
+        <div class="number">{{connected.interests.length}}</div>
+        <div class="text">Centre d'interets</div>
+        <mat-icon color="accent" class="mini-button-add" aria-label="add">add</mat-icon>
+      </div>
+
+      <div class="vl"></div>
+
+      <div mat-ripple class="aaa-a" [routerLink]="[ '/edit-competency' ]">
+        <div class="number">{{connected.competencies.length}}</div>
+        <div class="text">Competences</div>
+        <mat-icon color="accent" class="mini-button-add" aria-label="add">add</mat-icon>
+      </div>
+    </div>
+  </div> -->
+
+  <div no-padding *ngIf="!showErrorPane">
+
+    <div [ngClass]="{'wait-answer': showLoader, 'no-wait':
+      !showLoader}">
+      <div class="loading">
+        <div class="lds-roller">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div *ngIf="initialMember.length">
+      <div class="my-member" *ngFor="let m of initialMember">
+        <fenes-member [member]='m'>
+
+        </fenes-member>
+      </div>
+    </div> -->
+    <!-- <cdk-virtual-scroll-viewport itemSize='200' style="height: 100%">
+      <div *cdkVirtualFor="let member of obDatas">
+        <div class="my-member animated slideInRight">
+          <fenes-member [member]='member'>
+
+          </fenes-member>
+        </div>
+      </div>
+
+    </cdk-virtual-scroll-viewport> -->
+
+    <!-- <div class="f-c-c">
+      <button mat-button (click)="reload()">Recharger</button>
+    </div> -->
+
+
+    <!-- <ion-virtual-scroll [items]="members" approxItemHeight="52px">
+
+      <div *virtualItem="let member; let i=index">
+        <div class="my-member">
+          {{member.id}}
+          <fenes-member (onChange)="updateView($event, i)" [member]='member'>
+          </fenes-member>
+        </div>
+
+       
+
+      </div>
+
+    </ion-virtual-scroll> -->
+
+    <post *ngFor="let item of members"></post>
+
+    <ion-infinite-scroll margin-top threshold="5%" (ionInfinite)="loadData($event)">
+      <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Un instant...">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </div>
+
+  <connection-error-pane [show]="showErrorPane" (onRetry)="retry()">
+  </connection-error-pane>
+
+</ion-content>

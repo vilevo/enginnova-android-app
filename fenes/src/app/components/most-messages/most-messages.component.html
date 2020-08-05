@@ -1,0 +1,47 @@
+<ion-list>
+  <ion-list-header>
+    <ion-label class="f-s-b">
+      <h2>Messages</h2>
+      <div *ngIf="retrievingMessages && messageManager.store.length" class="local-loading">
+        <ion-spinner name="bubbles"></ion-spinner>
+      </div>
+    </ion-label>
+  </ion-list-header>
+  <div class="loading" *ngIf="retrievingMessages && !messageManager.store.length">
+    <ion-spinner name="bubbles"></ion-spinner>
+  </div>
+
+  <ng-container *ngIf="messageManager.store.length">
+    <ion-item button (click)="openMsg(msg.id)" *ngFor="let msg of messageManager.store; let i=index">
+      <ion-avatar slot="start">
+        <img [src]="msg.avatar" />
+      </ion-avatar>
+      <ion-label>
+        <h3>{{msg.from}}</h3>
+        <p>{{msg.content}}</p>
+      </ion-label>
+      <div slot="end">
+        <ion-text color="primary">
+          <h6>21:22</h6>
+        </ion-text>
+        <ion-badge *ngIf="msg.count" color="primary" mode="ios">{{msg.count}}</ion-badge>
+      </div>
+      <div *ngIf="i>2">
+        <intercepter (intercept)="fireInterest()"></intercepter>
+      </div>
+    </ion-item>
+  </ng-container>
+</ion-list>
+
+
+<ng-container *ngIf="!messageManager.store.length">
+  <div class="empty">
+    <div class="content">
+      <p class="text">Vous n'avez aucun message</p>
+    </div>
+  </div>
+</ng-container>
+
+
+
+<intercepter (intercept)="fireInterest()"></intercepter>

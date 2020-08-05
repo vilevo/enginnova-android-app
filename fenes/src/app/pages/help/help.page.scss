@@ -1,0 +1,20 @@
+.accroche {
+  text-align: center;
+  background-color: var(--ion-color-primary);
+
+  h6 {
+    color: var(--ion-color-medium);
+  }
+
+  h3 {
+    color: var(--ion-color-light);
+  }
+}
+
+form {
+  width: 100%;
+
+  mat-form-field {
+    width: 100%;
+  }
+}

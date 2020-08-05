@@ -1,0 +1,25 @@
+<ion-header>
+  <mat-toolbar color="primary" class="mat-elevation-z6">
+    <button mat-icon-button (click)="back()">
+      <mat-icon aria-label="label">arrow_back</mat-icon>
+    </button>
+    <span>Aide</span>
+
+    <div class="f-f-a"></div>
+  </mat-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="accroche" padding>
+    <h6>Avez vous des questions ?</h6>
+    <h3>Nous avons des réponses</h3>
+  </div>
+  <form action="" padding>
+    <mat-form-field>
+      <textarea cdkTextareaAutosize formControlName='bio'
+        required matInput name="biography"
+        placeholder="Descriver votre probleme"></textarea>
+
+    </mat-form-field>
+  </form>
+</ion-content>

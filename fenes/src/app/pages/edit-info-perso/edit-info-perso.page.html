@@ -1,0 +1,88 @@
+<ion-header>
+  <mat-toolbar color="primary" class="mat-elevation-z6">
+    <mat-toolbar-row>
+      <button mat-icon-button (click)="goBack()">
+        <mat-icon aria-label="label" *ngIf="showCloseBtn">close</mat-icon>
+        <mat-icon aria-label="label" *ngIf="!showCloseBtn">arrow_back</mat-icon>
+      </button>
+      <span class="f-f-a">Informations Personnelles</span>
+      <button mat-icon-button (click)="submit()">
+        <mat-icon aria-label="label">check</mat-icon>
+      </button>
+    </mat-toolbar-row>
+  </mat-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <app-uxinfos></app-uxinfos>
+
+  <div padding>
+    <form [formGroup]='infoPersoForm' *ngIf="infoPersoForm">
+      <div>
+        <ion-row>
+          <ion-col size='12'>
+            <mat-form-field>
+              <input matInput required
+                placeholder="Prenom" name="firstName"
+                formControlName="firstName">
+              <mat-error for='firstName'>Error ici</mat-error>
+              <mat-hint align="end">Quel est votre nom ?</mat-hint>
+            </mat-form-field>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size='12'>
+            <mat-form-field>
+              <input matInput required placeholder="Nom"
+                formControlName="lastName" name="lastName">
+              <mat-hint align="end">Quel est votre prenom ?</mat-hint>
+            </mat-form-field>
+          </ion-col>
+        </ion-row>
+        <!-- <div> -->
+        <ion-row>
+          <ion-col size='12'>
+            <mat-form-field (click)="openWorkChooser()">
+              <input formControlName="job" name="job"
+                required matInput placeholder="Travail">
+              <mat-hint align="end">Quel est votre travail actuel ?</mat-hint>
+            </mat-form-field>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size='12'>
+            <mat-form-field (click)="openEnterpriseChooser()">
+              <input formControlName="enterprise"
+                name="enterprise" required matInput placeholder="Entreprise">
+              <mat-hint align="end">Vous travaillez dans quelle entreprise ?</mat-hint>
+            </mat-form-field>
+          </ion-col>
+        </ion-row>
+        <!-- </div> -->
+        <ion-row>
+          <ion-col size='12'>
+            <mat-form-field (click)="openQuarterChooser()">
+              <input formControlName="quarter"
+                matInput name="quarter" placeholder="Quartier">
+              <mat-hint align="end">Ou habitez-vous actuellement ?</mat-hint>
+            </mat-form-field>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size='12'>
+            <mat-form-field>
+              <input formControlName="birthDate"
+                matInput placeholder="Date de naissance" name="birthDate"
+                [matDatepicker]="picker"
+                (focus)="picker.open()" readonly>
+              <mat-hint align="end">Quand etes-vous nee ?</mat-hint>
+            </mat-form-field>
+            <mat-datepicker touchUi #picker [startAt]="1980/01/01"></mat-datepicker>
+          </ion-col>
+        </ion-row>
+      </div>
+    </form>
+  </div>
+
+</ion-content>

@@ -1,0 +1,41 @@
+<ion-header>
+
+
+  <mat-toolbar color="primary" class="mat-elevation-z6">
+    <button mat-icon-button (click)="goBack()">
+      <mat-icon aria-label="label">arrow_back</mat-icon>
+    </button>
+
+    <form [formGroup]='searchForm'>
+      <mat-form-field class="fill-remaining-place">
+        <input #searchbar matInput formControlName='searchInput'
+          autocomplete="off" autofocus='true'>
+      </mat-form-field>
+    </form>
+    <button mat-icon-button (click)="forceChoose()">
+      <mat-icon aria-label="label">check</mat-icon>
+    </button>
+  </mat-toolbar>
+
+
+</ion-header>
+
+<ion-content>
+  <app-uxinfos></app-uxinfos>
+
+  <div padding>
+    <mat-list role="list" [@choiceArea]='choices.length? show: hide'>
+      <mat-list-item role="listitem" matbutton *ngFor="let choice of choices">
+        <mat-icon *ngIf="action == 1" matListIcon>work</mat-icon>
+        <mat-icon *ngIf="action == 2" matListIcon>keyboard_arrow_right</mat-icon>
+        <mat-icon *ngIf="action == 3" matListIcon>keyboard_arrow_right</mat-icon>
+        <mat-icon *ngIf="action == 4" matListIcon>call_made</mat-icon>
+        <mat-icon *ngIf="action == 5" matListIcon>favorite_border</mat-icon>
+
+        <h3 matLine (click)="choose(choice)"> {{ choice }}</h3>
+      </mat-list-item>
+
+    </mat-list>
+  </div>
+
+</ion-content>

@@ -1,0 +1,18 @@
+<h5 class="body-title">Tres populaires</h5>
+
+<ion-card class="pop ion-no-padding ion-no-margin ion-margin-bottom">
+  <ion-slides #slides [options]="slidesOptions" mode="ios">
+    <ion-slide *ngFor="let item of populars">
+      <ion-card button mode="ios" class="wrapper ion-no-padding ion-no-margin">
+        <img src="/assets/user_1.png" alt="">
+        <div class="text">
+          <p class="title">AngeloAngeloAngeloAngeloAngeloAngelo </p>
+          <div>Travail </div>
+          <div>10 Competences </div>
+          <div>20 Centres d'interets </div>
+        </div>
+      </ion-card>
+    </ion-slide>
+
+  </ion-slides>
+</ion-card>

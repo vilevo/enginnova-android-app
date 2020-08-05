@@ -1,0 +1,8 @@
+
+mat-form-field {
+    width: 85% !important;
+    .fill-remaining-place {
+        // display: flex; 
+        flex: 1 1 auto;
+    }
+}

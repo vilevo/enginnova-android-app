@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+
+    <form [formGroup]='searchForm'>
+      <mat-form-field class="fill-remaining-place">
+        <!-- [matAutocomplete]="auto" -->
+        <input #searchbar matInput formControlName='searchInput'
+          autocomplete="off" autofocus='true'>
+      </mat-form-field>
+    </form>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <mat-list role="list">
+    <mat-list-item role="listitem" matRipple>
+      <mat-icon matListIcon>work</mat-icon>
+      <h3 matLine> Travail 1 </h3>
+    </mat-list-item>
+    <mat-list-item role="listitem" matRipple>
+      <mat-icon matListIcon>work</mat-icon>
+      <h3 matLine> Travail 2 </h3>
+    </mat-list-item>
+    <mat-list-item role="listitem" matRipple>
+      <mat-icon matListIcon>work</mat-icon>
+      <h3 matLine> Travail 3 </h3>
+    </mat-list-item>
+    <mat-list-item role="listitem" matRipple>
+      <mat-icon matListIcon>work</mat-icon>
+      <h3 matLine> Travail 4 </h3>
+    </mat-list-item>
+  </mat-list>
+
+</ion-content>

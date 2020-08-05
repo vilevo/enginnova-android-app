@@ -1,0 +1,242 @@
+.custom-tab {
+  min-height         : auto;
+  background-color   : white;
+  width              : 100%;
+  position           : absolute;
+  bottom             : -1px;
+  margin             : 0;
+  box-shadow         : -1px 1px 20px 2px rgba(0, 0, 0, .2);
+  // border-radius   : 16px 16px 0 0;
+  // box-shadow   : 0 1px 5px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+
+  z-index: 1200;
+
+  ion-card-content {
+    padding   : 0;
+    height    : 100%;
+    width     : 100%;
+    margin-top: 0;
+  }
+}
+
+.selected-tab.on {
+  transition       : all 1s ease-out;
+  color            : var(--ion-color-primary);
+  // transform     : scale(1.5);
+  will-change      : transform;
+  // --ripple-color: red;
+}
+
+.selected-tab.off {
+  transition  : transform 1s ease-out;
+  color       : var(--ion-color-medium);
+  // transform: scale(1);
+  will-change : transform;
+}
+
+.open-btn {
+  display        : flex;
+  justify-content: flex-end;
+  align-content  : center;
+}
+
+.wish.off-0 {
+  height     : 0%;
+  transition : height 500ms ease-out;
+  will-change: height;
+}
+
+.wish.off-1 {
+  height     : 10vh;
+  transition : height 500ms ease-in;
+  will-change: height;
+}
+
+.wish.off-2 {
+  height     : 50vh;
+  transition : height 500ms ease;
+  will-change: height;
+}
+
+.wish.on {
+  height     : 92%;
+  transition : height 900ms ease;
+  will-change: height;
+
+  .area {
+    height: 80%;
+  }
+}
+
+.ripple-selected {
+  --ripple-color: red;
+}
+
+.to-top ion-icon {
+  transform  : rotate(0deg);
+  transition : transform 500ms ease-in-out;
+  will-change: transform;
+}
+
+.to-bottom ion-icon {
+  transform  : rotate(-180deg);
+  transition : transform 500ms ease-in-out;
+  will-change: transform;
+}
+
+
+.empty {
+  width : 100%;
+  height: 100%;
+
+  // display        : flex;
+  // justify-content: stretch;
+  // align-items    : stretch;
+  img {
+    width : 100%;
+    height: 41%;
+  }
+
+  .text {
+    width: 100%;
+  }
+
+  p {
+    margin-top: 3em;
+    color     : var(--ion-color-medium);
+  }
+}
+
+.empty-2 {
+  width: 65%;
+}
+
+
+.tab-b {
+  box-shadow: 0 -5px 16px rgba(0, 0, 0, .12);
+}
+
+.enlarge {
+  font-size: 2em;
+  position : relative;
+  top      : -9px;
+
+}
+
+
+.landing-content {
+  height: 182px;
+
+  ion-slides {
+    height: inherit;
+  }
+}
+
+.area {
+  width     : 100%;
+  height    : 65%;
+  border-top: 1px solid var(--ion-color-medium);
+  overflow  : auto;
+}
+
+.line-wrapper {
+  display        : flex;
+  justify-content: center;
+  height         : 65%;
+  align-items    : center;
+  position       : relative;
+  top            : 2vh;
+  height         : 3vh;
+}
+
+.line {
+  width           : 25%;
+  height          : 3px;
+  background-color: var(--ion-color-medium);
+  box-shadow      : 0 0 4px 1px var(--ion-color-medium);
+}
+
+.tabs {
+  display        : flex;
+  justify-content: space-around;
+  margin-top     : 1vh;
+  height         : 90%;
+  transition     : height 500ms ease;
+}
+
+.on {
+  .tabs {
+    border-bottom   : 1px solid var(--ion-color-medium);
+    // height       : 88%;
+    height          : 10% !important;
+  }
+}
+
+.off {
+  .tabs {
+    height: 90% !important;
+  }
+}
+
+.off-2 {
+  .tabs {
+    border-bottom: 1px solid var(--ion-color-medium);
+    height       : 20% !important;
+  }
+}
+
+.b-tools {
+  position        : absolute;
+  bottom          : 10vh;
+  width           : 100%;
+  height          : 8vh;
+  background-color: #80808052;
+  display         : flex;
+  justify-self    : end;
+
+  justify-content: flex-end;
+  align-items    : center;
+  padding-right  : 2vh;
+  padding-left   : 2vh;
+}
+
+.most {
+  height: 40vh;
+  width : 100%;
+}
+
+.others {
+  width: 100%;
+}
+
+.b-tools.on {
+  display: flex;
+}
+
+.b-tools.off {
+  display: none;
+}
+
+.off-off {
+  transform : translateY(18vh);
+  transition: transform 500ms ease;
+  height    : 0;
+}
+
+@keyframes tohide {
+  0% {
+    transform : translateY(18vh);
+    transition: transform 500ms ease;
+  }
+
+  100% {
+    display: none;
+  }
+}
+
+
+.news {
+  position: absolute;
+  top     : -8px;
+  right   : 0;
+}

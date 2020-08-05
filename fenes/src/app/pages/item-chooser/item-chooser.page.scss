@@ -1,0 +1,16 @@
+mat-form-field {
+  width: 100% !important;
+  .fill-remaining-place {
+    // display: flex;
+    flex: 1 1 auto;
+  }
+}
+
+form {
+    width: 100%;
+}
+
+mat-toolbar {
+    background-color: white !important;
+    color: var(--fenes-color-two) !important;
+}

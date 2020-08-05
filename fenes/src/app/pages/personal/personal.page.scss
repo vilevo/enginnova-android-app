@@ -1,0 +1,24 @@
+.mat-menu-panel {
+  width: 200px;
+}
+
+ion-content {
+  --background: var(--ion-color-primary);
+
+  div {
+    background-color: white;
+  }
+}
+
+.additive {
+  display: none;
+  padding: 20px;
+  background-color: var(--ion-color-white);
+  button {
+    margin: 5px;
+  }
+}
+
+ion-tab-bar {
+  // --background: var(--ion-color-dark);
+}

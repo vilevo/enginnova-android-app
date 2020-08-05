@@ -1,0 +1,158 @@
+<ion-header>
+  <mat-toolbar color="primary" class="mat-elevation-z6">
+    <button mat-icon-button (click)="back()">
+      <mat-icon aria-label="label">arrow_back</mat-icon>
+    </button>
+
+    <form [formGroup]='searchForm' (ngsubmit)='addCompe()'>
+      <mat-form-field class="fill-remaining-place">
+        <!-- [matAutocomplete]="auto" -->
+        <input #searchbar matInput formControlName='searchInput'
+          autocomplete="off" autofocus='true'>
+      </mat-form-field>
+    </form>
+
+    <button mat-icon-button (click)='addCompe()'>
+      <mat-icon aria-label="label">add</mat-icon>
+    </button>
+  </mat-toolbar>
+</ion-header>
+
+<ion-content ion-padding>
+  <div class="helper" [@helper]="(showHelper || competencies.length == 0) ?
+    'show': 'hide'">
+    <div class="center-text">
+      Ajouter une compétence pour commencer
+    </div>
+  </div>
+
+  <div class="competencies disable-scrollbar"
+    [ngClass]="{'show-advanced': competencies.length != 0,
+    'hide-advanced': competencies.length == 0
+    }">
+
+    <ion-slides mode="ios" [options]='slidesOptions'
+      [ngClass]="{'alert-already': alertAlready}">
+      <ion-slide *ngFor="let c of competencies">
+        <ion-chip color="primary" mode="ios" outline="true">
+          <ion-label>{{c}}</ion-label>
+          <button mat-icon-button (click)="remove(c)">
+            <mat-icon color="accent" aria-label="label">cancel</mat-icon>
+          </button>
+        </ion-chip>
+      </ion-slide>
+    </ion-slides>
+  </div>
+
+  <!-- <ion-row>
+    <ion-col size="12">
+      <mat-list>
+        <list-menu [member]='fake'></list-menu>
+      </mat-list>
+    </ion-col>
+  </ion-row> -->
+  <div padding-left padding-right>
+    <div *ngIf="!showErrorPane" [ngClass]="{'show-answer': showAnswer &&
+      (competencies.length != 0) ,
+      'hide-answer': !showAnswer }">
+      <h6 margin-left class="i-title" *ngIf="searchResult.length">
+        Résultats
+      </h6>
+
+      <ion-row>
+        <ion-col size="12">
+          <mat-list>
+            <div *ngFor="let member of searchResult">
+              <list-menu [member]='member'></list-menu>
+            </div>
+          </mat-list>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size="12" class="wait">
+          <div [ngClass]="{'wait-answer': wait_answer, 'no-wait':
+            !wait_answer}">
+            <div class="loading">
+              <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <!-- <ion-row *ngIf="lastSearchResult.length && !wait_answer">
+        <ion-col size="12">
+          <ion-list>
+            <ion-item class="restart-item" matRipple (click)="onRetry()">
+              <div class='restart'>
+                Recommencer la recherche
+              </div>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+      </ion-row> -->
+    </div>
+
+    <connection-error-pane [show]="showErrorPane && competencies.length"
+      (onRetry)="onRetry()">
+    </connection-error-pane>
+
+  </div>
+
+  <div [ngClass]="{'show-answer': (competencies.length == 0) ,
+    'hide-answer': (competencies.length != 0) }">
+    <div padding-left padding-right padding-bottom>
+
+      <mat-list *ngIf="lastSearchResult.length && !searchResult.length">
+        <p class="i-title">Recherches récentes</p>
+
+        <!-- <list-menu></list-menu> -->
+        <div *ngFor="let member of lastSearchResult">
+          <list-menu [member]='member'></list-menu>
+        </div>
+
+        <!-- <mat-list-item *ngFor="let r of lastSearchResult">
+          <img matListAvatar [src]="getImage(r)" routerLink="/detail/{{r.id}}">
+          <ion-label matLine>{{ r.firstName || r.lastName }}</ion-label>
+          <h3 matLine class="text-1">
+            <span *ngFor="let c of r.competencies">c</span>
+            <span class="no-c-indic" *ngIf="r.competencies.length == 0">Pas de competence</span>
+          </h3>
+
+
+          <button mat-icon-button color="primary"
+            routerLink="/detail/{{r.id}}"
+            matBadge="more" matBadgePosition="right"
+            matBadeColor="color"
+            [matMenuTriggerFor]="menu">
+            <mat-icon aria-label="label">more_vert</mat-icon>
+          </button>
+
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item>
+              <mat-icon>dialpad</mat-icon>
+              <span>Redial</span>
+            </button>
+            <button mat-menu-item>
+              <mat-icon>dialpad</mat-icon>
+              <span>Redial</span>
+            </button>
+          </mat-menu>
+
+          <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+
+        </mat-list-item> -->
+      </mat-list>
+      <div *ngIf="!lastSearchResult.length" padding
+        class="info-no-recent-search">
+        <div>
+          <!-- <mat-icon aria-label="label">empty</mat-icon> -->
+          <ion-img src="/assets/empty.svg"></ion-img>
+          <p>Pas de résultat</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

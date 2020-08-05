@@ -1,0 +1,26 @@
+<ion-list>
+  <ion-list-header>
+    <ion-label>Annonces</ion-label>
+  </ion-list-header>
+  <ng-container *ngFor="let item of news; let i=index">
+    <ion-card button mode="ios" class="element">
+      <ion-card-header>
+        <ion-card-title>Awesome Title</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste libero a voluptate ullam cupiditate nostrum.
+          Eligendi, pariatur. Aut cumque voluptatum itaque officiis, cum quia enim esse suscipit aliquam ullam porro.
+        </p>
+        <div class="avatar">
+          <ion-avatar>
+            <img [src]="'/assets/slides/skills.png'" />
+          </ion-avatar>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <intercepter *ngIf="i>0" (intercept)="fireInterest()"></intercepter>
+
+  </ng-container>
+</ion-list>

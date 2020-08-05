@@ -1,0 +1,7 @@
+{
+  "name": "fenes",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

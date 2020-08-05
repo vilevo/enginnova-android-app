@@ -1,0 +1,26 @@
+<ion-header>
+  <mat-toolbar color="primary" class="mat-elevation-z6">
+    <button mat-icon-button (click)="goBack()">
+      <mat-icon aria-label="label">close</mat-icon>
+    </button>
+    <span class="f-f-a">Ma Biographie</span>
+    <button mat-icon-button (click)="submit()">
+      <mat-icon aria-label="label">check</mat-icon>
+    </button>
+  </mat-toolbar>
+</ion-header>
+
+<ion-content>
+  <app-uxinfos></app-uxinfos>
+  <div padding>
+    <form [formGroup]='bioForm'>
+      <mat-form-field>
+        <textarea cdkTextareaAutosize formControlName='bio' 
+          required matInput name="biography" [(ngModel)]="biography"
+          placeholder="Biographie"></textarea>
+        <mat-error>Entrez votre biographie</mat-error>
+      </mat-form-field>
+
+    </form>
+  </div>
+</ion-content>

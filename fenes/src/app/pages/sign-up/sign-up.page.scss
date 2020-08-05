@@ -1,0 +1,277 @@
+.height-100,
+.mat-tab-body-content {
+  // height: 100%;
+}
+
+.bg-p {
+  background-color: var(--ion-primary);
+}
+
+.t-content {
+  margin-bottom: 36vh;
+}
+
+ion-content {
+  --ion-background-color: #185858;
+}
+
+// .example-headers-align .mat-expansion-panel-header-title,
+// .example-headers-align .mat-expansion-panel-header-description {
+//   flex-basis: 0;
+// }
+
+// .example-headers-align .mat-expansion-panel-header-description {
+//   justify-content: space-between;
+//   align-items: center;
+// }
+
+.blurbg {
+  filter        : blur(2px);
+  -webkit-filter: blur(2px);
+}
+
+.mat-tab-label {
+  background-color: white;
+}
+
+.login,
+.signup,
+.mat-expansion-panel {
+  margin-left : auto;
+  margin-right: auto;
+  width       : 100%;
+}
+
+.mat-form-field {
+  display: block;
+}
+
+.action-btn {
+  font-size: small;
+}
+
+.cover-top {
+  background-image   : url("/assets/logo.jpg");
+  background-size    : cover;
+  background-position: center;
+  /* Center the image */
+  background-repeat  : no-repeat;
+  /* Do not repeat the image */
+}
+
+.main-wrapper {
+  min-height: 110%;
+  padding   : 5%;
+}
+
+.main {
+  // height: 100%;
+  overflow: scroll;
+}
+
+
+.signup {
+  mat-expansion-panel {
+    // width: 100%;
+    background-color: #ffffffc2;
+  }
+}
+
+.login {
+  background-color: #ffffff88;
+}
+
+.action-btns {
+  display        : flex;
+  justify-content: space-between;
+  margin-top     : 18px;
+}
+
+.show-signup {
+  // width: 100%;
+  // height: 100%;
+  display: block;
+}
+
+.hide-signup {
+  width  : 0%;
+  height : 0%;
+  display: none;
+}
+
+.show-login {
+  // width: 100%;
+  // height: 100%;
+  display: block;
+}
+
+.hide-login {
+  width  : 0%;
+  height : 0%;
+  display: none;
+}
+
+.transition {
+  transition: all 0.7s cubic-bezier(0.895, 0.03, 0.685, 0.22);
+}
+
+mat-expansion-panel-header.mat-expanded {
+  background-color: var(--ion-color-primary-transparent) !important;
+
+  mat-panel-title {
+    color: #0c0101;
+  }
+}
+
+mat-expansion-panel-header {
+
+  // color: gray;
+  mat-panel-title {
+    color: gray;
+  }
+}
+
+.mat-expansion-panel:not(.mat-expanded):not([aria-disabled="true"]) .mat-expansion-panel-header:hover {
+  background-color: var(--ion-color-primary-transparent) !important;
+  border-radius   : 2px;
+}
+
+.per-infos-valid {
+  color: green;
+}
+
+.green-btn {
+  background-color: #185858;
+  transition      : background-color 1s cubic-bezier(0.755, 0.05, 0.855, 0.06);
+}
+
+.border-white {
+  border       : 4px solid white;
+  border-radius: 6px;
+}
+
+.no-border-white-top {
+  border       : 4px solid white;
+  border-top   : unset;
+  border-radius: 6px;
+}
+
+.action-btns>button {
+  border       : 2px solid white;
+  border-radius: 3px;
+}
+
+.action-btns>button[disabled="true"] {
+  border       : 2px solid rgba(149, 147, 147, 0.856);
+  border-radius: 3px;
+}
+
+.img-wrapper {
+  width          : 100%;
+  display        : flex;
+  justify-content: center;
+  padding        : 2vh;
+
+  img {
+    height: 20vh;
+  }
+}
+
+.tranparent {
+  background-color: transparent;
+}
+
+.login-card {
+  padding-left  : 0;
+  padding-right : 0;
+  padding-bottom: 0;
+}
+
+.info-pane {
+  // position: absolute;
+  top  : 2em;
+  color: var(--ion-color-light);
+}
+
+
+
+
+
+
+
+//////////////////////////////////////////////////////////////
+
+
+.cover-top {
+  background-image: none;
+  background-color: var(--ion-color-primary);
+}
+
+.register,
+.login {
+  background-color: #0000001c;
+  border-radius   : 5px;
+  padding-top     : 16px;
+  padding-bottom  : 16px;
+  color           : white !important;
+}
+
+.flex-center {
+  display        : flex;
+  justify-content: center;
+  align-items    : center;
+}
+
+.main-wrapper {
+  min-height: 100%;
+  overflow  : scroll;
+}
+
+.main {
+  height: 100%;
+  width : 93%;
+
+  form {
+    padding-left : 16px;
+    padding-right: 16px;
+
+  }
+
+  .sign-up-text {
+    border-radius   : 5px;
+    background-color: #0000001c;
+    text-align      : center;
+    font-size       : 2em;
+    color           : white;
+    margin-bottom   : 16px;
+    padding-top     : 16px;
+    padding-bottom  : 16px;
+
+  }
+}
+
+.action-btns {
+  margin-top      : 16px !important;
+  border-radius   : 5px;
+  background-color: #0000001c;
+  padding-top     : 16px;
+  padding-bottom  : 16px;
+  display         : flex;
+  justify-content : center;
+}
+
+.alternate {
+  margin-top      : 16px !important;
+  border-radius   : 5px;
+  background-color: transparent;
+  padding-top     : 16px;
+  padding-bottom  : 16px;
+}
+
+.mat-form-field-appearance-legacy .mat-form-field-infix {
+  font-size: larger;
+}
+
+mat-error {
+  color: violet !important;
+}

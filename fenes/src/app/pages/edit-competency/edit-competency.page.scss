@@ -1,0 +1,118 @@
+form mat-form-field {
+    width: 100%;
+}
+
+.ion-item-content {
+    -webkit-transition: -webkit-transform .5s cubic-bezier(.36,.66,.04,1);
+    transition: -webkit-transform .5s cubic-bezier(.36,.66,.04,1);
+    transition: transform .5s cubic-bezier(.36,.66,.04,1);
+    transition: transform .5s cubic-bezier(.36,.66,.04,1),-webkit-transform .5s cubic-bezier(.36,.66,.04,1);
+    pointer-events: none;
+    will-change: transform;
+}
+
+.item-sliding-active-slide {
+
+    .ion-item-content {
+        // margin-left: 20%;
+        transform: translate3d(83px, 0px, 0px);
+
+        -webkit-transition: -webkit-transform .5s cubic-bezier(.36,.66,.04,1);
+        transition: -webkit-transform .5s cubic-bezier(.36,.66,.04,1);
+        transition: transform .5s cubic-bezier(.36,.66,.04,1);
+        transition: transform .5s cubic-bezier(.36,.66,.04,1),-webkit-transform .5s cubic-bezier(.36,.66,.04,1);
+        pointer-events: none;
+        will-change: transform;
+    
+    }
+}
+
+
+.mat-expansion-panel-body {
+    padding: 0 !important;
+}
+  
+
+.removed-list {
+    border-left: solid 5px #ff5252;
+    min-height: 60px;
+    background: white;
+    border-radius: 4px;
+    overflow: hidden;
+    display: block;
+}
+  .c-list {
+    border-left: solid 5px #4caf50;
+    min-height: 60px;
+    background: white;
+    border-radius: 4px;
+    overflow: hidden;
+    display: block;
+  }
+  
+  .can-drag {
+    padding: 20px 10px;
+    border-bottom: solid 1px #ccc;
+    color: rgba(0, 0, 0, 0.87);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    cursor: move;
+    background: white;
+    font-size: 14px;
+  }
+  
+  .cdk-drag-preview {
+    box-sizing: border-box;
+    border-radius: 4px;
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+                0 8px 10px 1px rgba(0, 0, 0, 0.14),
+                0 3px 14px 2px rgba(0, 0, 0, 0.12);
+  }
+  
+  .cdk-drag-placeholder {
+    opacity: 0;
+  }
+  
+  .cdk-drag-animating {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  }
+  
+  .can-drag:last-child {
+    border: none;
+  }
+  
+  .cdk-drop-list-dragging .can-drag:not(.cdk-drag-placeholder) {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  }
+
+  .help-item {
+      height: 100px !important;
+  }
+
+  .drop-help-icon {
+    display: flex;
+    justify-content: center;
+
+    mat-icon {
+        width: 80%;
+        height: 25px;
+        text-align: center;
+    }
+  }
+
+  .drop-help-text {
+    color: #00000047;
+    text-align: center;
+  }
+
+  .drop-help {
+    width: 100%;
+    margin-top: 32px;
+  }
+
+  #add-btn {
+      width: 100%;
+  }

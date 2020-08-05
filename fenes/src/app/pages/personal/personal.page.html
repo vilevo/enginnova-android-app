@@ -1,0 +1,36 @@
+<ion-header>
+  <mat-toolbar color="primary" class="mat-elevation-z6">
+    <button mat-icon-button (click)="back()">
+      <mat-icon aria-label="label">arrow_back</mat-icon>
+    </button>
+    <span>Personnel</span>
+    <div class="f-f-a"></div>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon aria-label="label">more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item [routerLink]="[ '/liked-member']">Favori</button>
+      <button mat-menu-item [routerLink]="[ '/comment']">
+        Commenter l'application
+      </button>
+      <button mat-menu-item (click)="popLogout()">Se Deconnecter</button>
+    </mat-menu>
+  </mat-toolbar>
+</ion-header>
+
+<ion-content>
+  <div>
+    <fenes-member-detail [member]='connected' [editmode]='true'></fenes-member-detail>
+  </div>
+  <div class="f-c-c additive">
+    <button mat-mini-fab margin>
+      <mat-icon aria-label="label">add</mat-icon>
+    </button>
+    <button mat-mini-fab margin>
+      <mat-icon aria-label="label">add</mat-icon>
+    </button>
+    <button mat-mini-fab margin>
+      <mat-icon aria-label="label">add</mat-icon>
+    </button>
+  </div>
+</ion-content>

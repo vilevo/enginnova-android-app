@@ -1,0 +1,38 @@
+<ion-header>
+    <mat-toolbar color="primary" class="mat-elevation-z6">
+        <button mat-icon-button (click)="back()">
+            <mat-icon aria-label="label">arrow_back</mat-icon>
+        </button>
+        <span *ngIf="show">{{member.firstName}} {{member.lastName}}</span>
+
+        <div class="f-f-a"></div>
+    </mat-toolbar>
+</ion-header>
+
+<ion-content>
+    <div *ngIf="show">
+        <fenes-member-detail [member]='member'></fenes-member-detail>
+    </div>
+    <div *ngIf="!show && !showError" class="load">
+        <div class="loading">
+            <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+        </div>
+    </div>
+    <div class="error-pane" *ngIf="showError">
+        <div class="pane-content">
+            <connection-error-pane [show]="showError" (onRetry)="fetchUser()"></connection-error-pane>
+        </div>
+    </div>
+
+   
+
+</ion-content>
+
+<ngx-spinner
+    fullScreen="false"
+    bdColor="rgba(51,51,51,0.8)"
+    size="medium"
+    color="#fff"
+    type="ball-scale-multiple">
+    <p style="font-size: 20px; color: white">Un instant</p>
+</ngx-spinner>
