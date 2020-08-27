@@ -31,6 +31,7 @@
     "@ionic-native/call-number": "^5.14.0",
     "@ionic-native/core": "^5.0.0",
     "@ionic-native/crop": "^5.9.0",
+    "@ionic-native/deeplinks": "^5.28.0",
     "@ionic-native/device-accounts": "^5.14.0",
     "@ionic-native/file": "^5.9.0",
     "@ionic-native/file-transfer": "^5.17.1",

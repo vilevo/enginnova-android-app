@@ -1,243 +1,121 @@
 import { Injectable } from '@angular/core';
-import { of } from 'rxjs';
-import { delay, map, windowTime } from 'rxjs/operators';
+import { interval } from 'rxjs';
+import { delay, map } from 'rxjs/operators';
+import { CallBackendService } from './services/api/call-backend.service';
+import { UserService } from './services/user.service';
+import { UniqueIdService } from './services/unique-id.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MessageManagerService {
-  static unique = 1;
   store = [];
   nbNew = 0;
 
-  constructor() {
-
-  }
+  interval = interval(60000);
 
 
-  private uniqueId() {
-    return MessageManagerService.unique += 1;
+  constructor(
+    private callBackend: CallBackendService,
+    private userService: UserService,
+    private uniqueId: UniqueIdService
+  ) {
+    this.interval.subscribe(() => {
+      this.getMostMessage().subscribe();
+    });
   }
 
   getMostMessage() {
     // this.nbNew = 0;
-    return of(this.sample).pipe(
-      delay(700),
-      map(value => {
-        value = [];
+    return this.callBackend.recentMessages(this.userService.connected.id).pipe(
+      map((value: []) => {
         this.nbNew = 0;
-        this.store = value;
-        this.store.forEach(value => {
-          if (value.count != 0) {
+        this.store.splice(0, this.store.length);
+        value.forEach((b: any) => {
+          this.store.push({
+            id: b.last_message.id,
+            unread_count: b.unread_count,
+            content: b.last_message.body,
+            time: b.last_message.date,
+            receiver_id: b.last_message.receiver_id,
+            participation_id: b.participation_id,
+            conversation_id: b.conversation_id,
+            is_sender: b.is_sender,
+            sender_id: b.from_id,
+            sender_name: b.from_email
+          });
+          if (b.unread_count !== 0) {
             this.nbNew++;
           }
-        })
-        return value;
+        });
+        console.log(this.store);
+        return this.store;
       })
-    )
+    );
   }
 
-  getRecentMessages(conversation_id) {
-    return of(this.conversations).pipe(
-      delay(700),
-      map(value => {
-        value.forEach(v => {
-          v.localId = this.uniqueId();
-        })
-        return value;
+  getRecentMessages(from, to) {
+    return this.callBackend.conversationsBetween(from, to).pipe(
+      map((value: any) => {
+        return {
+          id: value.id,
+          messages: value.messages
+        };
       })
-    )
+    );
   }
 
   sendMessage(msg: {
     conversation_id,
     sender_id,
-    content,
+    text,
 
   }) {
-    return of('').pipe(
+    return this.callBackend.sendTextMessageIn(msg.conversation_id, msg.sender_id, msg.text).pipe(
       delay(700),
       map(value => {
+        console.log(value);
         // Attribute a local id to the msg
         return true;
       })
-    )
+    );
+  }
+
+  /**
+   *
+   * @param from the sender member id
+   * @param to the receiver member id
+   */
+  openConversation(from, to) {
+    // If has an unread message
+    // const s = this.read(to);
+
+    // And nothing. The conversation will be created after the first sent msg
+
   }
 
 
-  read(id) {
+  read(msgId, id, convId) {
     const index = this.store.findIndex(value => {
-      return value.id == id;
+      return value.id === msgId;
     });
-    if (index != -1) {
-      console.log(this.store);
-      if (this.store[index].count != 0) {
-        this.nbNew--;
-      }
-      this.store[index].count = 0;
+    if (index !== -1) {
+      // Update on the server before decreasing
+      console.log('Update on the server before decreasing ');
+      return this.callBackend.readAllMessageInConversation(id, convId).pipe(
+        map(value => {
+          console.log('READ SUCCESS ON THE SERVER');
+          console.log(this.store);
+          if (this.store[index].count !== 0 && this.nbNew !== 0) {
+            this.nbNew--;
+          }
+          this.store[index].count = 0;
+          this.store = this.store.sort((a, b) => {
+            return b.count - a.count;
+          });
+        })
+      ).subscribe();
     }
-    this.store = this.store.sort((a, b) => {
-      return b.count - a.count;
-    });
   }
-
-  sample =
-    [
-      {
-        id: 1,
-        from: "Prenom nom 1",
-        content: "Lorem ipsum dolor sit amet",
-        count: 1,
-        avatar: "/assets/user_1.png",
-        time: "21:20",
-        conversation: 10
-      },
-      {
-        id: 2,
-        from: "Prenom nom 2",
-        content: "Lorem ipsum dolor sit amet",
-        count: 3,
-        avatar: "/assets/user_1.png",
-        time: "21:20",
-        conversation: 13
-      },
-      {
-        id: 3,
-        from: "Prenom nom 3",
-        content: "Lorem ipsum dolor sit amet",
-        count: 1,
-        avatar: "/assets/user_1.png",
-        time: "21:20",
-        conversation: 16
-      },
-      {
-        id: 4,
-        from: "Prenom nom 4",
-        content: "Lorem ipsum dolor sit amet",
-        count: 1,
-        avatar: "/assets/user_1.png",
-        time: "21:20",
-        conversation: 18
-      },
-      {
-        id: 5,
-        from: "Prenom nom 5",
-        content: "Lorem ipsum dolor sit amet",
-        count: 0,
-        avatar: "/assets/user_1.png",
-        time: "21:20",
-        conversation: 22
-      },
-      {
-        id: 6,
-        from: "Prenom nom 6",
-        content: "Lorem ipsum dolor sit amet",
-        count: 0,
-        avatar: "/assets/user_1.png",
-        time: "21:20",
-        conversation: 24
-      },
-      {
-        id: 7,
-        from: "Prenom nom 7",
-        content: "Lorem ipsum dolor sit amet",
-        count: 0,
-        avatar: "/assets/user_1.png",
-        time: "21:20",
-        conversation: 27
-      },
-      {
-        id: 8,
-        from: "Prenom nom 8",
-        content: "Lorem ipsum dolor sit amet",
-        count: 0,
-        avatar: "/assets/user_1.png",
-        time: "21:20",
-        conversation: 28
-      }
-    ];
-
-  conversations = [
-    {
-      localId: 0,
-      userId: '',
-      userName: 'Nom prenom',
-      userAvatar: "assets/driver.jpeg",
-      time: "12:01 pm",
-      message: 'Hey, that\'s an awesome chat UI',
-      upertext: 'Hello',
-      status: 'sent'
-    },
-    {
-      localId: 0,
-      // userId: this.toUser,
-      userName: 'Nom prenom',
-      userAvatar: "assets/user.jpeg",
-      time: "12:01 pm",
-      message: "Right, it totally blew my mind. They have other great apps and designs too!",
-      upertext: "Hii",
-      status: 'received'
-    },
-    {
-      localId: 0,
-      // userId: this.User,
-      userName: 'Nom prenom',
-      userAvatar: "assets/driver.jpeg",
-      time: "12:01 pm",
-      message: 'And it is free ?',
-      upertext: 'How r u ',
-      status: 'sent'
-    },
-    {
-      localId: 0,
-      // userId: this.toUser,
-      userName: 'Nom prenom',
-      userAvatar: "assets/user.jpeg",
-      time: "12:01 pm",
-      message: 'Yes, totally free. Beat that !',
-      upertext: 'good',
-      status: 'received'
-    },
-    {
-      localId: 0,
-      // userId: this.User,
-      userName: 'Nom prenom',
-      userAvatar: "assets/driver.jpeg",
-      time: "12:01 pm",
-      message: 'Wow, that\'s so cool. Hats off to the developers. This is gooood stuff',
-      upertext: 'How r u ',
-      status: 'sent'
-    },
-    {
-      localId: 0,
-      // userId: this.toUser,
-      userName: 'Nom prenom',
-      userAvatar: "assets/user.jpeg",
-      time: "12:01 pm",
-      message: 'Check out their other designs.',
-      upertext: 'good',
-      status: 'received'
-    },
-    {
-      localId: 0,
-      // userId: this.User,
-      userName: 'Nom prenom',
-      userAvatar: "assets/driver.jpeg",
-      time: "12:01 pm",
-      message: 'Have you seen their other apps ? They have a collection of ready-made apps for developers. This makes my life so easy. I love it! ',
-      upertext: 'How r u ',
-      status: 'sent'
-    },
-    {
-      localId: 0,
-      // userId: this.toUser,
-      userName: 'Nom prenom',
-      userAvatar: "assets/user.jpeg",
-      time: "12:01 pm",
-      message: 'Well, good things come in small package after all',
-      upertext: 'good',
-      status: 'received'
-    },
-  ];
 }
 

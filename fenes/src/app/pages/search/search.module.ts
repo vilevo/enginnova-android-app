@@ -1,3 +1,4 @@
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -56,7 +57,8 @@ const routes: Routes = [
     Platform,
     HttpClientModule,
     APIRouteService,
-    NgxSpinnerService
+    NgxSpinnerService,
+    InAppBrowser,
   ],
   entryComponents: [
     ProgressSpinnerDialogComponentComponent,

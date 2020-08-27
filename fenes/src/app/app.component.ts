@@ -59,7 +59,7 @@ export class AppComponent {
   initializeApp() {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
-      this.statusBar.backgroundColorByHexString('#097ec3');
+      this.statusBar.backgroundColorByHexString('#003eb3');
       // this.autoStart.enable();
       this.splashScreen.hide();
       // this.orientation.

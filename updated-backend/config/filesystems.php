@@ -13,7 +13,8 @@ return [
     |
     */
 
-    'default' => env('FILESYSTEM_DRIVER', 'local'),
+    // 'default' => env('FILESYSTEM_DRIVER', 's3'),
+    'default' => env('s3', 's3'),
 
     /*
     |--------------------------------------------------------------------------
@@ -55,14 +56,22 @@ return [
             'visibility' => 'public',
         ],
 
+        // 's3' => [
+        //     'driver' => 's3',
+        //     'key' => env('AWS_ACCESS_KEY_ID'),
+        //     'secret' => env('AWS_SECRET_ACCESS_KEY'),
+        //     'region' => env('AWS_DEFAULT_REGION'),
+        //     'bucket' => env('AWS_BUCKET'),
+        //     'endpoint' => env('AWS_URL'),
+        // ],
+
         's3' => [
             'driver' => 's3',
-            'key' => env('AWS_ACCESS_KEY_ID'),
-            'secret' => env('AWS_SECRET_ACCESS_KEY'),
-            'region' => env('AWS_DEFAULT_REGION'),
-            'bucket' => env('AWS_BUCKET'),
-            'endpoint' => env('AWS_URL'),
-        ],
+            'key' => 'AKIAQICL5UDVTT3IX7G3',
+            'secret' => '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',
+            'region' => 'us-west-2',
+            'bucket' => 'enginnova',
+        ]
 
     ],
 

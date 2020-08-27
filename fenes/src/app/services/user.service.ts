@@ -318,4 +318,54 @@ export class UserService {
     console.log(this.utils.getNotSimilar(newA, oldA));
     return this.utils.getNotSimilar(newA, oldA);
   }
+
+  /**
+   * Since with a REST API we have the possibility to know the next url, we should use to load datas instead
+   * @param url the complete url
+   */
+  public getPosts(url, first) {
+    return this.backend.posts(url, first)
+      .pipe(
+        tap(rep => {
+          // Do something with the response
+          return rep;
+        }, error => {
+          // Got an error, do something
+          console.log('Error! will retry later');
+          throwError(error);
+        }),
+      );
+  }
+
+  /**
+   * Since with a REST API we have the possibility to know the next
+   * url, we should use to load datas instead
+   * @param url the complete url
+   */
+  public getAnnonces(url, first) {
+    return this.backend.annonces(url, first)
+      .pipe(
+        tap(rep => {
+          // Do something with the response
+          return rep;
+
+        }, error => {
+          // Got an error, do something
+          console.log('Error! will retry later');
+          throwError(error);
+        }),
+      );
+  }
+
+  public checkEmailConfirmed() {
+    return this.backend.checkEmailConfirmed(this.connected.id).pipe(
+      map((res: any) => {
+        if (res.checked) {
+          this.connected.email_validated_at = res.date;
+          this.storage.storeConnected(this.connected);
+        }
+        return res.checked
+      })
+    );
+  }
 }

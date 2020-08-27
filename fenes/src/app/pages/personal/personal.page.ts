@@ -37,7 +37,7 @@ export class PersonalPage implements OnInit {
   async getConnected() {
     this.connected = await this.userService.getConnected();
     console.log('Updated the connected user');
-    console.log(this.userService);
+    console.log(this.connected);
   }
 
   ngOnInit() {

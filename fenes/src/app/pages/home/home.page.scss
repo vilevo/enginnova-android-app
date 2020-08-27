@@ -6,8 +6,9 @@
 // and used throughout the application.
 
 ion-header {
-  z-index: unset;
+  // z-index: unset;
 }
+
 ion-content {
   --background: #e4e4e4;
 }
@@ -147,5 +148,47 @@ ion-content {
   ion-card {
     height: 100%;
     width : 100%;
+  }
+}
+
+.hide-error {
+  position: absolute;
+  bottom  : -100%;
+
+}
+
+.mmmmmmm {
+  margin-bottom: 9vh !important;
+}
+
+
+
+.in-slides {
+  // width: 95%;
+}
+
+.wait-answer {
+  margin-top: 60px !important;
+
+}
+
+
+ion-header {
+  background: var(--ion-color-primary);
+}
+
+ion-segment.top {
+  --background            : none;
+  --background-checked    : none;
+  --background-hover      : rgba(var(--ion-color-light-rgb, 56, 128, 255), 0.04);
+  --background-activated  : rgba(var(--ion-color-light-rgb, 56, 128, 255), 0.16);
+  --color                 : rgba(var(--ion-text-color-rgb, 0, 0, 0), 0.6);
+  --color-checked         : var(--ion-color-light, #3880ff);
+  --color-checked-disabled: #ffffff9c;
+  
+  --indicator-color: transparent;
+
+  ion-segment-button {
+    background: transparent;
   }
 }

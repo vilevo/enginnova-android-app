@@ -97,10 +97,14 @@ ion-card {
   margin-bottom: 16px;
 
   .content {
-    max-height   : 79px;
-    text-overflow: hide;
+    // max-height   : 79px;
+    // text-overflow: hide;
+    color: var(--ion-color-medium);
   }
 
+  ion-img {
+    height: 151px;
+  }
 
 }
 
@@ -121,4 +125,10 @@ ion-card {
   ion-note {
     padding-left: 7px;
   }
+}
+
+.do-comment {
+  display        : flex;
+  justify-content: center;
+  align-items    : center;
 }

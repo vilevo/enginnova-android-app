@@ -25,7 +25,7 @@ export class UtilitiesService {
       competencies: data.competencies,
       // image: data.image || null,
       first_name: data.firstName,
-
+      email_validated_at: data.email_validated_at,
       email: data.email,
       // linkedin: data.linkedin,
       // twitter: data.twitter,
@@ -93,8 +93,8 @@ export class UtilitiesService {
     console.log('The body we received');
     console.log(body);
     const array = [];
-    console.warn('Alert body.data if you deploy, check it');
-    body.data.forEach(model => {
+    // console.warn('Alert body.data if you deploy, check it');
+    body.forEach(model => {
       array.push(this.toMemberModel(model));
     });
 

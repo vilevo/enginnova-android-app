@@ -1,47 +1,52 @@
 <ion-header>
-  <fenes-toolbar>
-
-  </fenes-toolbar>
+  <ion-toolbar color="primary">
+    <form>
+      <ion-searchbar color="light" class="ion-margin-top" (click)="openSearchBar()" mode="ios" placeholder="Rechercher"
+        animated>
+      </ion-searchbar>
+    </form>
+  </ion-toolbar>
+  <ion-segment class="top" (ionChange)="updateValues($event)" color="light" *ngIf="topNav" #topSegment mode='md'
+    [(ngModel)]="navValue">
+    <ion-segment-button value="posts">
+      <ion-label>Posts</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="annonces">
+      <ion-label>Annonces</ion-label>
+    </ion-segment-button>
+  </ion-segment>
 </ion-header>
 
 
-<ion-content no-padding forceOverscroll='true' [scrollEvents]="!showErrorPane" (ionScroll)="scrolling($event)"
-  (ionScrollEnd)="scrollEnd()">
+<ion-content no-padding forceOverscroll='true' [scrollEvents]="!showErrorPane"
+  (ionScroll)="scrolling($event, topSegment, bodySegment)">
 
-  <!-- <fenes-presentators>
-
-  </fenes-presentators> -->
-
-  <app-top></app-top>
+  <!-- <populars [popular]='false'></populars> -->
 
   <populars></populars>
 
+
   <h5 class="body-title">Publications</h5>
 
-  <!-- <div [@actionsBar]="showAction ? 'sho': 'hid'" class="action-bar" *ngIf="connected && !showErrorPane">
-    <div class="actions mat-elevation-z6">
-      <div mat-ripple class="aaa-a" [routerLink]="[ '/edit-interests' ]">
-        <div class="number">{{connected.interests.length}}</div>
-        <div class="text">Centre d'interets</div>
-        <mat-icon color="accent" class="mini-button-add" aria-label="add">add</mat-icon>
-      </div>
+  <!-- (ionChange)="setFilter($event)" -->
+  <ion-segment (ionChange)="updateValues($event)" #bodySegment mode='ios' [(ngModel)]="navValue">
+    <ion-segment-button value="posts">
+      <ion-label>Posts</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="annonces">
+      <ion-label>Annonces</ion-label>
+    </ion-segment-button>
+  </ion-segment>
 
-      <div class="vl"></div>
 
-      <div mat-ripple class="aaa-a" [routerLink]="[ '/edit-competency' ]">
-        <div class="number">{{connected.competencies.length}}</div>
-        <div class="text">Competences</div>
-        <mat-icon color="accent" class="mini-button-add" aria-label="add">add</mat-icon>
-      </div>
-    </div>
-  </div> -->
+  <div class="ion-margin-bottom"></div>
 
-  <div no-padding *ngIf="!showErrorPane">
+  <div class="mmmmmmm" no-padding *ngIf="!showErrorPane">
 
-    <div [ngClass]="{'wait-answer': showLoader, 'no-wait':
+    <div *ngIf="showLoader" [ngClass]="{'wait-answer': showLoader, 'no-wait':
       !showLoader}">
       <div class="loading">
-        <div class="lds-roller">
+        <div class="lds-roller primary">
           <div></div>
           <div></div>
           <div></div>
@@ -54,45 +59,8 @@
       </div>
     </div>
 
-    <!-- <div *ngIf="initialMember.length">
-      <div class="my-member" *ngFor="let m of initialMember">
-        <fenes-member [member]='m'>
 
-        </fenes-member>
-      </div>
-    </div> -->
-    <!-- <cdk-virtual-scroll-viewport itemSize='200' style="height: 100%">
-      <div *cdkVirtualFor="let member of obDatas">
-        <div class="my-member animated slideInRight">
-          <fenes-member [member]='member'>
-
-          </fenes-member>
-        </div>
-      </div>
-
-    </cdk-virtual-scroll-viewport> -->
-
-    <!-- <div class="f-c-c">
-      <button mat-button (click)="reload()">Recharger</button>
-    </div> -->
-
-
-    <!-- <ion-virtual-scroll [items]="members" approxItemHeight="52px">
-
-      <div *virtualItem="let member; let i=index">
-        <div class="my-member">
-          {{member.id}}
-          <fenes-member (onChange)="updateView($event, i)" [member]='member'>
-          </fenes-member>
-        </div>
-
-       
-
-      </div>
-
-    </ion-virtual-scroll> -->
-
-    <post *ngFor="let item of members"></post>
+    <post *ngFor="let item of toshow" [value]='item' [p]="(navValue === 'posts')? true: false"></post>
 
     <ion-infinite-scroll margin-top threshold="5%" (ionInfinite)="loadData($event)">
       <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Un instant...">
@@ -100,7 +68,9 @@
     </ion-infinite-scroll>
   </div>
 
-  <connection-error-pane [show]="showErrorPane" (onRetry)="retry()">
-  </connection-error-pane>
+  <div [ngClass]="{'hide-error': !showErrorPane}">
+    <connection-error-pane (onRetry)="retry()">
+    </connection-error-pane>
+  </div>
 
 </ion-content>

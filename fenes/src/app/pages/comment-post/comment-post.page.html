@@ -1,0 +1,107 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>posted by</ion-title>
+    <ion-buttons slot="end">
+      <ion-button color="light" slot="end" (click)="showUser()">
+        <ion-icon slot="icon-only" name="user"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-margin-bottom">
+
+  <!-- <div class="additional">
+    <div class="type" color="medium">
+      Benevolat
+    </div>
+    <ion-note color="medium">
+      <ion-icon name="pricetag"></ion-icon>
+      gratuit
+    </ion-note>
+    <ion-note color="medium">
+      <ion-icon name="pricetag"></ion-icon>
+      Intersee par 20 personnes
+    </ion-note>
+    <ion-note color="danger">
+      <ion-icon name="pricetag"></ion-icon>
+      Fermer
+    </ion-note>
+  </div> -->
+
+  <ion-img [src]="'/assets/pub_img.png'"></ion-img>
+
+  <div class="ion-margin-start ion-margin-end">
+
+    <div class="title">
+      <ion-label color="primary">UN developpeur d'algorithme de AI, avec tensorflow</ion-label>
+    </div>
+
+    <div class="content">
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam suscipit earum, fuga accusamus nihil ullam
+      laudantium officiis aut asperiores odio ducimus error voluptatem recusandae maiores soluta deserunt impedit
+      voluptas
+      voluptatibus.
+    </div>
+
+    <div class="actions ion-margin-start ion-margin-end">
+      <ion-chip (click)="like($event)" color="medium" mode="ios" outline="false">
+        <ion-icon name="heart"></ion-icon>
+        <ion-label>aimer</ion-label>
+      </ion-chip>
+      <ion-chip (click)="postuler($event)" color="medium" mode="ios" outline="false">
+        <ion-icon name="checkmark-circle"></ion-icon>
+        <ion-label>postuler</ion-label>
+      </ion-chip>
+      <ion-chip (click)="share($event)" color="medium" mode="ios" outline="false">
+        <ion-icon name="share"></ion-icon>
+        <ion-label>partager</ion-label>
+      </ion-chip>
+    </div>
+  </div>
+
+  <ion-item>
+    <ion-textarea placeholder="Votre commentaire" #textarea autoGrow="true"> </ion-textarea>
+  </ion-item>
+
+  <ion-button (click)="onClick()" expand="block" fill="solid" shape="rect">
+    Commnenter
+  </ion-button>
+
+
+  <div class="comments ion-margin-start ion-margin-end">
+    <div class="a-comment" *ngFor="let item of comments">
+      <div class="user">
+        <ion-avatar (click)="viewUser($event)">
+          <img src="/assets/user_1.png" />
+        </ion-avatar>
+        <div class="cover">
+          <div class="">AngeloAngeloAngelo</div>
+          <div class="sub">Samedi à 10h00</div>
+        </div>
+      </div>
+      <div class="text">
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+      </div>
+    </div>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <div class="c">
+    <form>
+      <ion-item color="light">
+        <ion-textarea placeholder="Votre commentaire" #textarea autoGrow="true"> </ion-textarea>
+      </ion-item>
+      <!-- <div class="d">
+            <ion-button color="primary" fill="solid" size="small" type="submit" shape="round" strong>
+              <ion-icon slot="icon-only" name="send"></ion-icon>
+            </ion-button>
+          </div> -->
+    </form>
+  </div>
+</ion-footer>

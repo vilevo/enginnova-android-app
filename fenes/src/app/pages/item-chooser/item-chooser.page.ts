@@ -88,7 +88,7 @@ export class ItemChooserPage implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.statusBar.backgroundColorByHexString('#097ec3');
+    this.statusBar.backgroundColorByHexString('#0059ff');
   }
 
   forceChoose() {

@@ -1,15 +1,35 @@
-<h5 class="body-title">Tres populaires</h5>
+<h5 class="body-title">
+  <ng-container *ngIf="popular; else elseTemplate">
+    Les populaires
+  </ng-container>
+  <ng-template #elseTemplate>
+    Les nouveaux membres
+  </ng-template>
+
+</h5>
 
 <ion-card class="pop ion-no-padding ion-no-margin ion-margin-bottom">
   <ion-slides #slides [options]="slidesOptions" mode="ios">
     <ion-slide *ngFor="let item of populars">
-      <ion-card button mode="ios" class="wrapper ion-no-padding ion-no-margin">
+      <ion-card (click)="showMore($event, item)" button mode="ios" class="wrapper ion-no-padding ion-no-margin">
         <img src="/assets/user_1.png" alt="">
         <div class="text">
-          <p class="title">AngeloAngeloAngeloAngeloAngeloAngelo </p>
-          <div>Travail </div>
-          <div>10 Competences </div>
-          <div>20 Centres d'interets </div>
+          <p class="cccc">
+            <ng-container *ngIf="item.last_name; else elseTemplate">
+              {{item.first_name}} {{item.last_name}}
+            </ng-container>
+            <ng-template #elseTemplate>
+              <ng-container *ngIf="item.email; else elseTemplate">
+                {{ item.email}}
+              </ng-container>
+              <ng-template #elseTemplate>
+                {{ item.phone_number}}
+              </ng-template>
+            </ng-template>
+          </p>
+          <div>{{item.job}} </div>
+          <div>{{item.competencies_count}} Competences </div>
+          <div>{{item.interests_count}} Centres d'interets </div>
         </div>
       </ion-card>
     </ion-slide>

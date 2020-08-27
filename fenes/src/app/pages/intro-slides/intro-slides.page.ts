@@ -11,6 +11,20 @@ import { UXInfosService } from 'src/app/services/ui/uxinfos.service';
 })
 export class IntroSlidesPage implements OnInit, AfterViewInit {
 
+
+
+  slidesOptions = {
+    initialSlide: 0,
+    direction: 'horizontal',
+    speed: 700,
+    effect: 'fade',
+    spaceBetween: 0,
+    slidesPerView: 1,
+    freeMode: false,
+    loop: false
+  };
+
+
   constructor(
     private router: Router,
     private statusbar: StatusBar,

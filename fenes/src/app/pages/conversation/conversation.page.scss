@@ -1,17 +1,7 @@
-/**
- * Chatter - Chat themes Ionic 4 (https://www.enappd.com)
- *
- * Copyright © 2018-present Enappd. All rights reserved.
- *
- * This source code is licensed as per the terms found in the
- * LICENSE.md file in the root directory of this source .
- * 
- */
-
-
-
 #chat-parent {
   scroll-behavior: smooth;
+  padding        : 0 !important;
+  margin         : 0 !important;
 }
 
 
@@ -31,9 +21,11 @@
 }
 
 .contentBg {
-  padding-bottom : 0 !important;
-  --padding-bootm: 0 !important;
-  scroll-behavior: smooth;
+  padding-bottom    : 0 !important;
+  --padding-bootm   : 0 !important;
+  scroll-behavior   : smooth;
+  // --background   : var(--ion-color-primary);
+  --background      : linear-gradient(to bottom, var(--ion-color-primary), 90%, white);
 }
 
 .message-wrap {
@@ -71,11 +63,11 @@
       }
 
       .msg-content {
-        position     : relative;
-        border-radius: 5px;
-        padding      : 8px;
-        width        : auto;
-        max-width    : 80%;
+        position        : relative;
+        // border-radius: 5px;
+        padding         : 4px;
+        width           : auto;
+        max-width       : 80%;
 
         .line-breaker {
           white-space : pre-line;
@@ -87,36 +79,36 @@
 
   .message-left {
     .time {
-      margin       : 0;
-      padding-left : 54px;
-      color        : var(--ion-color-medium);
-      margin-bottom: 4px;
+      margin          : 0;
+      // padding-left : 54px;
+      color           : var(--ion-color-medium);
+      margin-bottom   : 4px;
     }
 
     .msg-content {
-      float     : left;
-      position  : relative;
-      background: var(--ion-color-primary);
-      color     : #fff;
+      float           : left;
+      position        : relative;
+      // background: var(--ion-color-primary);
+      // color        : #fff;
 
-      :before {
-        content     : "";
-        position    : absolute;
-        background  : transparent;
-        width       : 10px;
-        height      : 8px;
-        left        : -10px;
-        top         : 9px;
-        box-sizing  : border-box;
-        border-right: 10px solid var(--ion-color-primary);
-        ;
-        border-top   : 8px solid transparent;
-        border-bottom: 8px solid transparent;
-      }
+      // :before {
+      //   content     : "";
+      //   position    : absolute;
+      //   background  : transparent;
+      //   width       : 10px;
+      //   height      : 8px;
+      //   left        : -10px;
+      //   top         : 9px;
+      //   box-sizing  : border-box;
+      //   border-right: 10px solid var(--ion-color-primary);
+      //   ;
+      //   border-top   : 8px solid transparent;
+      //   border-bottom: 8px solid transparent;
+      // }
     }
 
     .msg-detail {
-      padding-left: 52px;
+      // padding-left: 52px;
     }
 
     .user-img {
@@ -212,23 +204,26 @@
 .containerFooter {
   display       : flex;
   flex-direction: row;
-  align-items   : center;
+  padding-bottom: 7px;
+  align-items   : flex-end;
 }
 
 .sendBtn-icon {
   // margin-top: -12px;
-  font-size    : 30px;
+  font-size: 30px;
 }
 
 .send-button-parent {
   padding: 0 6px 0 8px;
+
 }
 
 
 .backbtn {
-  margin-right: 10px !important;
-  font-size   : 3.4rem !important;
-  color       : black !important;
+  margin-bottom: 9px;
+  margin-right : 10px !important;
+  font-size    : 3.4rem !important;
+  color        : black !important;
 }
 
 .sendBtn {
@@ -247,8 +242,8 @@
 
 .footer {
   // min-height: 70px;
-  display      : flex;
-  align-items  : center;
+  display    : flex;
+  align-items: center;
 }
 
 .arrow-left {
@@ -335,4 +330,41 @@ span.triangle {
   position       : absolute;
   width          : 100%;
   left           : 0;
+}
+
+
+.chat-header {
+  height         : 18%;
+  display        : flex;
+  justify-content: space-between;
+  align-items    : center;
+  margin-top     : 6vh;
+}
+
+.chat-container {
+  min-height             : 76%;
+  background             : white;
+  border-top-left-radius : 5vh;
+  border-top-right-radius: 5vh;
+  padding-top            : 6vh;
+  padding-left           : 3vh;
+  padding-right          : 3vh;
+}
+
+.message-right {
+  background-color         : #efefef;
+  padding                  : 2vh;
+  border-bottom-left-radius: 3vh;
+  border-top-left-radius   : 3vh;
+  border-top-right-radius  : 3vh;
+  margin-left              : 14%;
+}
+
+.message-left {
+  background-color          : #a1bef1;
+  padding                   : 2vh;
+  border-bottom-right-radius: 3vh;
+  border-top-left-radius    : 3vh;
+  border-top-right-radius   : 3vh;
+  margin-right              : 14%;
 }

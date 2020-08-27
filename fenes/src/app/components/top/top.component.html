@@ -23,27 +23,49 @@
   </ion-slides>
 </ion-card> -->
 <div class="vous">
-  Ameliorez voutre profil !
+  {{connected.first_name}} ameliorez votre profil !
+
 </div>
 
 <div class="top">
-  <div class="flex ion-wrap">
-    <ion-card button mode="ios" class="f-c ion-activatable">
-      0 <br> Competence
-      <ion-ripple-effect type="bounded"></ion-ripple-effect>
-    </ion-card>
-    <ion-card button mode="ios" class="f-c ion-activatable">
-      0 <br> Centres d'interet
-      <ion-ripple-effect type="bounded"></ion-ripple-effect>
-    </ion-card>
-    <ion-card button mode="ios" class="f-c ion-activatable">
-      0 <br> Commentaire
-      <ion-ripple-effect type="bounded"></ion-ripple-effect>
-    </ion-card>
-    <ion-card button mode="ios" class="f-c ion-activatable">
-      0 <br> Post envoyer
-      <ion-ripple-effect type="bounded"></ion-ripple-effect>
-    </ion-card>
-  </div>
+  <ion-slides mode="ios" pager="ios" scrollbar="ios">
+    <ion-slide *ngIf="connected && connected.competencies">
+      <ion-card (click)="editCompet()" button mode="ios" class="f-c ion-activatable">
+        {{connected.competencies.length}} <br> Competence(s)
+        <ion-ripple-effect type="bounded"></ion-ripple-effect>
+      </ion-card>
+    </ion-slide>
+    <ion-slide *ngIf="connected && connected.interests">
+      <ion-card button (click)="editInterest()" mode="ios" class="f-c ion-activatable">
+        {{connected.interests.length}} <br> Centres d'interet
+        <ion-ripple-effect type="bounded"></ion-ripple-effect>
+      </ion-card>
+    </ion-slide>
+    <ion-slide>
+      <ion-card button mode="ios" class="f-c ion-activatable">
+        0 <br> Annonces effectuer
+        <ion-ripple-effect type="bounded"></ion-ripple-effect>
+      </ion-card>
+    </ion-slide>
+    <ion-slide>
+      <ion-card button mode="ios" class="f-c ion-activatable">
+        0 <br> Post envoyer
+        <ion-ripple-effect type="bounded"></ion-ripple-effect>
+      </ion-card>
+    </ion-slide>
+  </ion-slides>
+  <!-- <div class="flex ion-wrap">
+
+
+
+
+  </div> -->
 </div>
-<mat-progress-bar mode="indeterminate"></mat-progress-bar>
+<div>
+
+  <!-- 0% completer
+
+  <ion-button routerDirection="" color="success" fill="outline" size="small" expand="block" strong>
+    Augmenter ma visibilite </ion-button>
+  <ion-note>do something like introjs on the big four tasks</ion-note> -->
+</div>

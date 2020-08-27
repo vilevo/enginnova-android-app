@@ -149,6 +149,30 @@ export class CallBackendService {
       );
   }
 
+  popularParticipants() {
+    const url = this.routes.get(Routes.GET_POPULARS_PARTICIPANTS);
+
+    return this.http.get(url, {
+      headers: this.utils.getCacheHeader(),
+      observe: 'response'
+    })
+      .pipe(
+        map(response => response.body)
+      );
+  }
+
+  newParticipants() {
+    const url = this.routes.get(Routes.GET_NEW_PARTICIPANTS);
+
+    return this.http.get(url, {
+      headers: this.utils.getCacheHeader(),
+      observe: 'response'
+    })
+      .pipe(
+        map(response => response.body)
+      );
+  }
+
   findCompetencies(arg: string) {
     const url = this.routes.get(Routes.GET_FILTERED_COMPETENCIES, {
       filter: arg
@@ -220,6 +244,21 @@ export class CallBackendService {
   }
 
 
+  getParticipations(id: number) {
+    const url = this.routes.get(Routes.GET_PARTICIPANTS_PARTICIPATIONS, {
+      id
+    });
+
+    return this.http.get(url, {
+      headers: this.utils.getCacheHeader(),
+      observe: 'response'
+    })
+      .pipe(
+        map(response => response.body)
+      );
+  }
+
+
   downloadImage(id) {
     console.log('Downloading profil image from the server');
     const url = this.routes.imgRouteBase + id;
@@ -241,6 +280,33 @@ export class CallBackendService {
     return this.http.post(url, body, { observe: 'response' })
       .pipe(
         map(response => response.body),
+      );
+  }
+
+  makeSearch2(id, search, type: 'participants' | 'posts' | 'annonces') {
+    let url;
+
+    if (type == 'participants') {
+      url = this.routes.get(Routes.POST_SEARCH_PARTICIPANT);
+    } else if (type == 'annonces') {
+      url = this.routes.get(Routes.POST_SEARCH_ANNONCE);
+    } else if (type == 'posts') {
+      url = this.routes.get(Routes.POST_SEARCH_POST);
+    }
+
+    const body = {
+      participant_id: id,
+      search
+    };
+
+    return this.http.post(url, body, { observe: 'response' })
+      .pipe(
+        map(response => {
+          if (type == 'participants') {
+            return this.utils.toListMemberModel(response.body);
+          }
+          return response.body;
+        }),
       );
   }
 
@@ -333,4 +399,115 @@ export class CallBackendService {
     console.log('SET FILE TRANSFERT UPLOAD');
     return this.fileTransferObject.upload(filePath, apiEndpoint, options, true);
   }
+
+
+  /*****Conversations */
+  conversationsBetween(fromT, to) {
+    console.error({
+      fromT,
+      to
+    })
+    const url = this.routes.get(Routes.GET_PARTICIPANTS_CONVERSATIONS_WITH, {
+      from: fromT,
+      to
+    });
+
+    return this.http.get(url, { observe: 'body' })
+      .pipe(
+        map(response => response),
+      );
+  }
+
+  sendTextMessageIn(conversationId, fromT, text) {
+    const url = this.routes.get(Routes.POST_PARTICIPANTS_SEND_TEXT_MESSAGE);
+
+    return this.http.post(url, {
+      id: conversationId,
+      sender_id: fromT,
+      text
+    }, { observe: 'body' })
+      .pipe(
+        map(response => response),
+      );
+  }
+
+
+  recentMessages(participantId) {
+    const url = this.routes.get(Routes.GET_PARTICIPANTS_RECENT_MESSAGES, {
+      id: participantId,
+    });
+
+    return this.http.get(url, { observe: 'body' });
+    // .pipe(
+    //   // map(response => response),
+    // );
+  }
+
+
+  readAllMessageInConversation(participantId, conversationId) {
+    const url = this.routes.get(Routes.GET_PARTICIPANTS_READ_ALL_MESSAGES, {
+      id: participantId,
+      conv: conversationId
+    });
+
+    return this.http.get(url, { observe: 'body' });
+    // .pipe(
+    //   // map(response => response),
+    // );
+  }
+
+
+  posts(url, first = true) {
+    if (first) {
+      url = this.routes.get(Routes.GET_POSTS);
+    }
+    return this.http.get(url, { observe: 'body' });
+  }
+
+  annonces(url, first = true) {
+    if (first) {
+      url = this.routes.get(Routes.GET_ANNONCES);
+    }
+    return this.http.get(url, { observe: 'body' });
+  }
+
+  checkEmailConfirmed(user_id) {
+    const url = this.routes.get(Routes.POST_EMAIL_CHECKED);
+    return this.http.post(url, {
+      id: user_id
+    }, { observe: 'body' });
+  }
+
+  getPostUrl(id, user_id) {
+    const url = this.routes.get(Routes.POST_POST_URL);
+    return this.http.post(url, {
+      id,
+      user_id
+    }, { observe: 'body' });
+  }
+
+  getAnnonceUrl(id, user_id) {
+    const url = this.routes.get(Routes.POST_ANNONCE_URL);
+    return this.http.post(url, {
+      id,
+      user_id
+    }, { observe: 'body' });
+  }
+
+  getProfilUrl(from, to) {
+    const url = this.routes.get(Routes.POST_OTHER_PROFIL);
+    return this.http.post(url, {
+      from,
+      to
+    }, { observe: 'body' });
+  }
+
+  getMyProfilUrl(from) {
+    const url = this.routes.get(Routes.POST_MY_PROFIL);
+    return this.http.post(url, {
+      from,
+    }, { observe: 'body' });
+  }
+
+
 }

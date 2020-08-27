@@ -12,15 +12,15 @@ ion-slides {
   height: 100%;
 
   ion-slide {
-    margin-left: 7px;
+    // margin-left: 7px;
   }
 }
 
 .wrapper {
-  height    : 100%;
-  box-shadow: unset;
-  border    : 1px solid #86888f40;
-  padding   : 3px;
+  height       : 100%;
+  box-shadow   : unset;
+  border       : 1px solid #86888f40;
+  // padding   : 3px;
 
   .img-cover {
     display        : flex;
@@ -47,4 +47,15 @@ ion-slides {
     margin-bottom: 7px;
     font-size    : 11px;
   }
+}
+
+.ccc {
+  font-weight: bold;
+  color      : black !important;
+  margin     : 5px;
+
+}
+
+ion-slide {
+  height: auto;
 }

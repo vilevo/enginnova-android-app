@@ -8,19 +8,32 @@
       <mat-icon aria-label="label">check</mat-icon>
     </button>
   </mat-toolbar>
-  <!-- <mat-toolbar></mat-toolbar> -->
 </ion-header>
 
 <ion-content>
   <app-uxinfos></app-uxinfos>
+
+
+  <div class="confirm-mail" *ngIf="confirmMail">
+    <div class="header">
+      <ion-buttons>
+        <ion-button (click)="confirmMail = false">
+          <ion-icon slot="icon-only" name="close"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </div>
+    <p>Vous allez recevoir un lien de confirmation de votre mail dans un instant. Confirmer votre email pour le mettre a
+      jour</p>
+  </div>
+
+
 
   <div padding>
     <form [formGroup]='contactForm' *ngIf="contactForm">
       <ion-row>
         <ion-col size='12'>
           <mat-form-field>
-            <input required formControlName='phoneNumber' matInput
-              placeholder="Téléphone" name="phoneNumber">
+            <input required formControlName='phoneNumber' matInput placeholder="Téléphone" name="phoneNumber">
             <mat-hint align="end">Exemple: 99 99 99 99</mat-hint>
           </mat-form-field>
         </ion-col>
@@ -28,8 +41,7 @@
       <ion-row>
         <ion-col size='12'>
           <mat-form-field>
-            <input formControlName='email' matInput type="email" required
-              placeholder="Email" name="email">
+            <input formControlName='email' matInput type="email" required placeholder="Email" name="email">
             <mat-hint align="end">Exemple: fenes@gmail.com</mat-hint>
           </mat-form-field>
         </ion-col>
@@ -37,8 +49,7 @@
       <ion-row>
         <ion-col size='12'>
           <mat-form-field>
-            <input formControlName='facebook' name="facebook" matInput
-              placeholder="Facebook">
+            <input formControlName='facebook' name="facebook" matInput placeholder="Facebook">
             <mat-hint align="end">Exemple: facebook.com/fenes.2019</mat-hint>
           </mat-form-field>
         </ion-col>
@@ -46,8 +57,7 @@
       <ion-row>
         <ion-col size='12'>
           <mat-form-field>
-            <input formControlName='twitter' name="twitter"
-              matInput placeholder="Twitter">
+            <input formControlName='twitter' name="twitter" matInput placeholder="Twitter">
             <mat-hint align="end">Exemple: t.me/fenes.2019</mat-hint>
           </mat-form-field>
         </ion-col>
@@ -55,8 +65,7 @@
       <ion-row>
         <ion-col size='12'>
           <mat-form-field>
-            <input formControlName='linkedin' name="linkedin" matInput
-              placeholder="Linkedin">
+            <input formControlName='linkedin' name="linkedin" matInput placeholder="Linkedin">
             <mat-hint align="end">Exemple: linkedin.com/in/fenes.2019</mat-hint>
           </mat-form-field>
         </ion-col>
@@ -64,8 +73,7 @@
       <ion-row>
         <ion-col size='12'>
           <mat-form-field>
-            <input formControlName='website' name="website"
-              matInput placeholder="Site web">
+            <input formControlName='website' name="website" matInput placeholder="Site web">
             <mat-hint align="end">Exemple: monsite.com</mat-hint>
           </mat-form-field>
         </ion-col>

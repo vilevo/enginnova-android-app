@@ -3,74 +3,89 @@
 <ion-card button mode="ios" class="element">
   <div class="state">
     <div class="user">
-      <ion-avatar (click)="open()">
-        <img src="/assets/user_1.png" />
+      <ion-avatar (click)="viewUser($event)">
+        <img defaultImage="/assets/user_1.png" [lazyLoad]="value.avatar" />
       </ion-avatar>
-      <div class="cover">
-        <div class="">AngeloAngeloAngelo</div>
-        <div class="sub">Samedi à 10h00</div>
+      <div class="cover" (click)="viewUser($event)">
+        <div class="ion-text-capitalize">{{value.name}}</div>
+        <div class="sub">{{dateForHuman}}</div>
       </div>
     </div>
-    <div class="title-wrapper">
-      <p class="title"> benevolat</p>
+    <div *ngIf="!p" class="title-wrapper">
+      <p class="title ion-text-capitalize"> {{value.type}}</p>
     </div>
   </div>
-  <ion-card-header (click)="open()">
-    <!-- <ion-card-subtitle class="ion-text-end"></ion-card-subtitle> -->
-    <ion-card-title color="primary" class="f-s-b">
-      <span>Un developeur d'algorithme de AI, avec tensorflow </span>
+  <ion-card-header (click)="open($event)">
+    <ion-card-title class="ion-text-capitalize" *ngIf="value.titre_post" color="primary" class="f-s-b">
+      <span class="ion-text-capitalize">{{ value.titre_post }}</span>
+      <p class="date"></p>
+    </ion-card-title>
+    <ion-card-title class="ion-text-capitalize" *ngIf="value.titre_projet" color="primary" class="f-s-b">
+      <span class="ion-text-capitalize"> {{ value.titre_projet }}</span>
       <p class="date"></p>
     </ion-card-title>
   </ion-card-header>
-  <!-- <ion-card-header (click)="open()">
-      <ion-card-title class="f-s-b">
-        <ion-avatar>
-          <img src="/assets/user_1.png">
-        </ion-avatar>
-        <p class="date">Poster par angelo</p>
-      </ion-card-title>
-    </ion-card-header> -->
-  <ion-card-content (click)="open()">
+  <ion-card-content (click)="open($event)">
     <!-- 328 x 218 pixels -->
     <!-- 1360 × 903 pixels -->
-    <ion-img src="/assets/pub_img.png" alt=""></ion-img>
-    <p class="content">
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste libero a voluptate ullam cupiditate nostrum.
-      Eligendi, pariatur. Aut cumque voluptatum itaque officiis, cum quia enim esse suscipit aliquam ullam porro.
+    <!-- <ion-img src="/assets/pub_img.png" alt=""></ion-img> -->
+    <p class="content ion-text-capitalize" [innerHTML]='value.contenu'>
+
     </p>
 
-    <div class="additional">
+    <div *ngIf="!p" class="additional">
       <ion-note color="medium">
         <ion-icon name="pricetag"></ion-icon>
-        gratuit
+        Interesee par {{value.reponses}} personnes
       </ion-note>
+    </div>
+
+    <div *ngIf="!p" class="additional">
       <ion-note color="medium">
         <ion-icon name="pricetag"></ion-icon>
-        Intersee par 20 personnes
+        {{value.prix}}
       </ion-note>
-      <ion-note color="danger">
+
+      <ion-note *ngIf="value.etat" color="success">
+        <ion-icon name="pricetag"></ion-icon>
+        Ouvert
+      </ion-note>
+      <ion-note *ngIf="!value.etat" color="danger">
         <ion-icon name="pricetag"></ion-icon>
         Fermer
       </ion-note>
     </div>
+
     <div class="actions ion-margin-start ion-margin-end">
-      <ion-chip color="medium" mode="ios" outline="false">
-        <ion-icon name="heart"></ion-icon>
-        <ion-label>aimer</ion-label>
+
+
+      <ion-chip *ngIf="p" (click)="comment($event)" color="medium" mode="ios" outline="false">
+        <ion-icon name="mail"></ion-icon>
+        <ion-label>
+          {{value.counts_commentaires}}
+        </ion-label>
       </ion-chip>
-      <ion-chip color="medium" mode="ios" outline="false">
-        <ion-icon name="message"></ion-icon>
-        <ion-label>123 Commentaires</ion-label>
-      </ion-chip>
-      <ion-chip color="medium" mode="ios" outline="false">
-        <ion-icon name="text"></ion-icon>
+      <ion-chip *ngIf="!p" (click)="postuler($event)" [color]="(value.postuled)? 'success': 'medium'" mode="ios"
+        outline="false">
+        <ion-icon name="checkmark-circle"></ion-icon>
         <ion-label>postuler</ion-label>
       </ion-chip>
-      <ion-chip color="medium" mode="ios" outline="false">
+
+      <ion-chip *ngIf="value.nb_liked != null" (click)="like($event)" [color]="(value.liked)? 'danger': 'medium'"
+        mode="ios" outline="false">
+        <ion-icon name="heart"></ion-icon>
+        <ion-label>{{value.nb_liked}}</ion-label>
+      </ion-chip>
+
+      <ion-chip (click)="share($event)" color="medium" mode="ios" outline="false">
         <ion-icon name="share"></ion-icon>
         <ion-label>partager</ion-label>
       </ion-chip>
     </div>
+
+    <ion-button *ngIf="p" (click)="doComments($event)" color="primary" fill="outline" expand="block" round strong>
+      repondre
+    </ion-button>
   </ion-card-content>
 </ion-card>
 
