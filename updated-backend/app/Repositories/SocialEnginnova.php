@@ -11,6 +11,7 @@ class SocialEnginnova
 {
 
   public static $server = "https://social.enginnova.co";
+  // public static $server = "http://localhost:8000";
   public static $token = "qwertyuiopasdfghjklzcvbnm1234567890";
 
 
@@ -20,7 +21,7 @@ class SocialEnginnova
 
   public function createUser($email, $password)
   {
-    // $response = Http::retry(7, 500)->withToken($this->token)
+    // $response = Http::retry(7, 500)->withToken(SocialEnginnova::$token)
     //   ->post(SocialEnginnova::$server . 'sync/users', [
     //     'email' => $email,
     //     'password' =>  $password,
@@ -49,20 +50,26 @@ class SocialEnginnova
   /**
    * Effectuer des recherches de posts sur ....
    */
-  public function getSearchPosts($toSearch)
+  public function getSearchPosts($toSearch, $limit=50)
   {
-    return $response = Http::retry(7, 500)->withToken($this->token)
-      ->get(SocialEnginnova::$server . '/search/posts/?q=' . $toSearch);
+    return $response = Http::retry(7, 500)->withToken(SocialEnginnova::$token)
+      ->post(SocialEnginnova::$server . '/api/posts/search', [
+        'value' => $toSearch,
+        'limit' => $limit
+      ]);
   }
 
 
   /**
    * REchercher les annonces sur
    */
-  public function getSearchAnnonces($toSearch)
+  public function getSearchAnnonces($toSearch, $limit=50)
   {
-    return $response = Http::retry(7, 500)->withToken($this->token)
-      ->get(SocialEnginnova::$server . '/search/annonces/?page=' . $toSearch);
+    return $response = Http::retry(7, 500)->withToken(SocialEnginnova::$token)
+      ->post(SocialEnginnova::$server . '/api/api-jobs/search', [
+        'value' => $toSearch,
+        'limit' => $limit
+      ]);
   }
 
 

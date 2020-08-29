@@ -136,7 +136,7 @@
       "cordova-plugin-magnetometer": {},
       "call-number": {},
       "cordova-plugin-file-transfer": {}
-    },
+    }
     "platforms": [
       "android"
     ]
