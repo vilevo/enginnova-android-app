@@ -5,6 +5,9 @@ import { Router } from '@angular/router';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { FavoriService } from 'src/app/services/favori.service';
 import { APIRouteService } from 'src/app/services/apiroute.service';
+import { MessageManagerService } from 'src/app/message-manager.service';
+import { UserService } from 'src/app/services/user.service';
+import { MatTab, MatTabGroup } from '@angular/material';
 
 @Component({
   selector: 'list-menu',
@@ -63,11 +66,17 @@ export class ListMenuComponent implements OnInit {
     private router: Router,
     private favori: FavoriService,
     private apiRoute: APIRouteService,
+    private messageManager: MessageManagerService,
+    private user: UserService
   ) {
 
   }
 
   ngOnInit() {
+
+    console.log("List memnu for");
+    console.log(this.member);
+
     if (this.member.image) {
       this.img = this.apiRoute.imgRouteBase + this.member.id;
 
@@ -85,12 +94,14 @@ export class ListMenuComponent implements OnInit {
     }, 500);
   }
 
-  go() {
+  go(event: CustomEvent) {
+    event.stopPropagation();
     // this.save();
     this.router.navigateByUrl('/detail/' + this.member.id);
   }
 
-  save() {
+  save(event: CustomEvent) {
+    event.stopPropagation();
     console.log(this.member);
     this.start = true;
     if (!this.favori.isFavoritized(this.member.id)) {
@@ -112,6 +123,11 @@ export class ListMenuComponent implements OnInit {
         console.log(error);
       });
     }
+  }
+
+  conversation() {
+    this.messageManager.openConversation(this.user.connected.id, this.member.id);
+    this.router.navigateByUrl('conversation')
   }
 
 }

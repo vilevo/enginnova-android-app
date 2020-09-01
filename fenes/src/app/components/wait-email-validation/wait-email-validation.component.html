@@ -1,0 +1,24 @@
+<ion-text color="primary">
+  <h4 class="ion-marin text-center ion-color-primary">
+    Un instant. Confirmez votre email !!!
+  </h4>
+</ion-text>
+
+
+<div class="content">
+  {{user.email}}
+  <p>Vous allez recevoir un mail de confirmation dans un instant</p>
+
+  <p>Suivez les instructions contenues dans ce mail pour confirmer votre email</p>
+</div>
+
+
+<ion-button [disabled]="wait" mode="ios" color="primary" (click)="terminate()">
+  Cliquer ici si une fois termine
+
+  <ion-spinner *ngIf="wait" name="circular"></ion-spinner>
+</ion-button>
+
+<div *ngIf="checked === false" class="overlay">
+  <p> C'est pas encore fait.</p>
+</div>

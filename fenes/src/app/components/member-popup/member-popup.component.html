@@ -1,0 +1,13 @@
+<ion-list class="ion-no-padding">
+  <!-- <ion-list-header color="primary">
+    <ion-label>{{member.firstName }} {{member.lastName}} </ion-label>
+  </ion-list-header> -->
+  <ion-item color="primary" button (click)="see()">
+    <ion-icon name="eye" slot="start"></ion-icon>
+    <ion-label>Voir le profil</ion-label>
+  </ion-item>
+  <ion-item button (click)="write()">
+    <ion-icon name="mail" slot="start"></ion-icon>
+    <ion-label>Ecrire un message </ion-label>
+  </ion-item>
+</ion-list>

@@ -21,6 +21,7 @@ class CreateParticipantsTable extends Migration
             $table->string('password')->nullable(true);
             $table->string("username", 150)->unique()->nullable();
             $table->string("email", 150);
+            $table->dateTime('email_verified_at')->nullable(null);
             $table->date("birth_date")->nullable(true);
             $table->string("linkedin")->nullable(true);
             $table->string("facebook")->nullable(true);
@@ -33,6 +34,10 @@ class CreateParticipantsTable extends Migration
             $table->string("quarter")->nullable(true);
             $table->string("website")->nullable(true);
             $table->string("image")->nullable(true);
+            $table->string("enginnova_token")->nullable()->unique();
+            $table->dateTime('enginnova_token_created_at');
+            // $table->uuid('enginnova_uuid')->nullable()->unique();
+            $table->boolean('user_from_app', true);
             $table->nullableTimestamps();
             $table->engine = "InnoDB";
         });

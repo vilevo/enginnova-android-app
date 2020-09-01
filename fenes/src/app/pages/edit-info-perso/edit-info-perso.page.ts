@@ -97,7 +97,7 @@ export class EditInfoPersoPage implements OnInit, OnDestroy {
         Validators.nullValidator
       ]],
       quarter: [this.memberModel.quarter, [
-        Validators.required
+        Validators.nullValidator
       ]]
     });
   }

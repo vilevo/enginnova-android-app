@@ -1,3 +1,5 @@
+import { LazyLoadImageModule } from 'ng-lazyload-image';
+import { WaitEmailValidationComponent } from './../../components/wait-email-validation/wait-email-validation.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FenesToolbarComponent } from 'src/app/components/fenes-toolbar/fenes-toolbar.component';
@@ -15,6 +17,7 @@ import { MostPostsComponent } from "src/app/components/most-posts/most-posts.com
 import { PostComponent } from 'src/app/components/posts/post.component';
 import { TopComponent } from 'src/app/components/top/top.component';
 import { PopularsComponent } from 'src/app/components/populars/populars.component';
+import { MemberPopupComponent } from 'src/app/components/member-popup/member-popup.component';
 
 @NgModule({
   declarations: [
@@ -30,12 +33,16 @@ import { PopularsComponent } from 'src/app/components/populars/populars.componen
     PostComponent,
     TopComponent,
     PopularsComponent,
+    MemberPopupComponent,
+    WaitEmailValidationComponent,
   ],
   imports: [
     CommonModule,
     IonicModule,
     PipesModule,
     MaterialModule,
+    LazyLoadImageModule,
+
   ],
   exports: [
     FenesToolbarComponent,
@@ -48,7 +55,9 @@ import { PopularsComponent } from 'src/app/components/populars/populars.componen
     IntercepterComponent,
     PostComponent,
     TopComponent,
-    PopularsComponent
+    PopularsComponent,
+    MemberPopupComponent,
+    WaitEmailValidationComponent,
   ]
 })
 export class AppRootModule { }

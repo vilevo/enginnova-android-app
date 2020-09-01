@@ -37,6 +37,7 @@
               <input matInput required placeholder="Nom"
                 formControlName="lastName" name="lastName">
               <mat-hint align="end">Quel est votre prenom ?</mat-hint>
+              <mat-error for='lastName'>Saisissez votre prenom ici</mat-error>
             </mat-form-field>
           </ion-col>
         </ion-row>
@@ -47,6 +48,7 @@
               <input formControlName="job" name="job"
                 required matInput placeholder="Travail">
               <mat-hint align="end">Quel est votre travail actuel ?</mat-hint>
+              <mat-error for='job'>Saisissez votre lieu de travail</mat-error>
             </mat-form-field>
           </ion-col>
         </ion-row>
@@ -56,6 +58,7 @@
               <input formControlName="enterprise"
                 name="enterprise" required matInput placeholder="Entreprise">
               <mat-hint align="end">Vous travaillez dans quelle entreprise ?</mat-hint>
+              <!-- <mat-error for='entreprise'></mat-error> -->
             </mat-form-field>
           </ion-col>
         </ion-row>

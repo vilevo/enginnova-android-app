@@ -3,23 +3,23 @@
 
   <!-- <ion-tabs> -->
   <div class="tabs" slot="bottom">
-    <ion-tab-button color="primary" (click)="goHome()">
-      <ion-icon name="home"></ion-icon>
-      <ion-label>Accueil</ion-label>
+    <ion-tab-button class="border" color="primary" (click)="goHome()">
+      <ion-icon [attr.color]="tabs[0].color" name="home"></ion-icon>
+      <ion-label [attr.color]="tabs[0].color">Accueil</ion-label>
     </ion-tab-button>
-    <ion-tab-button (click)="goSemi('message')">
-      <ion-icon name="text"></ion-icon>
-      <ion-label>Messages</ion-label>
+    <ion-tab-button class="border" (click)="goSemi('message')">
+      <ion-icon [attr.color]="tabs[1].color" name="text"></ion-icon>
+      <ion-label [attr.color]="tabs[1].color">Messages</ion-label>
       <ion-chip class="news" *ngIf="messageManager.nbNew" color="success"> {{messageManager.nbNew}} </ion-chip>
     </ion-tab-button>
-    <ion-tab-button (click)="goSemi('posts')">
-      <ion-icon name="reload"></ion-icon>
-      <ion-label>Notifications</ion-label>
-      <!-- <ion-chip class="news" color="success"> 0</ion-chip> -->
+    <ion-tab-button class="border" (click)="goSemi('posts')">
+      <ion-icon [attr.color]="tabs[2].color" name="notifications"></ion-icon>
+      <ion-label [attr.color]="tabs[2].color">Notifications</ion-label>
+      <ion-chip class="news" *ngIf="notif.count" color="success"> {{notif.count}} </ion-chip>
     </ion-tab-button>
     <ion-tab-button (click)="openPerso()">
-      <ion-icon name="person"></ion-icon>
-      <ion-label>Moi</ion-label>
+      <ion-icon [attr.color]="tabs[3].color" name="person"></ion-icon>
+      <ion-label [attr.color]="tabs[3].color">Moi</ion-label>
     </ion-tab-button>
   </div>
   <!-- </ion-tabs> -->
@@ -34,10 +34,14 @@
       </div>
     </div>
 
-    <div class="b-tools" [ngClass]="{'on': !rest, 'off': rest}">
-      <button mat-icon-button color="light" (click)="goRest()">
-        <mat-icon aria-label="label">close</mat-icon>
+
+
+
+    <div class="ion-activatable" (click)="goRest()" class="b-tools" [ngClass]="{'on': !rest, 'off': rest}">
+      <button mat-icon-button color="light">
+        <mat-icon aria-label="label">close_circle</mat-icon>
       </button>
+      <ion-ripple-effect></ion-ripple-effect>
     </div>
   </ion-card-content>
 </ion-card>

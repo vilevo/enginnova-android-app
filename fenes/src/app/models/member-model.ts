@@ -29,6 +29,9 @@ export class MemberModel {
     // Visual image of the member
     image?: string;
 
+    // Email validation
+    email_validated_at? = null;
+
     constructor() {
         this.competencies = new Array<string>();
         this.interests = new Array<string>();

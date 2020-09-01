@@ -1,26 +1,5 @@
 <mat-toolbar color="primary" class="mat-elevation-z4" mode='ios'>
   <mat-toolbar-row *ngIf="!searchBar">
-    <!-- <button mat-icon-button slot="start" (click)="openPersonalPage()" class="mat-elevation-z-1">
-      <mat-icon aria-label="avatar">
-          <img [src]="avatar || '/assets/user_1.png'">
-      </mat-icon>
-    </button> -->
-
-    <!-- <span class="fill-remaining-place"></span> -->
-    <!-- <button  slot="end" mat-button [matMenuTriggerFor]="beforeMenu" class="mat-elevation-z4"> -->
-    <!-- <ion-icon slot="end" name="search"  class="mat-elevation-z4"></ion-icon> -->
-    <!-- </button> -->
-    <!-- <button mat-icon-button (click)="openSearchBar()"  class="mat-elevation-z-1">
-      <mat-icon aria-label="search">search</mat-icon>
-    </button> -->
-
-
-    <!-- <form class="width-100">
-      <mat-form-field (click)="openSearchBar()" class="width-100">
-        <input placeholder="Rechercher" #searchbar matInput formControlName='searchInput' autocomplete="off">
-      </mat-form-field>
-    </form> -->
-
     <ion-searchbar (click)="openSearchBar()" mode="ios" placeholder="" animated showCancelButton cancelButtonText="">
     </ion-searchbar>
 

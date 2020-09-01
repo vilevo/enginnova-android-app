@@ -6,6 +6,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
+use Faker\Provider\Uuid;
 
 class UserController extends Controller
 {
@@ -17,7 +18,7 @@ class UserController extends Controller
             'email' => 'required|email'
         ]);
 
-        $request['api_token'] = str_random(60);
+        $request['api_token'] = Uuid::uuid();;
         $request['password'] = app('hash')->make($request['password']);
 
         $user = new User();
@@ -62,7 +63,7 @@ class UserController extends Controller
             return ['error' => true, 'message' => 'Le mot de passe saisi est erroné!'];
         }
 
-        $request['api_token'] = str_random(60);
+        $request['api_token'] = Uuid::uuid();
 
         $user->api_token = $request['api_token'];
 

@@ -1,6 +1,8 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { MessageManagerService } from 'src/app/message-manager.service';
+import { UserService } from 'src/app/services/user.service';
+import { MemberModel } from 'src/app/models/member-model';
 
 @Component({
   selector: 'most-messages',
@@ -14,21 +16,37 @@ export class MostMessagesComponent implements OnInit {
 
 
   @Output() interested = new EventEmitter<boolean>()
+  connected: MemberModel
 
   emitted = false;
   constructor(
     private router: Router,
-    private messageManager: MessageManagerService
-  ) { }
-
-  ngOnInit() {
-    this.getLastState();
+    private messageManager: MessageManagerService,
+    private userService: UserService
+  ) {
+    userService.getConnected().then(c => {
+      this.connected = c;
+    })
   }
 
-  openMsg(id) {
-    this.messageManager.read(id);
-    this.router.navigateByUrl('conversation')
+  ngOnInit() {
+    this.getLastState(1);
+  }
 
+  openMsg(msg) {
+    console.log("Open message ")
+    console.log(msg);
+    if (msg.unread_count != 0) {
+      this.messageManager.read(msg.id, this.connected.id, msg.conversation_id);
+    }
+    let second_member = 0;
+    if (msg.is_sender) {
+      second_member = msg.receiver_id;
+    } else {
+      second_member = msg.sender_id;
+    }
+    console.error("SECOND PART: " + second_member)
+    this.router.navigateByUrl('conversation/' + second_member);
   }
 
 
@@ -40,7 +58,7 @@ export class MostMessagesComponent implements OnInit {
   }
 
 
-  getLastState() {
+  getLastState(de) {
     this.retrievingMessages = true;
     this.messageManager.getMostMessage().subscribe(value => {
       this.retrievingMessages = false;

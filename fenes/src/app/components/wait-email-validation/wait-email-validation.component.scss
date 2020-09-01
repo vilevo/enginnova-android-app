@@ -1,0 +1,19 @@
+.content {
+  width : 95%;
+  margin: auto;
+  color : var(--ion-color-medium);
+}
+
+ion-spinner {
+  margin-left: 3vh;
+}
+
+.overlay {
+  position       : absolute;
+  width          : 100%;
+  height         : 100%;
+  justify-content: center;
+  align-items    : center;
+  display        : flex;
+  background     : azure;
+}

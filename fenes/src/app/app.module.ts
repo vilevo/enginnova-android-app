@@ -44,6 +44,8 @@ import { PipesModule } from './modules/pipes/pipes.module';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { IntersectDirective } from './directives/intersect.directive';
 
+import { Deeplinks } from '@ionic-native/deeplinks/ngx';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -79,7 +81,7 @@ import { IntersectDirective } from './directives/intersect.directive';
     ListMenuModule,
     MatMomentDateModule,
     PipesModule,
-    LazyLoadImageModule
+    LazyLoadImageModule,
     // IonDatetime
   ],
   providers: [
@@ -101,6 +103,7 @@ import { IntersectDirective } from './directives/intersect.directive';
       useClass: AppInterceptorService,
       multi: true
     },
+    Deeplinks,
 
     MatNativeDateModule,
     RequestLoaderService,

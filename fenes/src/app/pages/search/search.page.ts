@@ -1,6 +1,8 @@
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { UXInfosService } from 'src/app/services/ui/uxinfos.service';
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { Platform, IonInput } from '@ionic/angular';
+import { Platform, IonSearchbar } from '@ionic/angular';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -14,11 +16,8 @@ import { startWith, map } from 'rxjs/operators';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { StorageService } from 'src/app/services/storage.service';
 import { APIRouteService } from 'src/app/services/apiroute.service';
-import { MatInput } from '@angular/material';
-import { SearchAutocompleteComponent } from 'src/app/components/search-autocomplete/search-autocomplete.component';
 import { SearchAutocompleteService } from 'src/app/services/ui/search-autocomplete.service';
 import { Overlay } from '@angular/cdk/overlay';
-import { ComponentPortal } from '@angular/cdk/portal';
 import { ConnectionErrorPaneComponent } from 'src/app/components/connection-error-pane/connection-error-pane.component';
 import { InternetService } from 'src/app/services/internet.service';
 import { UtilitiesService } from 'src/app/services/utilities.service';
@@ -58,6 +57,8 @@ export interface Competency {
 })
 export class SearchPage implements OnInit, OnDestroy {
 
+  toSearch: 'participants' | 'posts' | 'annonces' = 'participants';
+
   showAdvanced = false;
 
   removable = true;
@@ -77,6 +78,12 @@ export class SearchPage implements OnInit, OnDestroy {
   showErrorPane = false;
 
   fake;
+
+  searchState: null | 'searching' | 'result' = null;
+
+  emptyResult: 'not yet' | 'true' | 'false' = 'not yet';
+
+  selectedTab = 0;
 
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
@@ -111,9 +118,9 @@ export class SearchPage implements OnInit, OnDestroy {
   };
   competencies: Array<string> = [];
 
-  searchResult: Array<MemberModel>;
+  searchResult: Array<MemberModel | any>;
 
-  lastSearchResult: Array<any>;
+  // lastSearchResult: Array<any>;
 
 
   myControl = new FormControl();
@@ -130,29 +137,29 @@ export class SearchPage implements OnInit, OnDestroy {
 
   showAutocomplete = false;
 
-  @ViewChild('searchbar', { static: true }) inputSearch: IonInput;
+
+  @ViewChild('searchBar', { static: true, read: IonSearchbar }) inputSearch: IonSearchbar;
   @ViewChild('connection-error-pane', { read: ConnectionErrorPaneComponent, static: false }) connectErrPane: ConnectionErrorPaneComponent;
 
   private connectionStatus: Subscription;
 
   constructor(
-    private router: Router,
     private platfom: Platform,
-    private statusbar: StatusBar,
-    private ngxSpinner: NgxSpinnerService,
     private location: Location,
     private callBackend: CallBackendService,
     private userService: UserService,
-    private storage: StorageService,
     private apiRoutes: APIRouteService,
     private autompleteService: SearchAutocompleteService,
     private formBuilder: FormBuilder,
-    private overlay: Overlay,
     private hasInternet: InternetService,
-    private utils: UtilitiesService
+    private utils: UtilitiesService,
+    private inAppBrowser: InAppBrowser,
+
+    private server: APIRouteService,
+
+    private uxInfo: UXInfosService,
   ) {
     this.searchResult = [];
-    this.lastSearchResult = [];
 
     this.searchForm = this.formBuilder.group({
       searchInput: ['']
@@ -166,6 +173,7 @@ export class SearchPage implements OnInit, OnDestroy {
   }
 
   async ngOnInit() {
+    this.uxInfo.appBottom.emit('hide');
     this.connectionStatus = this.hasInternet.connectionStatus$.subscribe(
       next => {
         if (next.connected) {
@@ -176,14 +184,8 @@ export class SearchPage implements OnInit, OnDestroy {
       }
     );
     const member = await this.userService.getConnected();
-    // const member = this.utils.fakeMember();
-    this.loadRecentResult();
     this.myId = member.id;
     console.log(member);
-    console.log(this.competencies);
-    for (const c of this.competencies) {
-      console.log('A compent : ' + c);
-    }
 
     this.filteredOptions = this.myControl.valueChanges
       .pipe(
@@ -197,20 +199,23 @@ export class SearchPage implements OnInit, OnDestroy {
 
     console.log(this.searchForm.get('searchInput'));
 
-    this.searchForm.get('searchInput').valueChanges.subscribe((value) => {
-      this.searchModel = value.trim();
-      this.autoComplete();
-    });
-
     this.autompleteService.end$.subscribe((value) => {
       this.searchModel = value;
       this.searchForm.get('searchInput').setValue('', {
         emitEvent: false
       });
-      this.add();
     });
 
-    this.inputSearch.autofocus = true;
+    this.inputSearch.getInputElement().then((e) => {
+      e.autofocus = true;
+    });
+    this.inputSearch.ionChange.subscribe((event) => {
+      this.searchModel = event.detail.value.trim();
+      console.log("New search model: " + this.searchModel);
+      if (this.searchModel.length != 0) {
+        this.makeSearch(this.searchModel);
+      }
+    })
   }
   // body = body.participant;
 
@@ -234,109 +239,64 @@ export class SearchPage implements OnInit, OnDestroy {
     this.autompleteService.makeCompetencySearch(this.searchModel);
   }
 
-  private makeSearch() {
+  private stopPendingRequest() {
+    if (this.request) {
+      this.request.unsubscribe();
+      this.request = null;
+    }
+  }
+
+
+  private parseToSearch(toSearchIndex) {
+    if (toSearchIndex == 0) {
+      this.toSearch = 'participants';
+    } else if (toSearchIndex == 1) {
+      this.toSearch = 'posts';
+    } else if (toSearchIndex == 2) {
+      this.toSearch = 'annonces';
+    }
+  }
+
+  parseToSearchAndUpdate(i) {
+    this.selectedTab = i;
+    console.log("SEARCH THIS: " + this.searchModel);
+    this.parseToSearch(i);
+    this.makeSearch(this.searchModel);
+  }
+
+  private makeSearch(str) {
+    this.searchState = 'searching';
+    this.emptyResult = 'not yet';
 
     this.showErrorPane = false;
     this.showHelper = false;
 
-    // Stop the last search
-    if (this.request) {
-      this.request.unsubscribe();
-    }
+    this.stopPendingRequest()
     this.wait_answer = true;
 
     this.showAnswer = true;
 
-    this.request = this.callBackend.makeSearch(this.myId, this.competencies).subscribe((result) => {
+    this.request = this.callBackend.makeSearch2(this.myId, str, this.toSearch).subscribe((result: any) => {
+      this.searchState = 'result';
       this.request = null;
-      // this.showAnswer = true;
 
-      // this.showResult(r);
-      console.log(result);
       this.showResult(result);
-      this.setLastResult(this.lastSearchResult);
+      // this.setLastResult(this.lastSearchResult);
 
     }, (error) => {
+      this.searchState = 'result';
+      console.log(error);
       this.onError();
     });
 
-
-
-    // // Make the request
-    // setTimeout(() => {
-
-
-    //   this.showAnswer = true;
-
-    //   const r = [2, 3, 1, 4, 6, 7];
-    //   this.showResult(r);
-    //   console.log('Save the last result response');
-    //   this.setLastResult(this.lastSearchResult);
-    // }, 1000);
   }
 
   addCompe() {
     this.autompleteService.closeOverlay();
-    this.add();
-  }
-
-  async add() {
-    let value = this.searchModel.trim();
-
-    // Reset the input value
-    this.searchModel = '';
-
-    // this.ngxSpinner.show();
-    this.test_results = 0;
-
-    value = value.trim();
-    if ((value || '').trim()) {
-
-
-      if (this.competencies.indexOf(value) !== -1) {
-        // An alert and exit
-        console.log('An alert and exit');
-        this.alertAlready = true;
-        setTimeout(() => {
-          this.alertAlready = false;
-        }, 500);
-        return;
-      }
-
-      this.userService.addIntrestedCompetency(value);
-      this.competencies.push(value);
-      this.competencies = this.competencies.reverse();
-
-      this.makeSearch();
-    }
-
-  }
-
-  async remove(competency) {
-    const index = this.competencies.indexOf(competency);
-
-    if (index >= 0) {
-      this.competencies.splice(index, 1);
-
-      if (this.competencies.length === 0) {
-        if (this.request) {
-          this.request.unsubscribe();
-        }
-        this.wait_answer = false;
-        return;
-      }
-
-      console.log('Removed competemcy : ' + competency);
-      console.log(this.competencies);
-
-
-      this.makeSearch();
-
-    }
-
   }
 
   onError() {
+    this.wait_answer = false;
     console.log('Error while making search request');
     setTimeout(() => {
       console.log('Show the  pane');
@@ -345,41 +305,24 @@ export class SearchPage implements OnInit, OnDestroy {
   }
 
   showResult(results: Array<any>) {
-    if (results && results.length > 0) {
-      this.searchResult = [];
-      this.lastSearchResult = [];
-      this.showNextResult(0, results);
-      this.setLastResult(this.lastSearchResult);
+    console.log(results);
+    this.searchResult = results
+    if (results.length != 0) {
+      this.emptyResult = 'true';
     } else {
-      console.log('NO result to show');
-      this.onError();
+      this.emptyResult = 'false';
     }
-
+    this.wait_answer = false;
+    // this.searchResult.push(this.)
   }
 
-  showNextResult(current, results) {
-    const id = results[current].id;
-    console.log('Show next   ' + results[current]);
-    if (id && !this.backClicked) {
-      this.request = this.callBackend.getParticipant(results[current].id).subscribe((member) => {
-        this.request = null;
 
-        this.searchResult.push(member);
-        console.log(member);
-        this.lastSearchResult.push(member);
-
-        if (current < results.length - 1) {
-          console.log('call next answer');
-          this.showNextResult(current + 1, results);
-        } else {
-          this.wait_answer = false;
-          this.setLastResult(this.lastSearchResult);
-        }
-      }, error => {
-        this.onError();
-      });
-    }
+  updateSearch(index) {
+    this.parseToSearch(index);
+    this.searchResult = [];
+    this.makeSearch(this.searchModel);
   }
+
 
   openLoadingSpinner(): void {
     // const dialogRef = this.dialog.open(ProgressSpinnerDialogComponentComponent, {
@@ -400,16 +343,6 @@ export class SearchPage implements OnInit, OnDestroy {
     return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
 
-  private loadRecentResult() {
-    // In form of ID, nom
-    this.storage.loadRecentSearchResult().then((result) => {
-      this.lastSearchResult = result;
-    });
-  }
-
-  private setLastResult(result: Array<number>) {
-    this.storage.persistResult(result);
-  }
 
   onRetry() {
     this.showErrorPane = false;
@@ -417,7 +350,7 @@ export class SearchPage implements OnInit, OnDestroy {
     setTimeout(() => {
       if (this.competencies.length) {
         this.showAnswer = false;
-        this.makeSearch();
+        this.makeSearch(this.searchModel);
       }
     }, 500);
   }
@@ -428,5 +361,33 @@ export class SearchPage implements OnInit, OnDestroy {
 
   getImage(member) {
     return (member.image) ? this.apiRoutes.imgRouteBase + member.image : '/assets/user_1.png';
+  }
+
+
+  onSearchSubmit(event: CustomEvent, searchBar: IonSearchbar) {
+    console.log("Make search");
+    console.log(searchBar.value);
+    this.searchModel = searchBar.value;
+    event.stopPropagation()
+    this.makeSearch(this.searchModel);
+
+  }
+
+  open(type: "p" | "a") {
+    console.log('Ouvrir ce post dans le navigateur');
+    if (type == 'p') {
+      // this.router.navigateByUrl('http://localhost:8000/redirect/post/{id}');
+      this.inAppBrowser.create(this.server.mainBase + '/redirect/posts/20000');
+    } else {
+      this.inAppBrowser.create(this.server.mainBase + '/redirect/annonces/2000');
+    }
+  }
+
+  openPost() {
+    this.open('p')
+  }
+
+  openAnnonce() {
+    this.open('a')
   }
 }

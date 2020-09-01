@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { UXInfosService } from 'src/app/services/ui/uxinfos.service';
 import { MessageManagerService } from 'src/app/message-manager.service';
+import { NotificationsService } from 'src/app/services/ui/notifications.service';
 
 @Component({
   selector: 'app-bottom',
@@ -9,6 +10,21 @@ import { MessageManagerService } from 'src/app/message-manager.service';
   styleUrls: ['./bottom.component.scss'],
 })
 export class BottomComponent implements OnInit {
+
+  tabs = [
+    {
+      color: 'primary',
+    },
+    {
+      color: 'medium',
+    },
+    {
+      color: 'medium',
+    },
+    {
+      color: 'medium',
+    }
+  ];
 
   noRest = false;
   semiRest = false;
@@ -25,9 +41,10 @@ export class BottomComponent implements OnInit {
   constructor(
     private router: Router,
     private uxInfo: UXInfosService,
-    private messageManager: MessageManagerService
+    private messageManager: MessageManagerService,
+    public notif: NotificationsService
   ) {
-    this.messageManager.getMostMessage().subscribe();
+
   }
 
   ngOnInit() {
@@ -40,9 +57,12 @@ export class BottomComponent implements OnInit {
       }
     })
 
+
+
   }
 
   openPerso() {
+    this.selected(0);
     this.router.navigateByUrl('/personal')
   }
 
@@ -52,16 +72,26 @@ export class BottomComponent implements OnInit {
     this.semiRest = false;
     this.rest = false;
     this.covid = true;
-
     // console.error('HHHHHHHHHIDEEEEEEEE TTTTTTTTTTHEEEEEEEEE BBBBBBBOOOOOOTTTOM')
   }
 
+  selected(i) {
+    this.tabs = this.tabs.map((f, index) => {
+      if (index == i) {
+        f.color = 'primary';
+      } else {
+        f.color = 'medium';
+      }
+      return f;
+    })
+  }
 
   goHome() {
     this.noRest = false;
     this.semiRest = false;
     this.rest = true;
     this.covid = false;
+    this.selected(0);
   }
 
 
@@ -71,6 +101,7 @@ export class BottomComponent implements OnInit {
       this.mostMessages = true;
       this.mostNews = false;
       this.mostPosts = false;
+      this.selected(1);
     }
     else if (type == 'news') {
       this.mostMessages = false;
@@ -80,6 +111,7 @@ export class BottomComponent implements OnInit {
       this.mostMessages = false;
       this.mostNews = false;
       this.mostPosts = true;
+      this.selected(2);
     }
 
     if (!this.noRest) {
@@ -95,6 +127,7 @@ export class BottomComponent implements OnInit {
     this.semiRest = false;
     this.rest = true;
     this.covid = false;
+    this.selected(0);
   }
 
   goNoRest() {

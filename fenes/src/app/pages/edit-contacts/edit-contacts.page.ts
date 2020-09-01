@@ -21,6 +21,7 @@ export class EditContactsPage implements OnInit, OnDestroy {
   showValidateBtn = true;
   request: Subscription;
 
+  confirmMail = false;
   constructor(
     private location: Location,
     private user: UserService,
@@ -45,6 +46,7 @@ export class EditContactsPage implements OnInit, OnDestroy {
 
   submit() {
     if (this.contactForm.valid) {
+      const emailPristine = this.contactForm.get('email').pristine;
       console.log('All data is correct. Submit');
       console.log(this.contactForm.value);
 
@@ -64,6 +66,10 @@ export class EditContactsPage implements OnInit, OnDestroy {
           this.request = null;
           this.infoService.showOkay();
           this.showValidateBtn = true;
+
+          if (!emailPristine) {
+            this.confirmMail = true;
+          }
 
         },
         error => {

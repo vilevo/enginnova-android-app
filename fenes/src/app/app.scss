@@ -34,6 +34,11 @@
   height  : 64px;
 }
 
+.lds-roller.primary div:after {
+
+  background: var(--ion-color-primary) !important;
+}
+
 .lds-roller div {
   animation       : lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
   transform-origin: 32px 32px;
@@ -46,7 +51,7 @@
   width        : 6px;
   height       : 6px;
   border-radius: 50%;
-  background   : var(--ion-color-primary-tint);
+  background   : var(--ion-color-light);
   margin       : -3px 0 0 -3px;
 }
 
@@ -155,6 +160,10 @@ app-sign-up {
 
 app-home {
 
+  .segment-button-indicator {
+    height: 3px !important;
+  }
+
   .searchbar-input {
     background-color: white !important;
   }
@@ -191,7 +200,7 @@ app-home {
 
   .body-title {
     margin-left: 16px;
-    color: var(--ion-color-medium-shade);
+    color      : var(--ion-color-medium-shade);
   }
 }
 
@@ -303,4 +312,28 @@ list-menu {
 
 .capitalize {
   text-transform: capitalize;
+}
+
+
+app-top {
+  position: relative;
+  top     : -1px;
+}
+
+.wait-email-validation {
+
+  align-items: flex-end;
+
+  .modal-wrapper {
+    height                 : 50vh;
+    border-top-left-radius : 3vh;
+    border-top-right-radius: 3vh;
+  }
+}
+
+app-intro-slides {
+  .swiper-pagination-bullet.swiper-pagination-bullet-active {
+    transform : scale(1.6);
+    transition: transform 700ms ease;
+  }
 }

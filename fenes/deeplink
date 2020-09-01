@@ -1,0 +1,12 @@
+
+
+npm install @ionic-native/deeplinks
+
+
+ionic cordova plugin add ionic-plugin-deeplinks --variable URL_SCHEME=devdactic --variable DEEPLINK_SCHEME=https --variable DEEPLINK_HOST=enginnova.co
+
+
+
+    URL_SCHEME: A custom URL scheme, which was used in the past to open apps like enginnova://app/whatever
+    DEEPLINK_SCHEME: Keep this to https, it’s needed on Android anyway
+    DEEPLINK_HOST: The host you want to use for your URLs. You need to have access to the domain and hosting to upload files later!

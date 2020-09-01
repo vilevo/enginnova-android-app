@@ -1,0 +1,151 @@
+{
+  "freelance_projets": [
+    {
+      "id_fprojet": "9",
+      "titre_projet": "develeppement algo AI",
+      "contenu": "<p>Allez sauter de joie! Plus de soucis &agrave; se faire avec l&#39;instauration des projets b&eacute;n&eacute;volats par enginnova.<br \/>\r\nVous avez un projet mais pas les fonds les neccessaires pour le d&eacute;marr&eacute;? Enginnova vous aide &agrave; former votre &eacute;quipe gratuitement<\/p>",
+      "id_user": "1",
+      "reponses": "1",
+      "etat": "0",
+      "categorie": "3",
+      "prix": "gratuit",
+      "type": "benevolat",
+      "created_at": "2020-01-03 23:04:38",
+      "name": "hilario",
+      "avatar": "1575038940.jpeg"
+    },
+    {
+      "id_fprojet": "8",
+      "titre_projet": "developpement App mobile avec node",
+      "contenu": "<p>Allez sauter de joie! Plus de soucis &agrave; se faire avec l&#39;instauration des projets b&eacute;n&eacute;volats par enginnova.<br \/>\r\nVous avez un projet mais pas les fonds les neccessaires pour le d&eacute;marr&eacute;? Enginnova vous aide &agrave; former votre &eacute;quipe gratuitement<\/p>",
+      "id_user": "1",
+      "reponses": "0",
+      "etat": "0",
+      "categorie": "2",
+      "prix": "200.000",
+      "type": "freelance",
+      "created_at": "2020-01-03 23:01:34",
+      "name": "hilario",
+      "avatar": "1575038940.jpeg"
+    },
+    {
+      "id_fprojet": "7",
+      "titre_projet": "developpement d'une centrifugeuse",
+      "contenu": "<p>Exemple : Je suis &agrave; la recherche d&#39;un bon developpeur en python qui aime travailler en &eacute;quipe... qui va m&#39;aide a developper cela&nbsp; svp<\/p>",
+      "id_user": "3",
+      "reponses": "0",
+      "etat": "0",
+      "categorie": "7",
+      "prix": "200.000",
+      "type": "freelance",
+      "created_at": "2019-10-27 06:39:22",
+      "name": "romano",
+      "avatar": "default.png"
+    },
+    {
+      "id_fprojet": "6",
+      "titre_projet": "construction d'un robot",
+      "contenu": "<p>Construction d'un robot capable de d\u00e9placer les engins<\/p>",
+      "id_user": "2",
+      "reponses": "1",
+      "etat": "0",
+      "categorie": "6",
+      "prix": "1.000.000",
+      "type": "freelance",
+      "created_at": "2019-10-03 16:11:51",
+      "name": "joel",
+      "avatar": "default.png"
+    },
+    {
+      "id_fprojet": "5",
+      "titre_projet": "vous un hackeur? cet projet vous est destin\u00e9",
+      "contenu": "<p>Je suis \u00e0 la recherche d'un\u00a0 bon hackeur pour pirater les reseaux tel que moov et togocel!<\/p>\r\n\r\n<p>Allez les gars je sais qu'ils vous font chier alors ne rater pas cette occase de leur faire payer les gars! j'ai deja obtenu les acc\u00e8s grace \u00e0 un espion l\u00e0 bas. Reste plus qu'\u00e0 tout faire crasher!!<\/p>",
+      "id_user": "2",
+      "reponses": "3",
+      "etat": "1",
+      "categorie": "6",
+      "prix": "100.000 FCFA",
+      "type": "freelance",
+      "created_at": "2019-09-29 06:38:51",
+      "name": "joel",
+      "avatar": "default.png"
+    },
+    {
+      "id_fprojet": "4",
+      "titre_projet": "analyse de ckeditor",
+      "contenu": "<p>D\u00e9taillez votre projet ici fait fait fait fait<\/p>",
+      "id_user": "1",
+      "reponses": "1",
+      "etat": "0",
+      "categorie": "1",
+      "prix": "100.000",
+      "type": "freelance",
+      "created_at": "2019-09-23 09:01:41",
+      "name": "hilario",
+      "avatar": "1575038940.jpeg"
+    },
+    {
+      "id_fprojet": "3",
+      "titre_projet": "recherche ingenieur",
+      "contenu": "recherche developpeur frontend urgement les gars",
+      "id_user": "1",
+      "reponses": "0",
+      "etat": "0",
+      "categorie": "1",
+      "prix": "300.000 FCFA",
+      "type": "freelance",
+      "created_at": "2019-09-21 04:55:20",
+      "name": "hilario",
+      "avatar": "1575038940.jpeg"
+    },
+    {
+      "id_fprojet": "2",
+      "titre_projet": "recherche un dev frontend",
+      "contenu": "recherche developpeur frontend urgement les gars",
+      "id_user": "1",
+      "reponses": "0",
+      "etat": "0",
+      "categorie": "1",
+      "prix": "50.000 FCFA",
+      "type": "freelance",
+      "created_at": "2019-09-21 04:54:44",
+      "name": "hilario",
+      "avatar": "1575038940.jpeg"
+    },
+    {
+      "id_fprojet": "1",
+      "titre_projet": "recherche un developpeur mobil",
+      "contenu": "<p>recher un developpeur mobli urgement, mais il doit etre bon en react native. Urgent<\/p>",
+      "id_user": "1",
+      "reponses": "1",
+      "etat": "0",
+      "categorie": "1",
+      "prix": "100.000 FCFA",
+      "type": "freelance",
+      "created_at": "2019-09-21 04:40:58",
+      "name": "hilario",
+      "avatar": "1575038940.jpeg"
+    }
+  ],
+  "best_projets": {
+    "current_page": 1,
+    "data": [
+      {
+        "id_fprojet": "5",
+        "actif": "1",
+        "titre_projet": "vous un hackeur? cet projet vous est destin\u00e9",
+        "prix": "100.000 FCFA"
+      }
+    ],
+    "first_page_url": "https:\/\/social.enginnova.co\/enginnova\/public\/api-jobs?page=1",
+    "from": 1,
+    "last_page": 1,
+    "last_page_url": "https:\/\/social.enginnova.co\/enginnova\/public\/api-jobs?page=1",
+    "next_page_url": null,
+    "path": "https:\/\/social.enginnova.co\/enginnova\/public\/api-jobs",
+    "per_page": 4,
+    "prev_page_url": null,
+    "to": 1,
+    "total": 1
+  }
+}

@@ -27,15 +27,21 @@ export class IntroSlidesGuard implements CanActivate {
     console.log('In the guard')
     const connected = await this.userService.getConnected();
     console.log('Connected : ' + connected);
-    if (connected != null /*|| this._platform.isBrowser*/) {
+    if (connected != null) {
       console.log('Connected or this is a browser go to the home page');
 
+      if (connected.email_validated_at != null) {
+        this.router.navigateByUrl('/sign-up');
+        console.log('GO TO HOME');
+        return false;
+      }
+
       this.router.navigateByUrl('/home');
-       console.log('GO TO HOME');
+      console.log('GO TO HOME');
       return false;
     }
     console.log('PHONE: Not connected, returning to intro');
-     console.log('GUARD END');
+    console.log('GUARD END');
     return true;
   }
 }

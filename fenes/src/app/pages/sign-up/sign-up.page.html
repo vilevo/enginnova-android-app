@@ -13,8 +13,8 @@
       <p *ngIf="v_alternate=='signin'" class="sign-up-text">Se connecter</p>
 
       <form [hidden]="!(v_alternate=='signup')" class="register" [formGroup]="newsignup" (ngSubmit)="process()">
-      
-       
+
+
         <!-- Email -->
         <mat-form-field>
           <button mat-icon-button matSuffix>
@@ -40,7 +40,7 @@
           <button mat-icon-button matSuffix>
             <mat-icon>lock</mat-icon>
           </button>
-          <input matInput placeholder="Mot de passe" type="password" formControlName='confirm_password'
+          <input matInput placeholder="Repeter mot de passe" type="password" formControlName='confirm_password'
             autocomplete="current-password">
           <mat-error *ngIf="(password.touched || confirm_password.touched) && !password_ok">
             Les mot de passes ne correcpondent pas
@@ -69,10 +69,10 @@
       </mat-card>
 
 
-      <div size="12" class="action-btns">
-        <ion-button color="light" (click)="perfom()" expand="block" fill="clear">
-          VAlider
-        </ion-button>
+      <div size="12" class="action-btns ion-activatable" (click)="perfom()">
+        VALIDER
+
+        <ion-ripple-effect [type]="'bounded'"></ion-ripple-effect>
       </div>
 
       <div class="alternate">

@@ -16,6 +16,8 @@ import { Vibration } from '@ionic-native/vibration/ngx';
 import { ConnectionErrorPaneModule } from 'src/app/modules/connection-error-pane/connection-error-pane.module';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
+import { MemberPopupComponent } from 'src/app/components/member-popup/member-popup.component';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
 @NgModule({
   imports: [
@@ -44,7 +46,11 @@ import { LazyLoadImageModule } from 'ng-lazyload-image';
     CallBackendService,
     APIRouteService,
     Vibration,
-    APIRouteService
+    APIRouteService,
+    InAppBrowser,
+  ],
+  entryComponents: [
+    MemberPopupComponent
   ]
 })
 export class HomePageModule { }

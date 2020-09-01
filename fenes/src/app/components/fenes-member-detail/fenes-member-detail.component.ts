@@ -12,6 +12,7 @@ import { CallNumber } from '@ionic-native/call-number/ngx';
 import { Vibration } from '@ionic-native/vibration/ngx';
 import { CallBackendService } from 'src/app/services/api/call-backend.service';
 import { StorageService } from 'src/app/services/storage.service';
+import { connected } from 'process';
 @Component({
   selector: 'fenes-member-detail',
   templateUrl: './fenes-member-detail.component.html',
@@ -37,7 +38,8 @@ export class FenesMemberDetailComponent implements OnInit {
     private callNamber: CallNumber,
     private vibraton: Vibration,
     private backend: CallBackendService,
-    private storage: StorageService
+    private storage: StorageService,
+    private server: APIRouteService
   ) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
@@ -246,9 +248,24 @@ export class FenesMemberDetailComponent implements OnInit {
     this.open('https://' + this.member.website);
   }
 
+  openWeb() {
+    if(this.editmode) {
+      this.backend.getProfilUrl(this.user.connected.id, this.member.id).subscribe((res: any) => {
+        this.open(res.link);
+      })
+    } else {
+      this.backend.getMyProfilUrl(this.user.connected.id).subscribe((res: any) => {
+        this.open(res.link);
+      })
+    }
+    
+  }
+
 
   private open(url: string) {
-    this.inAppBroswer.create(url, '_system');
+    this.inAppBroswer.create(url, '_system', {
+
+    });
   }
 
   async presentContactActionSheet() {

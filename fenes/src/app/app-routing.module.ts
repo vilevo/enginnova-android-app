@@ -39,6 +39,18 @@ const routes: Routes = [
     path: 'conversation',
     loadChildren: './pages/conversation/conversation.module#ConversationPageModule'
   },
+  {
+    path: 'conversation/:id', // The receiver id
+    loadChildren: './pages/conversation/conversation.module#ConversationPageModule'
+  },
+  {
+    path: 'comment-post/:id',
+    loadChildren: './pages/comment-post/comment-post.module#CommentPostPageModule'
+  },
+  {
+    path: 'comment-post/:id/true',
+    loadChildren: './pages/comment-post/comment-post.module#CommentPostPageModule'
+  },
 ];
 
 @NgModule({

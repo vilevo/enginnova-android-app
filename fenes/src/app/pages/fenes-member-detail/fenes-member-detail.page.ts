@@ -63,7 +63,7 @@ export class FenesMemberDetailPage implements OnInit, AfterViewInit, OnDestroy {
   }
 
   fetchUser() {
-    this.member = this.utils.fakeMember();
+    // this.member = this.utils.fakeMember();
     this.callBackend.getParticipant(this.id).subscribe((member) => {
       this.member = member;
       this.show = true;
@@ -72,7 +72,7 @@ export class FenesMemberDetailPage implements OnInit, AfterViewInit, OnDestroy {
     }, (error) => {
       console.log('Set showError to true');
       // this.presentToast('Connectez-vous à internet et ressayez');
-      this.member = this.utils.fakeMember();
+      // this.member = this.utils.fakeMember();
       this.show = false;
       this.showError = true;
       // setTimeout(() => {

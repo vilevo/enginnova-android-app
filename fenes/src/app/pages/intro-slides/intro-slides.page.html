@@ -1,23 +1,38 @@
 <ion-content>
-  <ion-slides pager="true">
-    <ion-slide class="step-one">
-      <ion-img src="/assets/slides/skills.png"></ion-img>
-      <h1>Heading</h1>
-      <p>Text</p>
-    </ion-slide>
+  <ion-slides pager="true" [options]="slidesOptions">
 
     <ion-slide class="step-two">
-      <ion-img src="/assets/slides/skills.png"></ion-img>
-      <h1>Heading</h1>
-      <p>Text</p>
-
-      <ion-button (click)="finish()">FINISH TUTORIAL!</ion-button>
+      <img src="/assets/logo_2.jpg">
+      <h1>Welcome on <br> social.enginnova</h1>
+      <p class="explain">The first online social community <br> in the world </p>
     </ion-slide>
 
-    <!-- <ion-slide class="step-three">
-      <ion-img src="/assets/slides/skills.png"></ion-img>
-      <h1>Heading</h1>
-      <p>Text</p>
-    </ion-slide> -->
+
+    <ion-slide class="step-two">
+      <img src="/assets/logo_2.jpg">
+      <h1>Share your skills</h1>
+      <p class="explain">Someone needs it</p>
+    </ion-slide>
+
+    <ion-slide class="step-one">
+      <img src="/assets/logo_2.jpg">
+      <h1>Share your problems</h1>
+      <p class="explain">Someone will help you</p>
+    </ion-slide>
+
+
+
+    <ion-slide class="step-two">
+      <img src="/assets/logo_2.jpg">
+      <h1>Connect with others</h1>
+      <p class="explain">To build the future together</p>
+    </ion-slide>
   </ion-slides>
+
+
+  <div (click)="finish()" class="ion-activatable button">
+    COMMENCER
+    <ion-ripple-effect type="bounded"></ion-ripple-effect>
+  </div>
+
 </ion-content>

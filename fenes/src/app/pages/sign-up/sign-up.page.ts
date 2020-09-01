@@ -3,7 +3,7 @@ import { FormBuilder, AbstractControl, Validators, FormGroup } from '@angular/fo
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { RequestLoaderService } from 'src/app/services/request-loader.service';
 import { Router } from '@angular/router';
-import { Platform, ToastController } from '@ionic/angular';
+import { Platform, ToastController, ModalController } from '@ionic/angular';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { MemberModel } from 'src/app/models/member-model';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -12,6 +12,7 @@ import { UserService } from 'src/app/services/user.service';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { CallNumber } from '@ionic-native/call-number/ngx';
 import { UXInfosService } from 'src/app/services/ui/uxinfos.service';
+import { WaitEmailValidationComponent } from 'src/app/components/wait-email-validation/wait-email-validation.component';
 
 @Component({
   selector: 'app-sign-up',
@@ -92,7 +93,8 @@ export class SignUpPage implements OnInit {
     private _userService: UserService,
     private toastController: ToastController,
     private callNumber: CallNumber,
-    private uxinfo: UXInfosService
+    private uxinfo: UXInfosService,
+    private modalController: ModalController
   ) {
     uxinfo.appBottom.emit('hide');
     // this.memberModel.id = 2;
@@ -145,14 +147,23 @@ export class SignUpPage implements OnInit {
 
     this._platform.ready().then(() => {
       // this._statusBar.overlaysWebView(false);
-      // this._statusBar.backgroundColorByHexString('#097ec3');
+      this._statusBar.backgroundColorByHexString('#097ec3');
     });
   }
 
   ngOnInit() {
     setTimeout(() => {
       this.setStep(0);
-    }, 1000);
+
+      this._userService.getConnected().then(c => {
+        if (c && c.email_validated_at == null) {
+          this.waitEmailValidation();
+        }
+      })
+
+    }, 3000);
+
+    
   }
 
 
@@ -162,6 +173,8 @@ export class SignUpPage implements OnInit {
 
 
   public perfom() {
+
+    this.toastController.dismiss();
 
     console.log('Perform');
 
@@ -177,9 +190,13 @@ export class SignUpPage implements OnInit {
         console.log('User logged in');
         this._ngxspinner.hide();
         setTimeout(() => {
-          this._router.navigateByUrl('/home');
+          // this._router.navigateByUrl('/home');
+          this.waitEmailValidation();
         }, 200);
       }, error => {
+        this._ngxspinner.hide();
+        this.presentToastWithOptions("Connexion", "Email ou mot de passe incorrect", () => { })
+
         console.log('Error while loggging in the user');
       })
 
@@ -195,9 +212,11 @@ export class SignUpPage implements OnInit {
         console.log('User created successfully');
         this._ngxspinner.hide();
         setTimeout(() => {
-          this._router.navigateByUrl('/home');
+          // this._router.navigateByUrl('/home');
+          this.waitEmailValidation();
         }, 200);
       }, error => {
+        this._ngxspinner.hide();
         console.log('Error while creating the user');
       })
     } else {
@@ -205,6 +224,19 @@ export class SignUpPage implements OnInit {
     }
   }
 
+
+  async waitEmailValidation() {
+    const m = await this.modalController.create({
+      component: WaitEmailValidationComponent,
+      animated: true,
+      cssClass: WaitEmailValidationComponent.cssClass,
+      backdropDismiss: true,
+
+    });
+
+
+    m.present();
+  }
 
   buildSignUpForm() {
     // this._infoPerso = this._formBuilder.group({

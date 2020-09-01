@@ -1,4 +1,8 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { CallBackendService } from 'src/app/services/api/call-backend.service';
+import { interval } from 'rxjs';
+import { UserService } from 'src/app/services/user.service';
+import { NotificationsService } from 'src/app/services/ui/notifications.service';
 
 @Component({
   selector: 'most-posts',
@@ -11,10 +15,28 @@ export class MostPostsComponent implements OnInit {
 
   emitted = false;
 
-  news = [{}, {}, {}, {}, {}];
-  constructor() { }
 
-  ngOnInit() { }
+
+  news;
+  constructor(
+    private backend: CallBackendService,
+    private user: UserService,
+    private notif: NotificationsService
+  ) { }
+
+  user_id;
+
+  ngOnInit() {
+
+
+    this.notif.data.subscribe(ss => {
+      this.news = ss;
+    })
+
+
+  }
+
+
 
   fireInterest() {
 

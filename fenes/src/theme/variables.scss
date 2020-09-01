@@ -4,7 +4,7 @@
 /** Ionic CSS Variables **/
 :root {
   /** primary **/
-  --ion-color-primary             : rgb(9, 126, 195);
+  --ion-color-primary             : #0059ff;
   --ion-color-primary-rgb         : 56, 128, 255;
   --ion-color-primary-contrast    : #ffffff;
   --ion-color-primary-contrast-rgb: 255, 255, 255;
@@ -81,3 +81,12 @@
   // --search-panel: rgba(9, 126, 195, 0.90);
   --search-panel               : white;
 }
+
+app-home {
+
+  .segment-button-indicator {
+    height: 3px !important;
+  }
+}
+
+// 0059ff

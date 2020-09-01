@@ -9,7 +9,7 @@ import { APIRouteService } from '../apiroute.service';
 })
 export class AppInterceptorService implements HttpInterceptor {
 
-  static AUTHORIZATION = 'Bearer lWEIIiePgdfGt21QanFd05h0KtKlgETmqrRZQSdnGVTVSv2gOjbMbPmshODH';
+  static AUTHORIZATION = 'Bearer fc4edd92-be20-3385-9f70-edcb1d3a82c7';
 
   constructor(
     private b: APIRouteService

@@ -1,8 +1,19 @@
 <div class="ob" class="height-per-100">
   <mat-card>
     <mat-card-header padding-top>
-      <mat-card-title>{{member.firstName}} {{member.lastName}}</mat-card-title>
-      <mat-card-subtitle>{{member.job}}, {{member.enterprise}}</mat-card-subtitle>
+
+
+      <mat-card-title >
+        {{member.firstName}}
+        {{member.lastName}}
+      </mat-card-title>
+      <mat-card-title *ngIf="member.email">
+        {{member.email}}
+      </mat-card-title>
+      <mat-card-subtitle>
+        <span *ngIf="member.job">{{member.job}}</span>
+        <span *ngIf="member.enterprise">,{{member.enterprise}}</span>
+      </mat-card-subtitle>
       <div class="btn-plus-info">
         <button mat-icon-button (click)="save()">
           <mat-icon *ngIf="loved" color="accent">favorite</mat-icon>
@@ -18,7 +29,7 @@
     <div class="image">
       <!-- <ion-img [src]="img"
         class="clip-circle"></ion-img> -->
-        <img [src]="img" alt="">
+      <img [src]="img" alt="">
       <!-- <img [lazyLoad]='img' defaultImage="/assets/user_1_.png"> -->
     </div>
 
@@ -37,7 +48,3 @@
     </mat-card-content>
   </mat-card>
 </div>
-
-
-
-

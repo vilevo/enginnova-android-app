@@ -6,10 +6,12 @@ use App\CustomParticipant;
 use App\Http\Controllers\Controller;
 use App\Participant;
 use App\Participants_deleted;
+use App\Repositories\SocialEnginnova;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Musonza\Chat\Facades\ChatFacade;
 
 /**
  * @group Participant management
@@ -96,46 +98,18 @@ class ParticipantController extends Controller
      *  "message": []
      * }
      */
-    public function create(Request $request)
+    public function create(Request $request, SocialEnginnova $socialEnginnova)
     {
-
         // validate data
-        $validator = Validator::make($request->all(), [
-            // 'last_name' => 'required|min:3',
+        $validatedData = $request->validate([
             'email' => 'required|unique:participants',
             'password' => 'required'
-            // 'username' => 'required|min:3|unique:participants',
-            // 'job' => 'required',
-            // 'enterprise' => 'required',
-            // 'quarter' => 'required',
-            // 'phone_number' => 'required|max:20',
-            // 'competencies' => 'array',
-            // 'interests' => 'array',
         ]);
 
-        if ($validator->fails()) {
-            return 
-                response()->json(array('error' => true,
-                'message' => $validator->errors()->all()), 400);
-        }
+        $validatedData['password'] = bcrypt($request->password);
 
-        $participant = new Participant();
-        $participant->last_name = $request->input("last_name");
-        $participant->first_name = $request->input("first_name");
-        $participant->email = $request->input("email");
-        $participant->username = $request->input("username");
-        $participant->quarter = $request->input("quarter");
-        $participant->biography = $request->input("biography");
-        $participant->job = $request->input("job");
-        $participant->enterprise = $request->input("enterprise");
-        $participant->website = $request->input("website");
-        $participant->phone_number = $request->input("phone_number");
-        $participant->birth_date = $request->input("birth_date");
-        $participant->facebook = $request->input("facebook");
-        $participant->linkedin = $request->input("linkedin");
-        $participant->twitter = $request->input("twitter");
 
-        $participant->save();
+        $participant = Participant::create($validatedData);
 
         ParticipantController::addCompetencies($participant, $request->input('competencies'));
 
@@ -148,6 +122,8 @@ class ParticipantController extends Controller
             $path = ParticipantController::image($image, $participant);
         }
 
+        $socialEnginnova->createUser($request->email, $request->password);
+
         return [
             'error' => false,
             'participant' => $participant,
@@ -159,15 +135,18 @@ class ParticipantController extends Controller
     /**
      * Login the participant
      */
-    public function  login(Request $request) {
+    public function  login(Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'email' => 'required',
             'password' => 'required',
         ]);
 
         if ($validator->fails()) {
-            return response()->json(array('error' => true,
-                'message' => $validator->errors()->all()), 400);
+            return response()->json(array(
+                'error' => true,
+                'message' => $validator->errors()->all()
+            ), 400);
         }
 
         $participant = Participant::where('email', $request->input('email'))->first();
@@ -175,9 +154,9 @@ class ParticipantController extends Controller
         // Check the password
         $passwordOk = true;
 
-        if($participant != null && $passwordOk) {
+        if ($participant != null && $passwordOk) {
             // THe lazy loading is not active
-            $participant->competencies = $participant->competencies ;
+            $participant->competencies = $participant->competencies;
             $participant->interests = $participant->interests;
             // $participant->competencies = $participant->competencies()->get(['content'])->pluck('content')->toArray();
             // $participant->interests = $participant->interests()->get(['content'])->pluck('content')->toArray();
@@ -188,8 +167,6 @@ class ParticipantController extends Controller
             'error' => true,
             'message' => "Email ou mot de passe invalid"
         ], 400);
-
-
     }
 
 
@@ -280,8 +257,10 @@ class ParticipantController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(array('error' => true,
-                'message' => $validator->errors()->all()), 400);
+            return response()->json(array(
+                'error' => true,
+                'message' => $validator->errors()->all()
+            ), 400);
         }
 
         $random = rand(1, 10);
@@ -303,8 +282,10 @@ class ParticipantController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(array('error' => true,
-                'message' => $validator->errors()->all()), 400);
+            return response()->json(array(
+                'error' => true,
+                'message' => $validator->errors()->all()
+            ), 400);
         }
 
         $random = rand(1, 10);
@@ -326,8 +307,10 @@ class ParticipantController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(array('error' => true,
-                'message' => $validator->errors()->all()), 400);
+            return response()->json(array(
+                'error' => true,
+                'message' => $validator->errors()->all()
+            ), 400);
         }
 
         $random = rand(1, 10);
@@ -349,8 +332,10 @@ class ParticipantController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(array('error' => true,
-                'message' => $validator->errors()->all()), 400);
+            return response()->json(array(
+                'error' => true,
+                'message' => $validator->errors()->all()
+            ), 400);
         }
 
         $random = rand(1, 10);
@@ -372,8 +357,10 @@ class ParticipantController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(array('error' => true,
-                'message' => $validator->errors()->all()), 400);
+            return response()->json(array(
+                'error' => true,
+                'message' => $validator->errors()->all()
+            ), 400);
         }
 
         $random = rand(1, 10);
@@ -449,19 +436,21 @@ class ParticipantController extends Controller
         // validate data
         $validator = Validator::make($request->all(), [
             'last_name' => 'required|min:3',
-            'email' => 'required',
             // 'username' => 'required|min:3|unique:participants',
-            'job' => 'required',
-            'enterprise' => 'required',
-            // 'quarter' => 'required',
-            // 'biography' => 'required',
-            'phone_number' => 'required|max:20',
+            'job' => 'nullable',
+            'enterprise' => 'nullable',
+            'quarter' => 'nullable',
+            'biography' => 'nullable',
+            'phone_number' => 'nullable|max:20',
+
         ]);
 
         if ($validator->fails()) {
-            
-            return response()->json(array('error' => true,
-            'message' => $validator->errors()->all()), 400);
+
+            return response()->json(array(
+                'error' => true,
+                'message' => $validator->errors()->all()
+            ), 400);
         }
 
         $participant = Participant::where('id', $id)->first();
@@ -593,8 +582,8 @@ class ParticipantController extends Controller
             ], 400);
         }
 
-       
-        $participant->competencies = $participant->competencies ;
+
+        $participant->competencies = $participant->competencies;
         $participant->interests = $participant->interests;
 
         return [
@@ -609,22 +598,23 @@ class ParticipantController extends Controller
     /**
      * Filter the the job
      */
-    public function filterJob($job) {
+    public function filterJob($job)
+    {
         $result = [];
-        $filter = DB::select("select DISTINCT job from participants where job LIKE '%" . $job. "%' limit 50");
-       
+        // $filter = DB::select("select DISTINCT job from participants where job LIKE '%" . $job. "%' limit 50");
 
-        $filter = DB::select("select DISTINCT job from participants where job LIKE '%" . $job. "%'
+
+        $filter = DB::select("select DISTINCT job from participants where job LIKE '%" . $job . "%'
         
-        ORDER BY (CASE WHEN job= '". $job. "' THEN 1 WHEN job LIKE '". $job . "%' THEN 2 ELSE 3 END)
+        ORDER BY (CASE WHEN job= '" . $job . "' THEN 1 WHEN job LIKE '" . $job . "%' THEN 2 ELSE 3 END)
         limit 50");
 
-       
+
         if (empty($filter)) {
             $filter = DB::select("select DISTINCT job from participants where 1 limit 50");
         }
         foreach ($filter as $key => $value) {
-           $result[] = $value->job;
+            $result[] = $value->job;
         }
         return $result;
     }
@@ -632,42 +622,44 @@ class ParticipantController extends Controller
     /**
      * Filter the the quarter
      */
-    public function filterQuarter($quarter) {
+    public function filterQuarter($quarter)
+    {
         $result = [];
         // $filter = DB::select("select DISTINCT quarter from participants where quarter LIKE '%" . $quarter. "%' limit 50");
+
+        $filter = DB::select("select DISTINCT quarter from participants where quarter LIKE '%" . $quarter . "%'
         
-        $filter = DB::select("select DISTINCT quarter from participants where quarter LIKE '%" . $quarter. "%'
-        
-        ORDER BY (CASE WHEN quarter= '". $quarter. "' THEN 1 WHEN quarter LIKE '". $quarter . "%' THEN 2 ELSE 3 END)
+        ORDER BY (CASE WHEN quarter= '" . $quarter . "' THEN 1 WHEN quarter LIKE '" . $quarter . "%' THEN 2 ELSE 3 END)
         limit 50");
-        
+
         if (empty($filter)) {
             $filter = DB::select("select DISTINCT quarter from participants where 1 limit 50");
         }
-        
+
         foreach ($filter as $key => $value) {
-           $result[] = $value->quarter;
+            $result[] = $value->quarter;
         }
         return $result;
     }
 
-     /**
+    /**
      * Filter the the enterprise
      */
-    public function filterEnterprise($enterprise) {
+    public function filterEnterprise($enterprise)
+    {
         $result = [];
         // $filter = DB::select("select DISTINCT enterprise from participants where enterprise LIKE '%" . $enterprise. "%' limit 50");
+
+        $filter = DB::select("select DISTINCT enterprise from participants where enterprise LIKE '%" . $enterprise . "%'
         
-        $filter = DB::select("select DISTINCT enterprise from participants where enterprise LIKE '%" . $enterprise. "%'
-        
-        ORDER BY (CASE WHEN enterprise= '". $enterprise. "' THEN 1 WHEN enterprise LIKE '". $enterprise . "%' THEN 2 ELSE 3 END)
+        ORDER BY (CASE WHEN enterprise= '" . $enterprise . "' THEN 1 WHEN enterprise LIKE '" . $enterprise . "%' THEN 2 ELSE 3 END)
         limit 50");
-        
+
         if (empty($filter)) {
             $filter = DB::select("select DISTINCT enterprise from participants where 1 limit 50");
         }
         foreach ($filter as $key => $value) {
-           $result[] = $value->enterprise;
+            $result[] = $value->enterprise;
         }
         return $result;
     }
@@ -675,38 +667,40 @@ class ParticipantController extends Controller
     /**
      * Filter the the Interests
      */
-    public function filterInterest($interest) {
+    public function filterInterest($interest)
+    {
         $result = [];
         // $filter = DB::select("select DISTINCT content from interests where content LIKE '%" . $interest. "%' limit 50");
+
+        $filter = DB::select("select DISTINCT content from interests where content LIKE '%" . $interest . "%'
         
-        $filter = DB::select("select DISTINCT content from interests where content LIKE '%" . $interest. "%'
-        
-        ORDER BY (CASE WHEN content= '". $interest. "' THEN 1 WHEN content LIKE '". $interest . "%' THEN 2 ELSE 3 END)
+        ORDER BY (CASE WHEN content= '" . $interest . "' THEN 1 WHEN content LIKE '" . $interest . "%' THEN 2 ELSE 3 END)
         limit 50");
-        
+
         if (empty($filter)) {
             $filter = DB::select("select DISTINCT content from interests where 1 limit 50");
         }
         foreach ($filter as $key => $value) {
-           $result[] = $value->content;
+            $result[] = $value->content;
         }
         return $result;
     }
 
-        /**
+    /**
      * Filter the the Compentency
      */
-    public function filterCompetency($competency) {
+    public function filterCompetency($competency)
+    {
         $result = [];
-        $filter = DB::select("select DISTINCT content from competencies where content LIKE '%" . $competency. "%'
+        $filter = DB::select("select DISTINCT content from competencies where content LIKE '%" . $competency . "%'
         
-        ORDER BY (CASE WHEN content= '". $competency. "' THEN 1 WHEN content LIKE '". $competency . "%' THEN 2 ELSE 3 END)
+        ORDER BY (CASE WHEN content= '" . $competency . "' THEN 1 WHEN content LIKE '" . $competency . "%' THEN 2 ELSE 3 END)
         limit 50");
         if (empty($filter)) {
             $filter = DB::select("select DISTINCT content from competencies where 1 limit 50");
         }
         foreach ($filter as $key => $value) {
-           $result[] = $value->content;
+            $result[] = $value->content;
         }
         return $result;
     }
@@ -715,8 +709,8 @@ class ParticipantController extends Controller
     public static function addCompetencies($participant, $competencies)
     {
 
-        if(!is_array($competencies)) {
-            return ;
+        if (!is_array($competencies)) {
+            return;
         }
         foreach ($competencies as $value) {
 
@@ -758,8 +752,10 @@ class ParticipantController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(array('error' => true,
-                'message' => $validator->errors()->all()), 400);
+            return response()->json(array(
+                'error' => true,
+                'message' => $validator->errors()->all()
+            ), 400);
         }
 
         $participant = Participant::where("id", $request->input("participant_id"))->first();
@@ -802,8 +798,10 @@ class ParticipantController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(array('error' => true,
-                'message' => $validator->errors()->all()), 400);
+            return response()->json(array(
+                'error' => true,
+                'message' => $validator->errors()->all()
+            ), 400);
         }
 
         $participant = Participant::where("id", $request->input('participant_id'))->first();
@@ -845,8 +843,10 @@ class ParticipantController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(array('error' => true,
-                'message' => $validator->errors()->all()), 400);
+            return response()->json(array(
+                'error' => true,
+                'message' => $validator->errors()->all()
+            ), 400);
         }
 
         $participant = Participant::where("id", $request->input('participant_id'))->first();
@@ -892,8 +892,10 @@ class ParticipantController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(array('error' => true,
-                'message' => $validator->errors()->all()), 400);
+            return response()->json(array(
+                'error' => true,
+                'message' => $validator->errors()->all()
+            ), 400);
         }
 
         $participant = Participant::where("id", $request->input('participant_id'))->first();
@@ -937,8 +939,10 @@ class ParticipantController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(array('error' => true,
-                'message' => $validator->errors()->all()), 400);
+            return response()->json(array(
+                'error' => true,
+                'message' => $validator->errors()->all()
+            ), 400);
         }
 
         $participant = Participant::where('id', $request->input('participant_id'))->first();
@@ -964,7 +968,7 @@ class ParticipantController extends Controller
 
         // $response = new BinaryFileResponse($path, 200, $headers);
 
-        if(Storage::exists($p->image)) {
+        if (Storage::exists($p->image)) {
             return Storage::download($p->image);
         }
 
@@ -972,7 +976,7 @@ class ParticipantController extends Controller
 
         // return response()->json(array('error' => true,
         //         'message' => "Le fichier demander nexiste pas"), 400);
-      
+
     }
 
     /**
@@ -985,7 +989,7 @@ class ParticipantController extends Controller
         $image = $base64Image; // your base64 encoded
         $image = str_replace('data:image/' . $extension . ';base64,', '', $image);
         $image = str_replace(' ', '+', $image);
-        $imageName = str_random(10) . "-" . $participant->id . '.' . $extension;
+        $imageName = SocialEnginnova::randomString() . "-" . $participant->id . '.' . $extension;
         $path = 'storage/participant/profile/' . $imageName;
         Storage::put($path, base64_decode($image));
         $participant->image = $path;
@@ -993,11 +997,10 @@ class ParticipantController extends Controller
 
         if ($oldImage) {
             // Storage::delete($oldImage);
-            Storage::move($oldImage, 'deleted/' . $oldImage  );
+            Storage::move($oldImage, 'deleted/' . $oldImage);
         }
 
         return $path;
-
     }
 
     /**
@@ -1054,4 +1057,184 @@ class ParticipantController extends Controller
     //     ];
     // }
 
+
+    public function populars()
+    {
+        return Participant::query()->withCount('competencies')->withCount('interests')->orderBy('competencies_count', 'desc')->orderBy('interests_count', 'desc')->take(14)->get();
+    }
+
+    public function newMembers()
+    {
+        return Participant::query()->withCount('competencies')->withCount('interests')->latest()->take(14)->get();
+    }
+
+    public function participations($id)
+    {
+        return Participant::query()->latest()->take(7)->get();
+    }
+
+
+    public function conversationsBetween($id, $other)
+    {
+
+        $errors = collect();
+
+        $from = Participant::find($id);
+        $to = Participant::find($other);
+        if ($from == null) {
+            $errors[] = ['message' => "Le sender " . $id . " n'existe pas"];
+        }
+
+        if ($to == null) {
+            $errors[] = ['message' => "Le receiver " . $id . " n'existe pas"];
+        }
+
+        if ($errors->isNotEmpty()) {
+            return response()->json(array('error' => true, $errors), 400);
+        }
+
+        $conversation = ChatFacade::conversations()->between($from, $to);
+
+
+
+        if ($conversation == null) {
+            $participants = [$from, $to];
+            $conversation = ChatFacade::createConversation($participants)->makeDirect();
+        }
+
+        $messages = $conversation->messages->map(function ($msg) {
+            return [
+                'id' => $msg->id,
+                'type' => $msg->type,
+                'body' => $msg->body,
+                'date' => $msg->created_at,
+                'sender_id' => $msg->sender->id
+            ];
+        });
+
+        return [
+            'id' => $conversation->id,
+            'messages' => $messages
+        ];
+    }
+
+    function sendTextMessageInConversation(Request $request)
+    {
+        $conversation = ChatFacade::conversations()->getById($request->id);
+        if ($conversation == null) {
+            return response()->json(array('error' => true, ["La conversation " . $request->id . " n'existe pas"]), 400);
+        }
+
+        $participant = Participant::find($request->sender_id);
+        if ($participant == null) {
+            return response()->json(array('error' => true, ["Le participant " . $request->sender_id . " n'existe pas"]), 400);
+        }
+
+        $message = ChatFacade::message($request->text)
+            ->from($participant)
+            ->to($conversation)
+            ->send();
+
+        return [
+            'id' => $message->id
+        ];
+    }
+
+
+    // Chat::conversations()->setParticipant($participantModel)->limit(25)->page(1)->get();
+
+    function recentsMessages($id)
+    {
+
+        $participant = Participant::find($id);
+        if ($participant == null) {
+            return response()->json(array('error' => true, ["Le participant " . $id . " n'existe pas"]), 400);
+        }
+
+        $messages = ChatFacade::conversations()->setParticipant($participant)->limit(25)->page(1)->get();
+
+
+
+        $formated = [];
+
+        foreach ($messages->items() as $index => $participation) {
+
+
+
+            $msg = $participation->conversation->messages()->latest()->limit(1)->get()->first();
+
+
+
+
+
+            if ($msg) {
+                // Find the second participant
+                $to = null;
+                foreach ($participation->conversation->getParticipants() as $key => $p) {
+                    if ($p->id != $msg->sender->id) {
+                        $to = $p;
+                        break;
+                    }
+                }
+                $formated[] = [
+                    'unread_count' => ChatFacade::conversation($participation->conversation)->setParticipant($participant)->unreadCount(),
+                    'last_message' => [
+                        'id' => $msg->id,
+                        'type' => $msg->type,
+                        'body' => $msg->body,
+                        'date' => $msg->created_at,
+                        'receiver_id' => $to->id,
+                    ],
+                    'participation_id' => $participation->conversation->id,
+                    'conversation_id' => $participation->id,
+                    'from_last_name' => $msg->sender->last_name,
+                    'from_first_name' => $msg->sender->first_name,
+                    'from_email' => $msg->sender->email,
+                    'from_id' => $msg->sender->id,
+                    'is_sender' => $msg->sender->id == $participant->id
+                ];
+            }
+        }
+
+        // dd($formated);
+
+        return $formated;
+    }
+
+
+    function readAllMessageInConversation($id, $conv)
+    {
+        $participant = Participant::find($id);
+
+        if ($participant == null) {
+            return response()->json(array('error' => true, ["Le participant " . $id . " n'existe pas"]), 400);
+        }
+
+        $conversation = ChatFacade::conversations()->getById($conv);
+        if ($conversation == null) {
+            return response()->json(array('error' => true, ["La conversation " . $conv . " n'existe pas"]), 400);
+        }
+
+        // Mark a whole conversation as read
+        ChatFacade::conversation($conversation)->setParticipant($participant)->readAll();
+
+        return ['done'];
+    }
+
+
+    public function emailChecked(Request $request)
+    {
+        $participant = Participant::find($request->id);
+        
+
+        return response()->json([
+            'checked' => true,
+            'date' => now()
+        ]);
+
+        // return response()->json([
+        //     'checked' => $participant->email_verified_at != null,
+        //     'date' => $participant->email_verified_at
+        // ]);
+    }
 }
