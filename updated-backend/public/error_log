@@ -1,0 +1,2 @@
+[01-Sep-2020 17:46:20 UTC] PHP Fatal error:  Class 'Laravel\Lumen\Routing\Controller' not found in /home/engippub/app.enginnova.co/enginnova_app/updated-backend/app/Http/Controllers/Controller copy.php on line 7
+[01-Sep-2020 17:46:47 UTC] PHP Fatal error:  Class 'Laravel\Lumen\Routing\Controller' not found in /home/engippub/app.enginnova.co/enginnova_app/updated-backend/app/Http/Controllers/Controller copy.php on line 7
