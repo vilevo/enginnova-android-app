@@ -35,7 +35,7 @@ class CreateParticipantsTable extends Migration
             $table->string("website")->nullable(true);
             $table->string("image")->nullable(true);
             $table->string("enginnova_token")->nullable()->unique();
-            $table->dateTime('enginnova_token_created_at');
+            $table->dateTime('enginnova_token_created_at')->nullable();
             // $table->uuid('enginnova_uuid')->nullable()->unique();
             $table->boolean('user_from_app', true);
             $table->nullableTimestamps();

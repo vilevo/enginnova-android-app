@@ -249,7 +249,7 @@ export class FenesMemberDetailComponent implements OnInit {
   }
 
   openWeb() {
-    if(this.editmode) {
+    if(!this.editmode) {
       this.backend.getProfilUrl(this.user.connected.id, this.member.id).subscribe((res: any) => {
         this.open(res.link);
       })

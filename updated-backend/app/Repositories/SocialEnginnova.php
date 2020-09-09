@@ -3,8 +3,6 @@
 namespace App\Repositories;
 
 use Illuminate\Support\Facades\Http;
-use App\Participant;
-use Carbon\Carbon;
 
 
 class SocialEnginnova
@@ -12,20 +10,29 @@ class SocialEnginnova
 
   public static $server = "https://social.enginnova.co";
   // public static $server = "http://localhost:8000";
-  public static $token = "qwertyuiopasdfghjklzcvbnm1234567890";
+  public $token;
 
 
   public function __construct()
   {
+    $this->token = env("SOCIAL_TOKEN", null);
   }
 
-  public function createUser($email, $password)
+  public function createUser($name, $email, $password)
   {
-    // $response = Http::retry(7, 500)->withToken(SocialEnginnova::$token)
-    //   ->post(SocialEnginnova::$server . 'sync/users', [
-    //     'email' => $email,
-    //     'password' =>  $password,
-    //   ]);
+    try {
+      $response = Http::retry(2, 500)->withHeaders([
+        'X-Api-Authorization' => $this->token
+      ])
+        ->post(SocialEnginnova::$server . '/api/users/sync', [
+          'name' => $name,
+          'email' => $email,
+          'password' =>  $password,
+        ]);
+      return json_decode($response->body());
+    } catch (\Throwable $th) {
+      dd($th);
+    }
   }
 
   /**
@@ -33,7 +40,10 @@ class SocialEnginnova
    */
   public function getPosts($page = 1)
   {
-    return $response = Http::retry(7, 500)
+    return $response = Http::retry(2, 500)
+      ->withHeaders([
+        'X-Api-Authorization' => $this->token
+      ])
       ->get(SocialEnginnova::$server . '/api-posts/?page=' . $page);
   }
 
@@ -42,7 +52,10 @@ class SocialEnginnova
    */
   public function getAnnonces($page = 1)
   {
-    return $response = Http::retry(7, 500)
+    return $response = Http::retry(2, 500)
+      ->withHeaders([
+        'X-Api-Authorization' => $this->token
+      ])
       ->get(SocialEnginnova::$server . '/api-jobs/?page=' . $page);
   }
 
@@ -50,9 +63,12 @@ class SocialEnginnova
   /**
    * Effectuer des recherches de posts sur ....
    */
-  public function getSearchPosts($toSearch, $limit=50)
+  public function getSearchPosts($toSearch, $limit = 50)
   {
-    return $response = Http::retry(7, 500)->withToken(SocialEnginnova::$token)
+    return $response = Http::retry(2, 500)
+      ->withHeaders([
+        'X-Api-Authorization' => $this->token
+      ])
       ->post(SocialEnginnova::$server . '/api/posts/search', [
         'value' => $toSearch,
         'limit' => $limit
@@ -63,9 +79,12 @@ class SocialEnginnova
   /**
    * REchercher les annonces sur
    */
-  public function getSearchAnnonces($toSearch, $limit=50)
+  public function getSearchAnnonces($toSearch, $limit = 50)
   {
-    return $response = Http::retry(7, 500)->withToken(SocialEnginnova::$token)
+    return $response = Http::retry(7, 500)
+      ->withHeaders([
+        'X-Api-Authorization' => $this->token
+      ])
       ->post(SocialEnginnova::$server . '/api/api-jobs/search', [
         'value' => $toSearch,
         'limit' => $limit

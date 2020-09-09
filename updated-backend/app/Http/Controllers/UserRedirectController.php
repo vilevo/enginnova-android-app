@@ -22,7 +22,7 @@ class UserRedirectController extends Controller
     if ($user) {
 
       return response()->json([
-        'link' => SocialEnginnova::$server . "/user/question/" . $request->id . "?token=" . $user->enginnova_token
+        'link' => SocialEnginnova::$server . "/user/question/" . $request->id * 1000 . "?token=" . $user->enginnova_token
       ]);
     }
 
@@ -40,7 +40,7 @@ class UserRedirectController extends Controller
     if ($user) {
 
       return response()->json([
-        'link' => SocialEnginnova::$server . "/user/freelance-projet/" . $request->id . "?token=" . $user->enginnova_token
+        'link' => SocialEnginnova::$server . "/user/freelance-projet/" . $request->id   * 1000  . "?token=" . $user->enginnova_token
       ]);
     }
 
@@ -60,12 +60,13 @@ class UserRedirectController extends Controller
     if ($user) {
 
       if ($request->has('to')) {
+        $to = Participant::find($request->to);
         return response()->json([
-          'link' => SocialEnginnova::$server . "/participants?show=" . $request->to . "?token=" . $user->enginnova_token
+          'link' => SocialEnginnova::$server . "/user/profil/?show=" . $to->enginnova_token . "?token=" . $user->enginnova_token
         ]);
       }
       return response()->json([
-        'link' => SocialEnginnova::$server . "/participants?show=" . $user->enginnova_token . "?token=" . $user->enginnova_token
+        'link' => SocialEnginnova::$server . "/user/profil/" . "?token=" . $user->enginnova_token
       ]);
     }
 
