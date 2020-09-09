@@ -1,4 +1,4 @@
 server/fenesapp.tar
-backend_laravel/
-fakerjsonserver/
-fenes/
+./backend_laravel/
+./fakerjsonserver/
+./fenes/
