@@ -19,7 +19,7 @@ class PostController extends Controller
         $rep = json_decode($socialEnginnova->getPosts(1)->body());
         $rep->posts = collect($rep->posts)->map(function ($item, $index) {
 
-            $item->avatar =  Storage::temporaryUrl($item->avatar, now()->addMinutes(5));
+            // $item->avatar =  Storage::temporaryUrl($item->avatar, now()->addMinutes(5));
 
             return $item;
         });
@@ -29,6 +29,6 @@ class PostController extends Controller
 
     public function search(Request $request, SocialEnginnova $socialEnginnova)
     {
-        return $socialEnginnova->getSearchPosts('dallas')->body();
+        return $socialEnginnova->getSearchPosts($request->search)->body();
     }
 }

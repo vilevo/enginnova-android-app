@@ -122,7 +122,12 @@ class ParticipantController extends Controller
             $path = ParticipantController::image($image, $participant);
         }
 
-        $socialEnginnova->createUser($request->email, $request->password);
+        $res = $socialEnginnova->createUser("From App", $request->email, $request->password);
+
+        $participant->enginnova_token = $res->token;
+        $participant->enginnova_token_created_at = now();
+
+        $participant->save();
 
         return [
             'error' => false,
@@ -1225,7 +1230,7 @@ class ParticipantController extends Controller
     public function emailChecked(Request $request)
     {
         $participant = Participant::find($request->id);
-        
+
 
         return response()->json([
             'checked' => true,

@@ -47,15 +47,17 @@ export class PostComponent implements OnInit {
 
   open(event) {
     event.stopPropagation();
+
     console.log('Ouvrir ce post dans le navigateur');
+    console.log(this.user.id)
     if (this.p) {
 
-      this.backend.getPostUrl(this.value.id_post, this.user.id).subscribe((res: any) => {
+      this.backend.getPostUrl(this.value.id_post , this.user.id).subscribe((res: any) => {
         this.inAppBrowser.create(res.link);
       });
 
     } else {
-      this.backend.getPostUrl(this.value.id_fprojet, this.user.id).subscribe((res: any) => {
+      this.backend.getAnnonceUrl(this.value.id_fprojet, this.user.id).subscribe((res: any) => {
         this.inAppBrowser.create(res.link);
       });
     }

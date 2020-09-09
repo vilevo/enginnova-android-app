@@ -20,7 +20,7 @@ class AnnonceController extends Controller
         $rep = json_decode($socialEnginnova->getAnnonces(1)->body());
         $rep->freelance_projets = collect($rep->freelance_projets)->map(function ($item, $index) {
 
-            $item->avatar =  Storage::temporaryUrl($item->avatar, now()->addMinutes(5));
+            // $item->avatar =  Storage::temporaryUrl($item->avatar, now()->addMinutes(5));
 
             return $item;
         });
@@ -30,6 +30,6 @@ class AnnonceController extends Controller
 
     public function search(Request $request, SocialEnginnova $socialEnginnova)
     {
-        return $socialEnginnova->getSearchAnnonces('dallas')->body();
+        return $socialEnginnova->getSearchAnnonces($request->search)->body();
     }
 }
