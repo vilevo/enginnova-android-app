@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { CameraComponent } from './../camera/camera.component';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { MemberModel } from 'src/app/models/member-model';
 import { Router, NavigationStart } from '@angular/router';
 import { ImagesRetriverService } from 'src/app/services/ui/images-retriver.service';
@@ -7,7 +8,7 @@ import { UserService } from 'src/app/services/user.service';
 import { Observable } from 'rxjs';
 import { APIRouteService } from 'src/app/services/apiroute.service';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
-import { ActionSheetController } from '@ionic/angular';
+import { ActionSheetController, ModalController } from '@ionic/angular';
 import { CallNumber } from '@ionic-native/call-number/ngx';
 import { Vibration } from '@ionic-native/vibration/ngx';
 import { CallBackendService } from 'src/app/services/api/call-backend.service';
@@ -23,10 +24,13 @@ export class FenesMemberDetailComponent implements OnInit {
   @Input('member') member: MemberModel;
   @Input('editmode') editmode = false;
 
+  @Output() showCamera = new EventEmitter(true);
+
   localImgPath;
   defaultImg = '/assets/user_1_.png';
   uploading;
   uploadError;
+
   constructor(
     private router: Router,
     private imageretriever: ImagesRetriverService,
@@ -39,7 +43,8 @@ export class FenesMemberDetailComponent implements OnInit {
     private vibraton: Vibration,
     private backend: CallBackendService,
     private storage: StorageService,
-    private server: APIRouteService
+    private server: APIRouteService,
+    private modalController: ModalController
   ) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
@@ -157,6 +162,9 @@ export class FenesMemberDetailComponent implements OnInit {
 
   retrieveImage() {
     this.uploading = true;
+    this.showCamera.emit(true);
+
+    return;
     setTimeout(() => {
       this.imageretriever.retrieveFromPhone().then(path => {
         this.storage.removeDownloadPlan();
@@ -182,6 +190,13 @@ export class FenesMemberDetailComponent implements OnInit {
         this.onUploadError();
       });
     }, 500);
+  }
+
+  setPicture(img) {
+    console.log('Fake upload image');
+    setTimeout(() => {
+      this.uploading = false;
+    }, 1000);
   }
 
   onUploadError() {
@@ -249,7 +264,7 @@ export class FenesMemberDetailComponent implements OnInit {
   }
 
   openWeb() {
-    if(!this.editmode) {
+    if (!this.editmode) {
       this.backend.getProfilUrl(this.user.connected.id, this.member.id).subscribe((res: any) => {
         this.open(res.link);
       })
@@ -258,7 +273,7 @@ export class FenesMemberDetailComponent implements OnInit {
         this.open(res.link);
       })
     }
-    
+
   }
 
 

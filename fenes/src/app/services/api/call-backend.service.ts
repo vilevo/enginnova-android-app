@@ -418,13 +418,15 @@ export class CallBackendService {
       );
   }
 
-  sendTextMessageIn(conversationId, fromT, text) {
+  sendTextMessageIn(conversationId, fromT, text, toId) {
+    console.error("USE THIS METHODS TO SEND MESSAGES")
     const url = this.routes.get(Routes.POST_PARTICIPANTS_SEND_TEXT_MESSAGE);
 
     return this.http.post(url, {
       id: conversationId,
       sender_id: fromT,
-      text
+      text,
+      receiver_id: toId
     }, { observe: 'body' })
       .pipe(
         map(response => response),

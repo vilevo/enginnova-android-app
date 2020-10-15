@@ -1,3 +1,4 @@
+import { FenesMemberDetailComponent } from 'src/app/components/fenes-member-detail/fenes-member-detail.component';
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationStart } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
@@ -10,6 +11,8 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['./personal.page.scss'],
 })
 export class PersonalPage implements OnInit {
+
+  showCamera = false;
 
   connected = null;
 
@@ -75,5 +78,14 @@ export class PersonalPage implements OnInit {
 
     await alert.present();
 
+  }
+
+  onCamera(ev) {
+    this.showCamera = ev;
+  }
+
+  onPicture(event, m: FenesMemberDetailComponent) {
+    this.showCamera = false;
+    m.setPicture(event.img);
   }
 }

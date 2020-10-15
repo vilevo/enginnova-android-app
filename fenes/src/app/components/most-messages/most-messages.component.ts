@@ -1,3 +1,4 @@
+import { UXInfosService } from './../../services/ui/uxinfos.service';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { MessageManagerService } from 'src/app/message-manager.service';
@@ -21,8 +22,9 @@ export class MostMessagesComponent implements OnInit {
   emitted = false;
   constructor(
     private router: Router,
-    private messageManager: MessageManagerService,
-    private userService: UserService
+    public messageManager: MessageManagerService,
+    private userService: UserService,
+    private uxInfo: UXInfosService,
   ) {
     userService.getConnected().then(c => {
       this.connected = c;
@@ -34,6 +36,7 @@ export class MostMessagesComponent implements OnInit {
   }
 
   openMsg(msg) {
+    this.uxInfo.appBottom.emit('hide');
     console.log("Open message ")
     console.log(msg);
     if (msg.unread_count != 0) {

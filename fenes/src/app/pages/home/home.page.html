@@ -68,8 +68,8 @@
     </ion-infinite-scroll>
   </div>
 
-  <div [ngClass]="{'hide-error': !showErrorPane}">
-    <connection-error-pane (onRetry)="retry()">
+  <div *ngIf='showErrorPane'>
+    <connection-error-pane [show]="showErrorPane" (onRetry)="retry()">
     </connection-error-pane>
   </div>
 

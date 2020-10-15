@@ -127,7 +127,7 @@ export class ListMenuComponent implements OnInit {
 
   conversation() {
     this.messageManager.openConversation(this.user.connected.id, this.member.id);
-    this.router.navigateByUrl('conversation')
+    this.router.navigateByUrl('conversation/' + this.member.id)
   }
 
 }

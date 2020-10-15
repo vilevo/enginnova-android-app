@@ -1,5 +1,3 @@
-
-
 <ion-content class="contentBg" #content id="chat-parent" overflow-scroll="true" (ionScrollStart)="logScrollStart()"
   (ionScroll)="logScrolling($event)">
 
@@ -13,9 +11,21 @@
       <ion-back-button color="light" defaultHref="home"></ion-back-button>
     </ion-buttons>
 
-    <ion-avatar (click)="openDetail()">
-      <img [src]="'/assets/user_1_.png'" />
-    </ion-avatar>
+    <div class="names">
+
+      <ion-avatar (click)="openDetail()">
+        <img [src]="'/assets/user_1_.png'" />
+      </ion-avatar>
+
+      <ng-container *ngIf="to.firstName || to.lastName; else elseTemplate">
+        <p>{{to.firstName}} {{to.lastName }}  </p>
+      </ng-container>
+      <ng-template #elseTemplate>
+        <p>{{to.email}}</p>
+      </ng-template>
+
+
+    </div>
 
     <ion-buttons>
       <ion-button color="light" (click)="onClick()">

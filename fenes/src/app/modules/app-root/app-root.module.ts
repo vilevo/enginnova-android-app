@@ -1,3 +1,4 @@
+import { CameraComponent } from './../../components/camera/camera.component';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { WaitEmailValidationComponent } from './../../components/wait-email-validation/wait-email-validation.component';
 import { NgModule } from '@angular/core';
@@ -18,6 +19,7 @@ import { PostComponent } from 'src/app/components/posts/post.component';
 import { TopComponent } from 'src/app/components/top/top.component';
 import { PopularsComponent } from 'src/app/components/populars/populars.component';
 import { MemberPopupComponent } from 'src/app/components/member-popup/member-popup.component';
+import { CameraPreview } from '@ionic-native/camera-preview/ngx';
 
 @NgModule({
   declarations: [
@@ -35,6 +37,7 @@ import { MemberPopupComponent } from 'src/app/components/member-popup/member-pop
     PopularsComponent,
     MemberPopupComponent,
     WaitEmailValidationComponent,
+    CameraComponent
   ],
   imports: [
     CommonModule,
@@ -58,6 +61,10 @@ import { MemberPopupComponent } from 'src/app/components/member-popup/member-pop
     PopularsComponent,
     MemberPopupComponent,
     WaitEmailValidationComponent,
-  ]
+    CameraComponent
+  ],
+  providers: [
+    CameraPreview
+  ],
 })
 export class AppRootModule { }

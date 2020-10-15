@@ -1,3 +1,4 @@
+import { CameraComponent } from './../../components/camera/camera.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -40,6 +41,7 @@ const routes: Routes = [
   providers: [
     ToastController,
     InAppBrowser
-  ]
+  ],
+
 })
 export class FenesMemberDetailPageModule { }

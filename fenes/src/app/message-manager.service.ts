@@ -69,9 +69,9 @@ export class MessageManagerService {
     conversation_id,
     sender_id,
     text,
-
+    to_id
   }) {
-    return this.callBackend.sendTextMessageIn(msg.conversation_id, msg.sender_id, msg.text).pipe(
+    return this.callBackend.sendTextMessageIn(msg.conversation_id, msg.sender_id, msg.text, msg.to_id).pipe(
       delay(700),
       map(value => {
         console.log(value);

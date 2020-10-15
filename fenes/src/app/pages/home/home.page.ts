@@ -226,7 +226,7 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   handleError() {
-    this.displayError();
+    // this.displayError();
     // setTimeout(() => {
 
 

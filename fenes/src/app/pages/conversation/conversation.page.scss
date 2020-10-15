@@ -368,3 +368,17 @@ span.triangle {
   border-top-right-radius   : 3vh;
   margin-right              : 14%;
 }
+
+.chat-header.fixed {
+  position: fixed;
+  top: 0;
+}
+
+.names {
+  ion-avatar {
+    margin: auto;
+    p {
+      color: white;
+    }
+  }
+}

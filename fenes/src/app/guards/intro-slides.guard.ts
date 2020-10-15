@@ -30,9 +30,9 @@ export class IntroSlidesGuard implements CanActivate {
     if (connected != null) {
       console.log('Connected or this is a browser go to the home page');
 
-      if (connected.email_validated_at != null) {
+      if (connected.email_validated_at == null) {
         this.router.navigateByUrl('/sign-up');
-        console.log('GO TO HOME');
+        console.log('GO TO SIGNIN');
         return false;
       }
 

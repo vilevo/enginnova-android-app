@@ -1,7 +1,9 @@
+import { CallBackendService } from 'src/app/services/api/call-backend.service';
+import { UXInfosService } from './../../services/ui/uxinfos.service';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { IonContent, IonTextarea } from '@ionic/angular';
 import { MessageManagerService } from 'src/app/message-manager.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MemberModel } from 'src/app/models/member-model';
 import { UserService } from 'src/app/services/user.service';
 import { UniqueIdService } from 'src/app/services/unique-id.service';
@@ -52,17 +54,23 @@ export class ConversationPage implements OnInit {
     private activatedRoute: ActivatedRoute,
     private userService: UserService,
     private uniqueId: UniqueIdService,
-    private router: Router
+    private router: Router,
+    private uxInfo: UXInfosService,
+    private backend: CallBackendService,
   ) {
     moment.locale('fr');
     this.userService.getConnected().then(c => {
       this.from = c;
 
-      this.activatedRoute.params.subscribe(params => {
+      this.activatedRoute.params.subscribe((params: Params) => {
         if (params.id) {
+          console.error("This is the other id : " + params.id);
           this.to.id = params.id;
           // Load recent message from the server
           this.conversationsBetween();
+          this.backend.getParticipant(this.to.id).subscribe((va) => {
+            this.to = va;
+          });
         }
       });
     });
@@ -72,6 +80,8 @@ export class ConversationPage implements OnInit {
 
   ngOnInit() {
 
+    this.uxInfo.appBottom.emit('hide');
+
   }
 
   conversationsBetween() {
@@ -80,6 +90,7 @@ export class ConversationPage implements OnInit {
       console.log(r);
       this.downloadRecent = 'done';
       this.id = r.id;
+      this.msgList = []
       r.messages.forEach(m => {
         this.msgList.push({
           id: m.id,
@@ -143,7 +154,8 @@ export class ConversationPage implements OnInit {
     this.messageManger.sendMessage({
       conversation_id: this.id,
       text: this.inp_text,
-      sender_id: this.from.id
+      sender_id: this.from.id,
+      to_id: this.to.id
     }).subscribe((value) => {
       const sent = this.msgList.find((v) => {
         return v.uniqueId == m.uniqueId;
